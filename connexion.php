@@ -17,7 +17,7 @@ if (isset($_POST['button1'])) {
 	if ($db_found) {
 		$sql = "SELECT * FROM acheteur";
 		if ($login != "") {
-			$sql .= " WHERE Email LIKE '%$login%'";
+			$sql .= " WHERE Email LIKE '$login'";
 			if ($password != "") {
 				$sql .= " AND Password LIKE '$password'";
 								}
