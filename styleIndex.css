@@ -1,0 +1,16 @@
+.siteDesc{
+	height:100px; 
+	width:100%;
+	border-bottom-style: solid; 
+	border-bottom-color:#808080;
+}
+.barreInfo{
+	text-align:center;
+	height:50px;
+	width:100%;
+	border-bottom-style: solid; 
+	border-bottom-color:#808080;
+}
+.index{
+	height: auto;
+}
