@@ -30,11 +30,13 @@ if (isset($_POST['button1'])) {
 				else {
 						
 					echo "Connexion réussie";
+					mysqli_close($db_handle); 
 
 						}
 }
 	else {
 		echo "Compte non trouvé";
+		mysqli_close($db_handle); 
 			}
 }
 ?> 
