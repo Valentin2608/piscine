@@ -1,9 +1,7 @@
 <?php
 
 $ddebut = isset($_POST["ddebut"])? $_POST["ddebut"] : "";
-$hdebut = isset($_POST["hdebut"])? $_POST["hdebut"] : "";
  $dfin = isset($_POST["dfin"])? $_POST["dfin"] : "";
- $hfin = isset($_POST["hfin"])? $_POST["hfin"] : "";
  $ref = isset($_POST["ref"])? $_POST["ref"] : "";
 $prixmin = isset($_POST["prixmin"])? $_POST["prixmin"] : "";
 
@@ -15,7 +13,7 @@ $database = "EbayECE";
     if ($_POST["button1"]) {
 
         echo"1642<br>";
-        $sql="INSERT INTO Encheres( IDvendeur, ddebut, dfin, IDitem, Prixmin, Prixactuel, hdebut, hfin) VALUES (2,'$ddebut','$dfin','$ref','$prixmin',0,'$hdebut','$hfin')";
+        $sql="INSERT INTO Encheres( IDvendeur, ddebut, dfin, IDitem, Prixmin, Prixactuel) VALUES (2,'$ddebut','$dfin','$ref','$prixmin',0)";
         if(mysqli_query($db_handle, $sql)){ 
         echo "Record was updated successfully."; 
         }
