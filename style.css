@@ -16,7 +16,7 @@
 	text-align:center;
 	position: relative;
 	left:25%;
-	height:auto;
+	min-height:75%;
 	width: 50%;
 	background-color:#007179;
 	
@@ -26,10 +26,10 @@
 	text-align:center;
 	position: relative;
 	left:25%;
-	height:auto;
+	min-height:40%;
 	width: 50%;
 	background-color:#007179;
-	
-}
+	}
+
 
 
