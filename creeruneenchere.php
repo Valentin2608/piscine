@@ -6,6 +6,7 @@ $hdebut = isset($_POST["hdebut"])? $_POST["hdebut"] : "";
  $hfin = isset($_POST["hfin"])? $_POST["hfin"] : "";
  $ref = isset($_POST["ref"])? $_POST["ref"] : "";
 $prixmin = isset($_POST["prixmin"])? $_POST["prixmin"] : "";
+
 $database = "EbayECE";
 
     $db_handle = mysqli_connect('localhost', 'root', 'root');
