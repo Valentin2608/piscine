@@ -29,24 +29,46 @@
 
  if ($erreur == "") 
  {
+ 	
  	$database = "EbayECE";
 	$db_handle = mysqli_connect('localhost', 'root', 'root');
 	$db_found = mysqli_select_db($db_handle, $database);
-	if ($_POST["button1"]) 
+	if (isset($_POST["CreaCompt"]))
 	{
-		
+		$sql="SELECT * FROM `Acheteur`";
+ 		$resultat=mysqli_query($db_handle,$sql);
+ 		$temp="ucvbn";
+ 		$ind=0;
+ 	while ($row=mysqli_fetch_array($resultat, MYSQLI_ASSOC))
+    {
+    	$temp=$row['Email'];
+    	if($temp==$email)
+    	{
+    		$ind=1; 
+    	} 
+    	  
+    }
+		if($ind==0)
+		{
 		$sql="INSERT INTO `Acheteur`( `Nom`, `Prenom`, `Email`, `Adresse1`, `Adresse2`, `CodePostal`, `Pay`, `Tel`) VALUES ('$nom','$prenom','$email','$adresse1','$adresse2','$cp','$pay','$tel')";
-		if(mysqli_query($db_handle, $sql)){ 
-    	echo "Record was updated successfully."; 
-		} else 
+		mysqli_query($db_handle,$sql); 
+		header('Location: index.html');
+		}
+		else
 		{ 
-    		echo "ERROR: Could not able to execute $sql. "  
-                            . mysqli_error($db_handle); 
-		}  
+				
+			
+            header('Location: creerCompteAcheteur2.html'); 
+			
+
+			 
+			
+		}
 	mysqli_close($link); 
 	}
  }
  else {
  echo "Erreur : $erreur";
  }
+ 
 ?> 
