@@ -40,12 +40,6 @@ $database = "EbayECE";
 		}  
 	mysqli_close($link); 
 	
-//afficher information sur le paiement
-echo "<br>Le Numéro de carte bleu  est: " . $numeroC;
-echo "<br>A payer par: " . $card;
-echo "<br>Le Nom du client est: " . $nomC;
-echo "<br>La date d'expiration est :  " . $dateE;
-echo "<br>Le crypto est : " . $crypto;
 
 }
 else
