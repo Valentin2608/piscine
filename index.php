@@ -1,3 +1,12 @@
+<?php
+session_start();
+if(empty($_SESSION['Nom'])) 
+{
+  // Si inexistante ou nulle, on redirige vers le formulaire de login
+  header('Location: connexion.html');
+  exit();
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -95,6 +104,12 @@
 						</div>
 					</form>
 				</div>
+				
+				<div class="col-lg-2">
+				<li class="nav-item"><a class="nav-link" href="connexion.html"style="color:white;">Se connecter</a></li>
+				 
+				
+				</div>
 				 </ul>
 			 </div>
 </nav>
@@ -105,6 +120,10 @@
 
 <div class="index">
 <div class="siteDesc" > 
+<?php
+    // Ici on est bien loggué, on affiche un message
+    echo 'Bienvenue ', $_SESSION['ID'],$_SESSION['Nom'];
+					?>
 <p> Ebay ECE permet aux utilisateurs d'acheter, d'enchérir de négocier ou bien de vendre trois différents types d'objet, la ferraille ou trésor, 
 les objets bon pour le musée ainsi que les accessoires VIP. Ces achats/ventes peuvent être fait de trois façon différentes, l'enchère, l'achat immédiat 
 ou la négoiation ( meilleure offre) </p>
