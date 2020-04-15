@@ -27,7 +27,19 @@ $erreur = "";
 
  if ($erreur == "") 
  {
-
+$database = "EbayECE";
+	$db_handle = mysqli_connect('localhost', 'root', 'root');
+	$db_found = mysqli_select_db($db_handle, $database);
+		$sql="INSERT INTO `Payement`( `Numero`, `Typecart`, `Nom`, `Date`, `Crypto`) VALUES ('$numeroC','$card','$nomC','$dateE','$crypto')";
+		if(mysqli_query($db_handle, $sql)){ 
+    	echo "Record was updated successfully."; 
+		} else 
+		{ 
+    		echo "ERROR: Could not able to execute $sql. "  
+                            . mysqli_error($db_handle); 
+		}  
+	mysqli_close($link); 
+	
 //afficher information sur le paiement
 echo "<br>Le Numéro de carte bleu  est: " . $numeroC;
 echo "<br>A payer par: " . $card;
