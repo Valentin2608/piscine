@@ -5,7 +5,7 @@
 
 
 //identifier votre BDD
-$database = "EbayECE";
+$database = "ECEEbay";
 //connectez-vous de votre BDD
 $db_handle = mysqli_connect('localhost', 'root', '');
 $db_found = mysqli_select_db($db_handle, $database);
@@ -19,7 +19,7 @@ if (isset($_POST['button1'])) {
 		if ($login != "") {
 			$sql .= " WHERE Email LIKE '$login'";
 			if ($password != "") {
-				$sql .= " AND Password LIKE '$password'";
+				$sql .= " AND MdP LIKE '$password'";
 								}
 							}
 		$result = mysqli_query($db_handle, $sql);
@@ -29,7 +29,10 @@ if (isset($_POST['button1'])) {
 				}
 				else {
 						
-					echo "Connexion réussie";
+					
+					sleep(1);
+					header('Location: index.html');
+					
 					mysqli_close($db_handle); 
 
 						}
