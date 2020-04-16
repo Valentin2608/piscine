@@ -1,11 +1,36 @@
 <?php
 session_start();
 
+function Affichage()
+{
+$i=rand(0,20);
+$database = "ECEEbay";
+//connectez-vous de votre BDD
+$db_handle = mysqli_connect('localhost', 'root', '');
+$db_found = mysqli_select_db($db_handle, $database);
+if ($db_found) 
+{
+$sql = "SELECT * FROM Items WHERE Ref='$i'";
+$result = mysqli_query($db_handle, $sql);
+$row=mysqli_fetch_array($resultat, MYSQLI_ASSOC);
+$img=$row['Image'];
+$nom=$row['Nom'];
+$cate=$row['Categorie'];
+$typeV=$row['TypedeVente'];
+$prix=$row['Prix'];
+echo "<img src=".$img."></br>";
+echo "<p>".$nom."</br>";
+echo "<p>".$cate."</br>";
+echo "<p>".$typeV."</br>";
+echo "<p>".$prix."</br>";
+}
+echo mysql_result($result);
+}
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-<title>Vendre</title>
+<title>Accueil</title>
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -40,55 +65,97 @@ session_start();
 				 <ul class="navbar-nav">
 				 
 				 <div class="col-lg-1.1">
-					 <li class="nav-item"><a class="nav-link" href="#" style="color:white;">Accueil</a></li>
+					 <li class="nav-item"><a class="nav-link" href="index.php" style="color:white;">Accueil</a></li>
 				</div>
 				<div class="col-lg-1.1">
-					 <li class="nav-item"><a class="nav-link" href="#"style="color:white;">
+					 <li class="nav-item">
 					 <div class="dropdown">
-						<p data-toggle="dropdown">Catégorie</p>
+						<p data-toggle="dropdown" style="color:white; margin-top:7px; margin-left:5px;">Catégorie</p>
 						<div class="dropdown-menu">
+						<a class="nav-link" href="listeFerrailleTresor.html">
 							<div class="dropdown-item">
 							Ferraille ou Trésor
-							</div>
+							</div></a>
+							<a class="nav-link" href="listeBonMusée.html">
 							<div class="dropdown-item">
 							Bon pour le musée
-							</div>
+							</div></a>
+							<a class="nav-link" href="listeAccessoireVIP.html">
 							<div class="dropdown-item">
 							Accessoire VIP
-							</div>
+							</div></a>
 						</div>
 					</div>
-					</a></li>
+					</li>
 				</div>
 				<div class="col-lg-1">
-					 <li class="nav-item"><a class="nav-link" href="#"style="color:white;">
+					 <li class="nav-item">
 					 <div class="dropdown">
-						<p data-toggle="dropdown">Achat</p>
+						<p data-toggle="dropdown" style="color:white; margin-top:7px; margin-left:5px;">Achat</p>
 						<div class="dropdown-menu">
+						<a class="nav-link" href="listeEnchere.html">
 							<div class="dropdown-item">
 							Enchère
-							</div>
+							</div></a>
+							<a class="nav-link" href="listeAchatImmediat.html">
 							<div class="dropdown-item">
 							Achat immédiat
-							</div>
+							</div></a>
+							<a class="nav-link" href="listeMeilleureOffre.html">
 							<div class="dropdown-item">
 							Meilleure offre
-							</div>
+							</div></a>
 						</div>
 					</div>
-					 </a></li>
+					</li>
 				</div>
 				<div class="col-lg-1">
-					 <li class="nav-item"><a class="nav-link" href="#"style="color:white;">Vendre</a></li>
+				<?php
+					if(empty($_SESSION['ID']))
+					{
+					 echo '<li class="nav-item"><a class="nav-link" href="connexionCompteVendeur.html"style="color:white;">Vendre</a></li>';
+					}
+					if(($_SESSION['type'])=='2')
+					{
+						echo '<li class="nav-item"><a class="nav-link" href="vendre.html"style="color:white;">Vendre</a></li>';
+					}
+				?>
 				</div>
 				<div class="col-lg-1">
-					 <li class="nav-item"><a class="nav-link" href="#"style="color:white;">Compte</a></li>
+				<?php
+					if(empty($_SESSION['ID']))
+					{
+					 echo '<li class="nav-item"><a class="nav-link" href="connexionCompteAcheteur.html"style="color:white;">Compte</a></li>';
+					}
+					if(($_SESSION['type'])=='1')
+					{
+						echo '<li class="nav-item"><a class="nav-link" href="CompteAcheteur.html"style="color:white;">Compte</a></li>';
+					}
+					if(($_SESSION['type'])=='2')
+					{
+						echo '<li class="nav-item"><a class="nav-link" href="CompteVendeur.html"style="color:white;">Compte</a></li>';
+					}
+				?>
 				</div>
 				<div class="col-lg-1">
-					 <li class="nav-item"><a class="nav-link" href="#"style="color:white;">Panier</a></li>
+				<?php
+					if(empty($_SESSION['ID']))
+					{
+					 echo '<li class="nav-item"><a class="nav-link" href="connexionCompteAcheteur.html"style="color:white;">Panier</a></li>';
+					}
+				?>
 				</div>
 				<div class="col-lg-1">
-					 <li class="nav-item"><a class="nav-link" href="#"style="color:white;">Admin</a></li>
+				<?php
+					if(empty($_SESSION['ID']))
+					{
+					 echo '<li class="nav-item"><a class="nav-link" href="connexionCompteAdmin.html"style="color:white;">Admin</a></li>';
+					}
+					if(($_SESSION['type'])=='3')
+					{
+						echo '<li class="nav-item"><a class="nav-link" href="compteAdmin.html"style="color:white;">Admin</a></li>';
+					}
+				?>
 				</div>
 				<div class="col-lg-3"></div>
 				<div class="col-lg-2">
@@ -123,7 +190,7 @@ session_start();
 
 
 <div class="index">
-<div class="siteDesc" > 
+<div class="siteDesc" style="border-bottom:solid; border-color:#808080;"> 
 
 <p> Ebay ECE permet aux utilisateurs d'acheter, d'enchérir de négocier ou bien de vendre trois différents types d'objet, la ferraille ou trésor, 
 les objets bon pour le musée ainsi que les accessoires VIP. Ces achats/ventes peuvent être fait de trois façon différentes, l'enchère, l'achat immédiat 
@@ -132,115 +199,69 @@ ou la négoiation ( meilleure offre) </p>
 
 
 
-<div class="barreInfo"> <p> <strong>Les produits les plus recherchés </strong></p></div>
+<div class="barreInfo" style="border-bottom:solid; border-color:#808080; text-align:center;"> <p> <strong>Les produits les plus recherchés </strong></p></div>
 <div class="row">
 <div class="col-lg">
-<? php
-$database = "EbayECE";
+<?php
+
+$i=rand(1,7);
+$database = "ECEEbay";
 //connectez-vous de votre BDD
 $db_handle = mysqli_connect('localhost', 'root', '');
 $db_found = mysqli_select_db($db_handle, $database);
-if ($db_found) {
-$sql = "SELECT * FROM Items WHERE Ref=0";
+if ($db_found) 
+{
+$sql = "SELECT * FROM Items WHERE Ref='$i'";
 $result = mysqli_query($db_handle, $sql);
-$row=mysqli_fetch_array($resultat, MYSQLI_ASSOC);
-$img=$row['Image'];
-echo "<img src=".$img.">";
+$row=mysqli_fetch_array($result, MYSQLI_ASSOC);
+$img=$row['Images'];
+$nom=$row['Nom'];
+$cate=$row['Categorie'];
+$typeV=$row['TypedeVente'];
+$prix=$row['Prix'];
+//echo "<img src=".$img."></br>";
+echo $nom . "</br>";
+echo $cate . "</br>";
+echo $typeV ."</br>";
+echo $prix."</br>";
+//echo mysql_result($result);
+
+
 }
-echo mysql_result($result);
+
+
+
 ?>
 </div>
 <div class="col-lg">
 <? php
-$database = "EbayECE";
-//connectez-vous de votre BDD
-$db_handle = mysqli_connect('localhost', 'root', '');
-$db_found = mysqli_select_db($db_handle, $database);
-if ($db_found) {
-$sql = "SELECT * FROM Items WHERE Ref=1";
-$result = mysqli_query($db_handle, $sql);
-$row=mysqli_fetch_array($resultat, MYSQLI_ASSOC);
-$img=$row['Image'];
-echo "<img src=".$img.">";
-}
-echo mysql_result($result);
+Affichage();
 ?>
 </div>
 <div class="col-lg">
 <? php
-$database = "EbayECE";
-//connectez-vous de votre BDD
-$db_handle = mysqli_connect('localhost', 'root', '');
-$db_found = mysqli_select_db($db_handle, $database);
-if ($db_found) {
-$sql = "SELECT * FROM Items WHERE Ref=2";
-$result = mysqli_query($db_handle, $sql);
-$row=mysqli_fetch_array($resultat, MYSQLI_ASSOC);
-$img=$row['Image'];
-echo "<img src=".$img.">";
-}
-echo mysql_result($result);
+Affichage();
 ?>
 </div>
 </div>
 
 <div class="row">
 <div class="col-lg">
-<table>
-<tr>
 <? php
-$database = "EbayECE";
-//connectez-vous de votre BDD
-$db_handle = mysqli_connect('localhost', 'root', '');
-$db_found = mysqli_select_db($db_handle, $database);
-if ($db_found) {
-$sql = "SELECT * FROM Items WHERE Ref=0";
-$result = mysqli_query($db_handle, $sql);
-$row=mysqli_fetch_array($resultat, MYSQLI_ASSOC);
-$text=$row['Categorie'];
-echo .$text."<br>";
-}
+Affichage();
 ?>
-</tr>
-</table>
 </div>
+
 <div class="col-lg">
-<table>
-<tr>
 <? php
-$database = "EbayECE";
-//connectez-vous de votre BDD
-$db_handle = mysqli_connect('localhost', 'root', '');
-$db_found = mysqli_select_db($db_handle, $database);
-if ($db_found) {
-$sql = "SELECT * FROM Items WHERE Ref=1";
-$result = mysqli_query($db_handle, $sql);
-$row=mysqli_fetch_array($resultat, MYSQLI_ASSOC);
-$text=$row['Categorie'];
-echo .$text."<br>";
-}
+Affichage();
 ?>
-</tr>
-</table>
 </div>
+
 <div class="col-lg">
-<table>
-<tr>
 <? php
-$database = "EbayECE";
-//connectez-vous de votre BDD
-$db_handle = mysqli_connect('localhost', 'root', '');
-$db_found = mysqli_select_db($db_handle, $database);
-if ($db_found) {
-$sql = "SELECT * FROM Items WHERE Ref=2";
-$result = mysqli_query($db_handle, $sql);
-$row=mysqli_fetch_array($resultat, MYSQLI_ASSOC);
-$text=$row['Categorie'];
-echo .$text."<br>";
-}
+Affichage();
 ?>
-</tr>
-</table>
 </div>
 </div>
 
