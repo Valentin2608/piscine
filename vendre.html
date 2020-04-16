@@ -106,7 +106,7 @@
 <div class="vente">
 <h1 style="text-align:center;"> Vendez vos biens aux meilleurs prix </h1><br></br>
 <h3 style="text-align:center;"> Séléctionner une catégorie </h3><br>
-<form action="vendre.php" method="post">
+<form action="vendre.php" method="post" enctype="multipart/form-data">
 <div class="row">
 
 <div class="col-lg">
@@ -138,13 +138,13 @@
 <div class="col-lg-4">
 <table>
 	<tr>
-		<td><input type="radio" name="typeVente" value=3>Enchère</td>
+		<td><input type="radio" name="typeVente" value="3">Enchère</td>
 	</tr>
 	<tr>
-		<td><input type="radio"  name="typeVente" value=2">Achat immédiat</td>
+		<td><input type="radio"  name="typeVente" value="2">Achat immédiat</td>
 	</tr>
 	<tr>
-		<td><input type="radio" name="typeVente" value=1>Négocier</td>
+		<td><input type="radio" name="typeVente" value="1">Négocier</td>
 	</tr>
 </table>
 </div>
@@ -160,7 +160,7 @@
 <div class="col-lg-4">
 <p> <div class="parent-div">
       <button class="btn-upload">Choisir le fichier</button>
-      <input type="file" name="image" />
+      <input type="file" name="photo">
     </div> </p></div>
 <div class="col-lg-4">
 <p> <input type="number"  name="prix">€</p></div>
