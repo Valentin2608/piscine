@@ -35,24 +35,26 @@ echo '<script type="text/javascript">window.alert("'.$message.'");</script>'; }
 
  if ($message == "") 
  {
- 	$database = "EbayECE";
-	$db_handle = mysqli_connect('localhost', 'root', 'root');
+ 	$database = "ECEEbay";
+	$db_handle = mysqli_connect('localhost', 'root', '');
 	$db_found = mysqli_select_db($db_handle, $database);
 	if ($_POST["soumettre"]) 
 	{
-		
-		// récupération et dl de la photo
-         if (isset($_FILES['photo']['tmp_name'])) {
-        $_FILES['photo']['name']="alain.jpeg";
-        $retour = copy($_FILES['photo']['tmp_name'],"alain.jpeg");
-
-        if($retour) {
-            echo '<p>La photo a bien été envoyée.</p>';
-
-            echo '<img src="alain.jpeg">';
+		$sql="SELECT * FROM `Items`";
+		$resultat=mysqli_query($db_handle,$sql);
+		$max=0;
+		while ($row=mysqli_fetch_array($resultat, MYSQLI_ASSOC))
+		{
+        $min=$row['Ref'];
+        if($max<$min)
+        {
+            $max=$min;
         }
-    }
-		$sql="INSERT INTO `Items`(`Nom`, `Description`, `Images`, `Categorie`, `TypedeVente`, `IDVendeur`, `Prix`) VALUES ('$nom','$description','gh','$categorie','$typeVente','$IDVendeur','$prix ')";
+         echo"1742<br>";
+		}
+		$max=$max+1;
+		$max.=".jpeg";
+		$sql="INSERT INTO `Items`(`Nom`, `Description`, `Images`, `Categorie`, `TypedeVente`, `IDVendeur`, `Prix`) VALUES ('$nom','$description','$max','$categorie','$typeVente','$IDVendeur','$prix ')";
 		
 		if(mysqli_query($db_handle, $sql)){ 
     	echo "Record was updated successfully."; 
@@ -60,7 +62,19 @@ echo '<script type="text/javascript">window.alert("'.$message.'");</script>'; }
 		{ 
     		echo "ERROR: Could not able to execute $sql. "  
                             . mysqli_error($db_handle); 
-		}  
+		} 
+		
+		// récupération et dl de la photo
+         if (isset($_FILES['photo']['tmp_name'])) {
+        $_FILES['photo']['name']= $max;
+        $retour = copy($_FILES['photo']['tmp_name'],$max);
+
+        if($retour) {
+            echo '<p>La photo a bien été envoyée.</p>';
+
+            echo "<img src='$max'>";
+        }
+    }		
 	mysqli_close($db_handle); 
 	}
  }

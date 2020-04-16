@@ -39,6 +39,9 @@ if (isset($_POST['button1'])) {
 					$_SESSION['Nom'] = $data['Nom'];
 						$_SESSION['Prenom'] = $data['Prenom'];
 				$_SESSION['Email'] = $data['Email'];
+				$i="1";
+				$_SESSION['type']= $i;
+				
 				
 					sleep(1);
 					header('Location: index.php');

@@ -11,8 +11,8 @@ $nom = isset($_POST["nom"])? $_POST["nom"] : "";
   
   
 	$erreur = "";
-	$database = "EbayECE";
-	$db_handle = mysqli_connect('localhost', 'root', 'root');
+	$database = "ECEEbay";
+	$db_handle = mysqli_connect('localhost', 'root','');
 	$db_found = mysqli_select_db($db_handle, $database);
 	
 	if ($_POST["buttonModif"]) 
