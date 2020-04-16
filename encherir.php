@@ -2,33 +2,37 @@
 session_start();
 $dep = isset($_POST["dep"])? $_POST["dep"] : "";
 $max = isset($_POST["max"])? $_POST["max"] : "";
-
+$ref =$_GET['ref'];
 $database = "EbayECE";
 //$idenchere = "1";
 	date_default_timezone_set('Europe/Paris');
     $db_handle = mysqli_connect('localhost', 'root','root');
-    $db_found = mysqli_select_db($db_handle, $database);
-    echo "hgjgg";
+    $db_found = mysqli_select_db($db_handle, $database); 
+    echo"8641<br>"; 
     if (isset($_POST["button1"])) {
-
-        
-        $id=$_SESSION['ID'];
-        $sql="SELECT * FROM encheres WHERE IDachteur='$id'";
-		$resultat=mysqli_query($db_handle,$sql);
-		if($resultat=="")
-        {$sql="SELECT * FROM encheres WHERE IDenchere=1";
+echo"8642<br>";
+         
+        $id=5;
+        $sql="SELECT * FROM Encherisseur WHERE IDAcheteur='$id'";  
+		$resultat=mysqli_query($db_handle,$sql);     
+		echo"8643<br>"; 
+		//if(empty($resultat))
+        //{
+        $sql="SELECT * FROM Encheres WHERE Ref='$ref'"; 
+        echo"8644<br>";
 		$resultat=mysqli_query($db_handle,$sql);
 		$row=mysqli_fetch_array($resultat, MYSQLI_ASSOC);
 		$dateF=$row['dfin'];
         $datetime = date("Y-m-d H:i:s");
-        
-		if ($datetime>=$dateF)
+        $ide=$row['IDEnchere'];
+        echo $ref;
+		if ($datetime>=$dateF) 
 		{
-			echo "Enchère Finie";
+			echo "Enchère Finie"; 
 		}
 		else {
 		
-		$sql="INSERT INTO `Encherisseur`(`IDenchere`, `IDachteur`, `Encheremax`, `enchereactuelle`) VALUES (1,'$id','$max','$dep')";
+		$sql="INSERT INTO `Encherisseur`(`IDEnchere`, `IDAcheteur`, `Encheremax`, `enchereactuelle`) VALUES ('$ide','$id','$max','$dep')";
         if(mysqli_query($db_handle, $sql)){ 
         echo "Record was updated successfully."; 
         }
@@ -36,8 +40,7 @@ $database = "EbayECE";
             echo"1742<br>";
            echo mysqli_error($db_handle); }
 		}
-		$id2 = 1;
-		$sql="SELECT * FROM `Encherisseur` WHERE `IDenchere` LIKE '$id2'";
+		$sql="SELECT * FROM `Encherisseur` WHERE `IDEnchere` LIKE '$ide'";
     $resultat=mysqli_query($db_handle,$sql);
     $max=0;
     $ida=0;
@@ -47,7 +50,7 @@ $database = "EbayECE";
     	if($max<$min)
     	{
     		$max=$min;
-    		$ida=$row['IDachteur'];
+    		$ida=$row['IDAcheteur'];
     	}
     	 echo"1742<br>";
     }
@@ -69,7 +72,7 @@ $database = "EbayECE";
     }
     $max2=$max2+1;
     echo $max2."</br>";
-    $sql="UPDATE `Encheres` SET `Prixactuel`='$max2' WHERE `IDenchere`='$id2'";
+    $sql="UPDATE `Encheres` SET `Prixactuel`='$max2' WHERE `IDenchere`='$ide'";
     if(mysqli_query($db_handle, $sql))
     { 
         echo "Record was updated successfully."; 
@@ -79,7 +82,7 @@ $database = "EbayECE";
     	echo"1742<br>";
         echo mysqli_error($db_handle); 
     }
-    $sql="UPDATE `Encherisseur` SET `enchereactuelle`='$max2' WHERE `IDachteur`='$ida'";
+    $sql="UPDATE `Encherisseur` SET `enchereactuelle`='$max2' WHERE `IDAcheteur`='$ida'";
     if(mysqli_query($db_handle, $sql))
     { 
         echo "Record was updated successfully."; 
@@ -90,8 +93,8 @@ $database = "EbayECE";
         echo mysqli_error($db_handle); 
     }
     }
-    }
-    echo"8642<br>";
+    
+    echo"8645<br>";
     
     mysqli_close($db_handle); 
 

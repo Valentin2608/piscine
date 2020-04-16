@@ -1,7 +1,4 @@
-<?php
-session_start();
 
-?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -98,56 +95,49 @@ session_start();
 					</form>
 				</div>
 				
-				<div class="col-lg-2">
-				<?php
-				if(empty($_SESSION['ID'])) 
-				{
-				echo"<li class='nav-item'><a class='nav-link' href='connexion.html' style='color:white;'>Se Connecter</a></li>";
 				
-				}
-				else 
-				{
-					echo "<li class='nav-item'><a class='nav-link' href='deconnexion.php' style='color:white;'>Se Deconnecter</a></li>";
-				}
-				 ?>
-				
-				</div>
 				 </ul>
 			 </div>
 </nav>
 </div>
 <br>
 </div>
-<div class="creer2">
-<?php
-$ref =$_GET['ref'];
-echo '<form action="encherir.php?ref='.$ref.'" method="post">';
 
-$database = "EbayECE";
+<div class= "container-fluid">
+ <h1>Galerie d'image</h1>
+ <?php
+
+ $database = "EbayECE";
 $db_handle = mysqli_connect('localhost', 'root', 'root');
 $db_found = mysqli_select_db($db_handle, $database);
-$sql="SELECT * FROM Encheres WHERE Ref='$ref'";  
+$sql="SELECT * FROM `Encheres`";
 $resultat=mysqli_query($db_handle,$sql);
-$row=mysqli_fetch_array($resultat, MYSQLI_ASSOC);
-$nom=$row['Nom'];
-echo'<h1>Enchérir sur: '.$nom.'</h1>
-<table> 
+$size="150";
+$type="image";
+$name="button";
+$classe1="img-thumbnail";
+$classe2="caption";
+while ($row=mysqli_fetch_array($resultat, MYSQLI_ASSOC)) 
+{
+$ref=$row['Ref'];
+$date="jusqu'au ".$row['dfin']." à ".$row['hfin'];
+$prix=$row['Prixactuel'];
+$sql2="SELECT * FROM `Items` WHERE `Ref`='$ref'";    
+$resultat2=mysqli_query($db_handle,$sql2); 
+$row2=mysqli_fetch_array($resultat2, MYSQLI_ASSOC); 
+$nom=$row2['Nom'];
+$description=$row2['Description']; 
+$img=$row2['Images'];
+echo '<form action="encherir1.php?ref='.$ref.'" method="post">
 <tr>
-<td>    Enchère de départ:</td>
-<td><input type="number"  name="dep">€</td>
-</tr>
-<tr>
-<td> Enchère max:</td>
-<td><input type="number"  name="max">€</td>
-</tr> 
-<tr> 
-<td colspan="2" align="center">';
-echo'<input type="submit" name="button1" value="soumettre">';
+<td><div class='.$classe1.'><input type='.$type.' name='.$name.' value='.$ref.' src='.$img.' widht='.$size.' height='.$size.'>
+<div class='.$clase2.'>
+<p>Nom: '.$nom.'</br>Description :'.$description.'</br>Date limite :'.$date.'</br>Prix :'.$prix.'</p>
+</div> 
+</div></td>
+</tr></form>';
+}
 ?>
-</td>
-</tr>
-</table>
-</form>
 </div>
 <footer class="page-footer">
 			 	<div class="container">
