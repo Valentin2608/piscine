@@ -1,9 +1,6 @@
 <?php
 session_start();
-if(empty($_SESSION['type']))
-{
-$_SESSION['type']=0;
-}
+
 
 ?>
 <!DOCTYPE html>
@@ -14,11 +11,17 @@ $_SESSION['type']=0;
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 	 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="styleIndex.css">
-	<link rel="stylesheet" type="text/css" href="style.css">
+	
 
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+	
+  <!-- Custom fonts for this template-->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+  <!-- Custom styles for this template-->
+  <link href="sb-admin-2.min.css" rel="stylesheet">
 
 </head>
 
@@ -90,25 +93,6 @@ $_SESSION['type']=0;
 				</div>
 				
 				<?php
-				    
-					if(empty($_SESSION['ID']))
-					{
-					echo'<div class="col-lg-3">';
-					 echo '<li class="nav-item"><a class="nav-link" href="connexionCompteVendeur.html"style="color:white;">Vendre</a></li>';
-					 echo'</div>';
-					 echo'<div class="col-lg-3">';
-					 echo '<li class="nav-item"><a class="nav-link" href="connexionCompteAcheteur.html"style="color:white;">Compte</a></li>';
-					 echo'</div>';
-					 echo'<div class="col-lg-3">';
-					echo '<li class="nav-item"><a class="nav-link" href="connexionCompteAcheteur.html"style="color:white;">Panier</a></li>';
-					 echo'</div>';
-					 echo'<div class="col-lg-3">';
-					  echo '<li class="nav-item"><a class="nav-link" href="connexionCompteAdmin.html"style="color:white;">Admin</a></li>';
-					 echo'</div>';
-					
-					 
-					 
-					}
 					
 					if(($_SESSION['type'])=='1')
 					{
@@ -175,8 +159,52 @@ $_SESSION['type']=0;
 			 </div>
 </nav>
 </div>
-<br>
+
 </div>
+<div class="container-fluid">
+<!-- Page Heading -->
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Mon compte</h1>
+          </div>
+
+          <div class="row">
+			 <div class="col-lg-6">
+			  <!-- Basic Card Example -->
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Informations Personelles</h6>
+                </div>
+                <div class="card-body">
+                  Mes informations blablalba
+                </div>
+				<div class="card-body">
+                  Prenom prenom
+                </div>
+              </div>
+
+            </div><p></p>
+				<div class="col-lg-6">
+				<!-- Collapsable Card Example -->
+				<div class="card shadow mb-4">
+					<!-- Card Header - Accordion -->
+					<a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
+					<h6 class="m-0 font-weight-bold text-primary">Informations Bancaires</h6>
+					</a>
+					<!-- Card Content - Collapse -->
+					<div class="collapse show" id="collapseCardExample">
+					<div class="card-body">
+					Informations bancaires blablabla
+					</div>
+					</div>
+				</div>
+				</div>
+			</div>
+			
+</div>
+			
+			 
+
+
 
 <footer class="page-footer">
 			 	<div class="container">
