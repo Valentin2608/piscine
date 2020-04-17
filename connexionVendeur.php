@@ -17,7 +17,7 @@ $db_found = mysqli_select_db($db_handle, $database);
 
 if (isset($_POST['button1'])) {
 	if ($db_found) {
-		$sql = "SELECT * FROM acheteur";
+		$sql = "SELECT * FROM Vendeur";
 		if ($login != "") {
 			$sql .= " WHERE Email LIKE '$login'";
 			if ($password != "") {
@@ -32,30 +32,29 @@ if (isset($_POST['button1'])) {
 				else {
 						
 					
-					$sql = "SELECT * FROM Acheteur WHERE Email = '$login'";
+					$sql = "SELECT * FROM Vendeur WHERE Email = '$login'";
 					$result = mysqli_query($db_handle, $sql);
+					$compter=0;
 					$data = mysqli_fetch_array($result, MYSQLI_ASSOC);
-					$_SESSION['ID'] = $data['ID'];
+					$_SESSION['IDVendeur'] = $data['ID'];
 					$_SESSION['Nom'] = $data['Nom'];
 					$_SESSION['Prenom'] = $data['Prenom'];
 					$_SESSION['Email'] = $data['Email'];
-					$_SESSION['Adresse1'] = $data['Adresse1'];
-					$_SESSION['Adresse2'] = $data['Adresse2'];
-					$_SESSION['Tel'] = $data['Tel'];
-					$_SESSION['Pays'] = $data['Pays'];
-					$_SESSION['CodePostal'] = $data['CodePostal'];
-					$id=$_SESSION['ID'];
-					$i="1";
+					$_SESSION['Adresse'] = $data['Adresse'];
+					$id=$_SESSION['IDVendeur'];
+					$i="2";
 					$_SESSION['type']= $i;
 					
-					$sql = "SELECT * FROM payement WHERE IDclient ='$id'";
+					$sql = "SELECT * FROM items WHERE IDVendeur ='$id'";
 					$result = mysqli_query($db_handle, $sql);
-					$data = mysqli_fetch_array($result, MYSQLI_ASSOC);
-					$_SESSION['Typecart'] = $data['Typecart'];
-					$_SESSION['Numero'] = $data['Numero'];
-					$_SESSION['Nom2'] = $data['Nom'];
-					$_SESSION['Date'] = $data['Date'];
-					$_SESSION['Crypto'] = $data['Crypto'];
+					while ($row=mysqli_fetch_array($result, MYSQLI_ASSOC))
+					{
+						$compter=$compter+1;
+						echo $compter;
+					}
+					$_SESSION['NombreO'] =$compter;
+					
+					echo $_SESSION['NombreO'];
 				
 					sleep(1);
 					header('Location: index.php');

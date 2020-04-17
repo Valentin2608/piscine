@@ -94,7 +94,7 @@ $_SESSION['type']=0;
 					if(empty($_SESSION['ID']))
 					{
 					echo'<div class="col-lg-3">';
-					 echo '<li class="nav-item"><a class="nav-link" href="connexionCompteVendeur.html"style="color:white;">Vendre</a></li>';
+					 echo '<li class="nav-item"><a class="nav-link" href="connexionVendeur.html"style="color:white;">Vendre</a></li>';
 					 echo'</div>';
 					 echo'<div class="col-lg-3">';
 					 echo '<li class="nav-item"><a class="nav-link" href="connexionCompteAcheteur.html"style="color:white;">Compte</a></li>';

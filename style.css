@@ -79,5 +79,22 @@
 	width: 70%;
 	background-color:white;
 }
+.btn-circle {
+  width: 5.875rem;
+  height: 5.875rem;
+  text-align: center;
+  padding: 1.375rem 1;
+  font-size: 5.75rem;
+  line-height: 5.428571429;
+  border-radius: 5.938rem;
+}
+.btn-circle.btn-lg {
+  width: 500 px;
+  height: 500 px;
+  padding: 500 px;
+  font-size: 500 px;
+  line-height: 500 px;
+  border-radius: 500 px;
+}
 
 

@@ -6,7 +6,7 @@ session_start();
 <!DOCTYPE html>
 <html>
 <head>
-<title>Mon compte</title>
+<title>Mon compte Vendeur</title>
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -168,7 +168,7 @@ session_start();
 			</br>
 			</br>
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Mon compte</h1>
+            <h1 class="h3 mb-0 text-gray-800">Mon Espace Vendeur</h1>
           </div>
 
           <div class="row">
@@ -188,90 +188,58 @@ session_start();
                   Email :  <?php echo $_SESSION['Email'];?>
                 </div>
 				<div class="card-body">
-                 Adresse 1 :  <?php $_SESSION['Adresse1'];?>
+                 Adresse  :  <?php echo $_SESSION['Adresse'];?>
                 </div>
 				<div class="card-body">
-                  Adresse 2 :  <?php echo $_SESSION['Adresse2'];?>
-                </div>
-				<div class="card-body">
-                  Code Postal :  <?php echo $_SESSION['CodePostal'];?>
-                </div>
-				<div class="card-body">
-                  Pays :  <?php echo $_SESSION['Pays'];?>
-                </div>
-				<div class="card-body">
-                  Telephone :  <?php echo $_SESSION['Tel'];?>
+                  Nombre d'objet en vente :  <?php echo $_SESSION['NombreO'];?>
                 </div>
               </div>
-
-            </div>
-				<div class="col-lg-6">
-				<!-- Collapsable Card Example -->
-				<div class="card shadow mb-4">
-					<!-- Card Header - Accordion -->
-					<a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
-					<h6 class="m-0 font-weight-bold text-primary">Informations Bancaires</h6>
-					</a>
-					<!-- Card Content - Collapse -->
-					<div class="collapse show" id="collapseCardExample">
-					<div class="card-body">
-					Type de carte : <?php echo $_SESSION['Typecart'];?>
+			  </div>
+			  <div class="col-lg-2">
+			  </div>
+			  <div class="col-lg-2">
+			  <div class="card shadow mb-4">
+			  <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary" align="center">Photo de Profil</h6>
+				   <div class="card-body" align="center">
+				   <img class="img-thumbnail" src="Image/Profil.jpg" alt="Votre Photo de Profil" height="200px" width="206px" />
 					</div>
-					<div class="card-body">
-					Numéro de carte : <?php echo $_SESSION['Numero'];?>
-					</div>
-					<div class="card-body">
-					Nom sur la carte : <?php echo $_SESSION['Nom2'];?>
-					</div>
-					<div class="card-body">
-					Date : <?php echo $_SESSION['Date'];?>
-					</div>
-					<div class="card-body">
-					Cryptogramme : <?php echo $_SESSION['Crypto'];?>
-					</div>
-					</div>
-				
-				
+			  </div>
+			    </div>
 				</div>
-				
-				
-                </div>
+				<div class="col-lg-2">
 				</div>
+			
+			
+			</div>
 			<div class="row">
 				<div class="col-lg-2">
-				</div>
-				<div class="col-lg-2">
-				</div>
-				<div class="col-lg-2">
-				</div>
-				<div class="col-lg-2">
-					<a href="MonPanier.php" class="btn btn-danger btn-icon-split btn-lg">
-                    <span class="icon text-white-50">
-                      <i class="fa fa-shopping-cart"></i>
-                    </span>
-                    <span class="text">     Mon panier      </span>
-                  </a>
-				</div>
-				<div class="col-lg-2">
 					<a href="ModifierinfoA.php" class="btn btn-info btn-icon-split btn-lg">
-                    <span class="icon text-white-50">
+                    <span class="icon text-white-55">
                       <i class="fas fa-info-circle"></i>
                     </span>
                     <span class="text">Modifier mes Informations</span>
                   </a>
-				
+				</div>
+				<div class="col-lg-2">
+				</div>
+				<div class="col-lg-2">
+				<a href="VendreObjet.php" class="btn btn-success btn-icon-split btn-lg">
+                    <span class="icon text-white-50">
+                      <i class="fa fa-shopping-cart"></i>
+                    </span>
+                    <span class="text">    Vendre un Objet    </span>	
+				</a>
 				
 				</div>
 			
 			
 			</div>
 			
-		
-			
-</div>
 </div>
 
 <footer class="page-footer" style="margin-top:50px">
+
 			 	<div class="container">
 					 <div class="row">
 						 <div class="col-lg-8 col-md-8 col-sm-12">
