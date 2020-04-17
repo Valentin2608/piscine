@@ -1,7 +1,6 @@
 <?php
 session_start();
 $ref =$_GET['ref'];
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -125,7 +124,7 @@ $ref =$_GET['ref'];
 <div class="objet" style=" border:solid; border-color:#808080; height:auto;" >
 <?php
 
-$ref=$_GET['ref'];
+$ref =$_GET['ref'];
 //identifier votre BDD
 $database = "EbayECE";
 //connectez-vous de votre BDD
@@ -151,58 +150,63 @@ $db_found = mysqli_select_db($db_handle, $database);
 <div class="col-lg-4">
 <div class="enchere" style="border:solid; border-color:#808080; height:auto; margin-bottom:10px; margin-right:10px;">
 <?php
-
-$ref=$_GET['ref'];
-//$idv=$_SESSION['ID'];
-$idv=1;
+$ref =$_GET['ref'];
+//$ida=$_SESSION['ID'];
+$ida=5;
 $database = "EbayECE";
  $db_handle = mysqli_connect('localhost', 'root', 'root');
  $db_found = mysqli_select_db($db_handle, $database);
  
-$sql="SELECT * FROM Nego WHERE Ref='$ref' AND IDVendeur='$idv'";  
-$resultat = mysqli_query($db_handle, $sql);
-if(mysqli_num_rows($resultat) == 0)
-{echo"<h2>Perssonne ne veut negocier</h2>";
-echo '<form action="index.php" method="post">'; 
-echo'<input type="submit" name="button1" value="OK"></form>';} 
-else
-{
-while ($row=mysqli_fetch_array($resultat, MYSQLI_ASSOC))   
-{
-$compt=$row['Compteur']; 
+$sql="SELECT * FROM Nego WHERE Ref='$ref' AND IDAcheteur='$ida'";  
+$result = mysqli_query($db_handle, $sql);
+$row=mysqli_fetch_array($result, MYSQLI_ASSOC);
+$compt=$row['Compteur'];
 
-		
- $prix=$row['Proposition']; 
-  
-		$ida=$row['IDAcheteur'];
-		$sql="SELECT * FROM Acheteur WHERE IDAcheteur='$ida'";  
+		$sql="SELECT * FROM `Nego` WHERE `Ref`='$ref'";
+ $resultat=mysqli_query($db_handle,$sql);
+ $row=mysqli_fetch_array($resultat, MYSQLI_ASSOC);
+ $prix=$row['ContreProposition'];
+ 
+		$sql = "SELECT * FROM Items WHERE Ref='$ref'";
 		$result = mysqli_query($db_handle, $sql);
 		$row=mysqli_fetch_array($result, MYSQLI_ASSOC);
-		$acheteur=$row['Prenom']." ".$row['Nom'];
-echo "Nom de l'acheteur: ".$acheteur. "</br>";
-echo "Proposition de l'acheteur" .$prix. "€</br>";
-if($compt%2 != 0)
+		$vendeur=$row['IDVendeur'];
+		$sql="SELECT * FROM Vendeur WHERE IDVendeur='$vendeur'";  
+		$result = mysqli_query($db_handle, $sql);
+		$row=mysqli_fetch_array($result, MYSQLI_ASSOC);
+		$vendeur=$row['Prenom']." ".$row['Nom'];
+echo "Nom du vendeur: ".$vendeur. "</br>";
+echo "Proposition du vendeur:" .$prix. "€</br>";
+if($compt%2 == 0)
 {		
-echo '<form action="repvendeur.php?ref='.$ref.'&ida='.$ida.'" method="post">';
+echo '<form action="repachteur.php?ref='.$ref.'" method="post">';
 $sql="SELECT * FROM Items WHERE Ref='$ref'";   
 $result = mysqli_query($db_handle, $sql);
-$row2=mysqli_fetch_array($result, MYSQLI_ASSOC); 
-$nom=$row2['Nom'];
+$row=mysqli_fetch_array($result, MYSQLI_ASSOC); 
+$nom=$row['Nom'];
 echo"<h1>Négocier: ".$nom."</h1>";
 echo '<table>
 <tr>
 <td> Proposition :</td>
-<td><input type="number"  name="co"></td>   
+<td><input type="number"  name="prix"></td>
 </tr>
 <tr> 
 <td colspan="2" align="center">';
-echo'<input type="submit" name="button1" value="soumettre"></td></tr></table></form></br>';}
+echo'<input type="submit" name="button1" value="soumettre">';}
 else
 {
-echo"<h2>L'acheteur ne vous a pas encors répondu</h2>";
-
-}}}
+echo"<h2>Le Vendeur ne vous a pas encors répondu</h2>";
+echo '<form action="index.php" method="post">';
+echo '<table>
+<tr> 
+<td colspan="2" align="center">';
+echo'<input type="submit" name="button1" value="OK">';
+}
 ?>
+</td>
+</tr>
+</table>
+</form>
 </div>
 </div>
 </div>

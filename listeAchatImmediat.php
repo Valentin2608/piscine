@@ -1,8 +1,4 @@
-<?php
-session_start();
-$ref =$_GET['ref'];
 
-?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -99,112 +95,49 @@ $ref =$_GET['ref'];
 					</form>
 				</div>
 				
-				<div class="col-lg-2">
-				<?php
-				if(empty($_SESSION['ID'])) 
-				{
-				echo"<li class='nav-item'><a class='nav-link' href='connexion.html' style='color:white;'>Se Connecter</a></li>";
 				
-				}
-				else 
-				{
-					echo "<li class='nav-item'><a class='nav-link' href='deconnexion.php' style='color:white;'>Se Deconnecter</a></li>";
-				}
-				 ?>
-				
-				</div>
 				 </ul>
 			 </div>
 </nav>
 </div>
 <br>
 </div>
-<div class="container-fluid">
-<div class="row">
-<div class="col-lg-8">
-<div class="objet" style=" border:solid; border-color:#808080; height:auto;" >
-<?php
 
-$ref=$_GET['ref'];
-//identifier votre BDD
-$database = "EbayECE";
-//connectez-vous de votre BDD
+<div class= "container-fluid">
+ <h1>Galerie d'image</h1>
+ <?php
+
+
+ $database = "EbayECE";
 $db_handle = mysqli_connect('localhost', 'root', 'root');
 $db_found = mysqli_select_db($db_handle, $database);
-
-		$sql = "SELECT * FROM Items WHERE Ref='$ref'";
-		$result = mysqli_query($db_handle, $sql);
-		$row=mysqli_fetch_array($result, MYSQLI_ASSOC);
-		$nom=$row['Nom']; 
-		$image=$row['Images'];
-		$description=$row['Description'];
-		
-		
-		echo "Nom: ".$nom. "</br>";
-		echo "Description: ".$description. "</br>";
-		echo '<img src="'.$image.'" widht="150" height="150"></br>';
-		
-
-?>
-</div>
-</div>
-<div class="col-lg-4">
-<div class="enchere" style="border:solid; border-color:#808080; height:auto; margin-bottom:10px; margin-right:10px;">
-<?php
-
-$ref=$_GET['ref'];
-//$idv=$_SESSION['ID'];
-$idv=1;
-$database = "EbayECE";
- $db_handle = mysqli_connect('localhost', 'root', 'root');
- $db_found = mysqli_select_db($db_handle, $database);
- 
-$sql="SELECT * FROM Nego WHERE Ref='$ref' AND IDVendeur='$idv'";  
-$resultat = mysqli_query($db_handle, $sql);
-if(mysqli_num_rows($resultat) == 0)
-{echo"<h2>Perssonne ne veut negocier</h2>";
-echo '<form action="index.php" method="post">'; 
-echo'<input type="submit" name="button1" value="OK"></form>';} 
-else
+$sql="SELECT * FROM `Items`";
+$resultat=mysqli_query($db_handle,$sql);
+$size="150";
+$type="image";
+$name="button";
+$classe1="img-thumbnail";
+$classe2="caption";
+while ($row=mysqli_fetch_array($resultat, MYSQLI_ASSOC))  
 {
-while ($row=mysqli_fetch_array($resultat, MYSQLI_ASSOC))   
-{
-$compt=$row['Compteur']; 
-
-		
- $prix=$row['Proposition']; 
-  
-		$ida=$row['IDAcheteur'];
-		$sql="SELECT * FROM Acheteur WHERE IDAcheteur='$ida'";  
-		$result = mysqli_query($db_handle, $sql);
-		$row=mysqli_fetch_array($result, MYSQLI_ASSOC);
-		$acheteur=$row['Prenom']." ".$row['Nom'];
-echo "Nom de l'acheteur: ".$acheteur. "</br>";
-echo "Proposition de l'acheteur" .$prix. "€</br>";
-if($compt%2 != 0)
-{		
-echo '<form action="repvendeur.php?ref='.$ref.'&ida='.$ida.'" method="post">';
-$sql="SELECT * FROM Items WHERE Ref='$ref'";   
-$result = mysqli_query($db_handle, $sql);
-$row2=mysqli_fetch_array($result, MYSQLI_ASSOC); 
-$nom=$row2['Nom'];
-echo"<h1>Négocier: ".$nom."</h1>";
-echo '<table>
+$ref=$row['Ref'];
+$prix=$row['Prix'];
+$typev=$row['TypedeVente']; 
+$nom=$row['Nom'];
+$description=$row['Description']; 
+$categorie=$row['Categorie'];
+$img=$row['Images'];
+if($typev==2 || $typev==4)
+{echo '<form action="encherir1.php?ref='.$ref.'" method="post">
 <tr>
-<td> Proposition :</td>
-<td><input type="number"  name="co"></td>   
-</tr>
-<tr> 
-<td colspan="2" align="center">';
-echo'<input type="submit" name="button1" value="soumettre"></td></tr></table></form></br>';}
-else
-{
-echo"<h2>L'acheteur ne vous a pas encors répondu</h2>";
-
-}}}
+<td><div class='.$classe1.'><input type='.$type.' name='.$name.' value='.$ref.' src='.$img.' widht='.$size.' height='.$size.'>
+<div class='.$clase2.'>
+<p>Nom: '.$nom.'</br>Description :'.$description.'</br>Categorie :'.$categorie.'</br>Prix :'.$prix.'€</p>
+</div> 
+</div></td>
+</tr></form>';
+}}
 ?>
-</div>
-</div>
 </div>
 <footer class="page-footer">
 			 	<div class="container">
