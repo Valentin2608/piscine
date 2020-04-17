@@ -34,9 +34,7 @@
 
  if ($erreur == "") 
  {
- 	echo $pay;
-	echo $cp;
-	echo"</br>";
+ 	
 	
 	
  	$database = "ECEEbay";
@@ -44,8 +42,7 @@
 	$db_found = mysqli_select_db($db_handle, $database);
 	if (isset($_POST["CreaCompt"]))
 	{
-		echo $email;
-		echo"</br>";
+		
 		$sql="SELECT * FROM `Acheteur`";
  		$resultat=mysqli_query($db_handle,$sql);
  		$temp="ucvbn";
@@ -53,8 +50,7 @@
  	while ($row=mysqli_fetch_array($resultat, MYSQLI_ASSOC))
     {
     	$temp=$row['Email'];
-		echo $pay;
-		echo"</br>";
+		;
     	if($temp==$email)
     	{
     		$ind=1; 
@@ -63,8 +59,7 @@
     }
 		if($ind==0)
 		{
-		echo $adresse1;
-		echo"</br>";
+		
 		
 		$sql="INSERT INTO `Acheteur`( `Nom`, `Prenom`, `Email`, `Adresse1`, `Adresse2`, `CodePostal`, `Pays`, `Tel`,`MdP`) VALUES ('$nom','$prenom','$email','$adresse1','$adresse2','$cp','$pay','$tel','$password')";
 		if(mysqli_query($db_handle, $sql)){ 
