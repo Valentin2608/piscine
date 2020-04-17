@@ -1,0 +1,297 @@
+-- phpMyAdmin SQL Dump
+-- version 4.9.3
+-- https://www.phpmyadmin.net/
+--
+-- Hôte : localhost:8889
+-- Généré le :  ven. 17 avr. 2020 à 14:15
+-- Version du serveur :  5.7.26
+-- Version de PHP :  7.4.2
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+--
+-- Base de données :  `EbayECE`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `Acheteur`
+--
+
+CREATE TABLE `Acheteur` (
+  `IDAcheteur` int(11) NOT NULL,
+  `Nom` varchar(255) NOT NULL,
+  `Prenom` varchar(255) NOT NULL,
+  `Email` varchar(255) NOT NULL,
+  `Adresse1` varchar(255) NOT NULL,
+  `Adresse2` varchar(255) NOT NULL,
+  `CodePostal` int(11) NOT NULL,
+  `Pay` varchar(255) NOT NULL,
+  `Tel` int(11) NOT NULL,
+  `MdP` varchar(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `Acheteur`
+--
+
+INSERT INTO `Acheteur` (`IDAcheteur`, `Nom`, `Prenom`, `Email`, `Adresse1`, `Adresse2`, `CodePostal`, `Pay`, `Tel`, `MdP`) VALUES
+(1, 'fgf', 'yjtf', 'jtyj', '97 AVENUE CHARLES DE GAULLE', 'gh', 92200, 'UGUG', 262452, '0'),
+(2, 'fgf', 'yjtf', 'jtyj', '97 AVENUE CHARLES DE GAULLE', 'fgh', 92200, 'UGUG', 131431, '0'),
+(3, 'fgf', 'yjtf', 'jtyj', '97 AVENUE CHARLES DE GAULLE', 'fgh', 92200, 'UGUG', 131431, '0'),
+(4, 'Paul', 'Caudal', 'paul.caudal@live.fr', '694 rue de Breteuil', '', 78670, 'France', 2662642, '0'),
+(5, 'Paul', 'Caudal', 'paul.caudal1@live.fr', '694 rue de Breteuil', '', 78670, 'France', 5678, '0');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `Encheres`
+--
+
+CREATE TABLE `Encheres` (
+  `IDEnchere` int(11) NOT NULL,
+  `IDVendeur` int(11) NOT NULL,
+  `ddebut` date DEFAULT NULL,
+  `dfin` date DEFAULT NULL,
+  `Ref` int(11) NOT NULL,
+  `Prixmin` int(11) NOT NULL,
+  `Prixactuel` int(11) NOT NULL,
+  `hdebut` time NOT NULL,
+  `hfin` time NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `Encheres`
+--
+
+INSERT INTO `Encheres` (`IDEnchere`, `IDVendeur`, `ddebut`, `dfin`, `Ref`, `Prixmin`, `Prixactuel`, `hdebut`, `hfin`) VALUES
+(1, 1, '2020-04-16', '2020-04-24', 1, 20, 1, '12:31:45', '13:48:42');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `Encherisseur`
+--
+
+CREATE TABLE `Encherisseur` (
+  `IDEnchere` int(11) NOT NULL,
+  `IDAcheteur` int(11) NOT NULL,
+  `Encheremax` int(11) NOT NULL,
+  `enchereactuelle` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `Encherisseur`
+--
+
+INSERT INTO `Encherisseur` (`IDEnchere`, `IDAcheteur`, `Encheremax`, `enchereactuelle`) VALUES
+(1, 5, 30, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `Items`
+--
+
+CREATE TABLE `Items` (
+  `Ref` int(11) NOT NULL,
+  `Nom` varchar(255) NOT NULL,
+  `Description` text NOT NULL,
+  `Images` varchar(255) NOT NULL,
+  `Categorie` varchar(255) NOT NULL,
+  `TypedeVente` int(11) NOT NULL,
+  `IDVendeur` int(11) NOT NULL,
+  `Prix` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `Items`
+--
+
+INSERT INTO `Items` (`Ref`, `Nom`, `Description`, `Images`, `Categorie`, `TypedeVente`, `IDVendeur`, `Prix`) VALUES
+(1, 'lampe', 'jolie lampe', '1.jpg', 'VIP', 3, 1, 23),
+(3, 'Chaise', 'chaise très confortable ', '3.jpg', 'Musée', 2, 1, 15),
+(4, 'Table', 'Table en bois', '4.jpg', 'VIP', 4, 1, 50),
+(5, 'Pièce', 'Pièce en or', '5.jpg', 'FT', 1, 1, 70);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `Nego`
+--
+
+CREATE TABLE `Nego` (
+  `IDVendeur` int(11) NOT NULL,
+  `IDAcheteur` int(11) NOT NULL,
+  `Ref` int(11) NOT NULL,
+  `Compteur` int(11) NOT NULL,
+  `Proposition` int(11) NOT NULL,
+  `ContreProposition` int(11) NOT NULL,
+  `Accepter` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `Nego`
+--
+
+INSERT INTO `Nego` (`IDVendeur`, `IDAcheteur`, `Ref`, `Compteur`, `Proposition`, `ContreProposition`, `Accepter`) VALUES
+(1, 5, 4, 4, 47, 47, 0),
+(1, 3, 4, 2, 25, 50, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `Payement`
+--
+
+CREATE TABLE `Payement` (
+  `IDAcheteur` int(11) NOT NULL,
+  `Typecart` varchar(255) NOT NULL,
+  `Numero` int(16) NOT NULL,
+  `Nom` int(255) NOT NULL,
+  `Date` varchar(255) NOT NULL,
+  `Crypto` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `Vendeur`
+--
+
+CREATE TABLE `Vendeur` (
+  `IDVendeur` int(11) NOT NULL,
+  `Nom` varchar(255) NOT NULL,
+  `Prenom` varchar(255) NOT NULL,
+  `Email` varchar(255) NOT NULL,
+  `MdP` varchar(255) NOT NULL,
+  `Adresse` varchar(255) NOT NULL,
+  `Admin` int(6) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `Vendeur`
+--
+
+INSERT INTO `Vendeur` (`IDVendeur`, `Nom`, `Prenom`, `Email`, `MdP`, `Adresse`, `Admin`) VALUES
+(1, 'Paul', 'Caudal', 'paul.caudal@live.fr', 'root', 'Villennes sur Seine', 1);
+
+--
+-- Index pour les tables déchargées
+--
+
+--
+-- Index pour la table `Acheteur`
+--
+ALTER TABLE `Acheteur`
+  ADD PRIMARY KEY (`IDAcheteur`);
+
+--
+-- Index pour la table `Encheres`
+--
+ALTER TABLE `Encheres`
+  ADD PRIMARY KEY (`IDEnchere`),
+  ADD KEY `IDitem` (`Ref`),
+  ADD KEY `IDvendeur` (`IDVendeur`);
+
+--
+-- Index pour la table `Encherisseur`
+--
+ALTER TABLE `Encherisseur`
+  ADD KEY `IDachteur` (`IDAcheteur`),
+  ADD KEY `IDenchere` (`IDEnchere`);
+
+--
+-- Index pour la table `Items`
+--
+ALTER TABLE `Items`
+  ADD PRIMARY KEY (`Ref`),
+  ADD KEY `IDVendeur` (`IDVendeur`);
+
+--
+-- Index pour la table `Nego`
+--
+ALTER TABLE `Nego`
+  ADD KEY `Ref` (`Ref`),
+  ADD KEY `nego_ibfk_2` (`IDAcheteur`),
+  ADD KEY `nego_ibfk_3` (`IDVendeur`);
+
+--
+-- Index pour la table `Payement`
+--
+ALTER TABLE `Payement`
+  ADD KEY `IDclient` (`IDAcheteur`);
+
+--
+-- Index pour la table `Vendeur`
+--
+ALTER TABLE `Vendeur`
+  ADD PRIMARY KEY (`IDVendeur`);
+
+--
+-- AUTO_INCREMENT pour les tables déchargées
+--
+
+--
+-- AUTO_INCREMENT pour la table `Acheteur`
+--
+ALTER TABLE `Acheteur`
+  MODIFY `IDAcheteur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT pour la table `Encheres`
+--
+ALTER TABLE `Encheres`
+  MODIFY `IDEnchere` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT pour la table `Items`
+--
+ALTER TABLE `Items`
+  MODIFY `Ref` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT pour la table `Vendeur`
+--
+ALTER TABLE `Vendeur`
+  MODIFY `IDVendeur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- Contraintes pour les tables déchargées
+--
+
+--
+-- Contraintes pour la table `Encheres`
+--
+ALTER TABLE `Encheres`
+  ADD CONSTRAINT `encheres_ibfk_1` FOREIGN KEY (`Ref`) REFERENCES `Items` (`Ref`) ON DELETE CASCADE,
+  ADD CONSTRAINT `encheres_ibfk_2` FOREIGN KEY (`IDVendeur`) REFERENCES `Vendeur` (`IDVendeur`) ON DELETE CASCADE;
+
+--
+-- Contraintes pour la table `Encherisseur`
+--
+ALTER TABLE `Encherisseur`
+  ADD CONSTRAINT `encherisseur_ibfk_1` FOREIGN KEY (`IDAcheteur`) REFERENCES `Acheteur` (`IDAcheteur`) ON DELETE CASCADE,
+  ADD CONSTRAINT `encherisseur_ibfk_2` FOREIGN KEY (`IDEnchere`) REFERENCES `Encheres` (`IDEnchere`) ON DELETE CASCADE;
+
+--
+-- Contraintes pour la table `Items`
+--
+ALTER TABLE `Items`
+  ADD CONSTRAINT `items_ibfk_1` FOREIGN KEY (`IDVendeur`) REFERENCES `Vendeur` (`IDVendeur`) ON DELETE CASCADE;
+
+--
+-- Contraintes pour la table `Nego`
+--
+ALTER TABLE `Nego`
+  ADD CONSTRAINT `nego_ibfk_1` FOREIGN KEY (`Ref`) REFERENCES `Items` (`Ref`) ON DELETE CASCADE,
+  ADD CONSTRAINT `nego_ibfk_2` FOREIGN KEY (`IDAcheteur`) REFERENCES `Acheteur` (`IDAcheteur`) ON DELETE CASCADE,
+  ADD CONSTRAINT `nego_ibfk_3` FOREIGN KEY (`IDVendeur`) REFERENCES `Vendeur` (`IDVendeur`) ON DELETE CASCADE;
+
+--
+-- Contraintes pour la table `Payement`
+--
+ALTER TABLE `Payement`
+  ADD CONSTRAINT `payement_ibfk_1` FOREIGN KEY (`IDAcheteur`) REFERENCES `Acheteur` (`IDAcheteur`) ON DELETE CASCADE;

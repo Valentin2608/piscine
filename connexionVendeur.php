@@ -1,6 +1,6 @@
 <?php
 session_start();
- $login = isset($_POST["login"])? $_POST["login"] : ""; //if then else
+ $email = isset($_POST["email"])? $_POST["email"] : ""; //if then else
  $password = isset($_POST["password"])? $_POST["password"] : "";
 
 
@@ -15,9 +15,9 @@ $db_found = mysqli_select_db($db_handle, $database);
 
 if (isset($_POST['button1'])) {
 	if ($db_found) {
-		$sql = "SELECT * FROM acheteur";
-		if ($login != "") {
-			$sql .= " WHERE Email LIKE '$login'";
+		$sql = "SELECT * FROM Vendeur";
+		if ($email != "") {
+			$sql .= " WHERE Email LIKE '$email'";
 			if ($password != "") {
 				$sql .= " AND MdP LIKE '$password'";
 								}
@@ -30,15 +30,13 @@ if (isset($_POST['button1'])) {
 				else {
 						
 					
-					$sql = "SELECT ID, Nom, Prenom, Email, MdP FROM Acheteur WHERE Email = '$login'";
+					$sql = "SELECT ID, Nom, Prenom, Email, MdP FROM Vendeur WHERE Email = '$login'";
 					$result = mysqli_query($db_handle, $sql);
-					$i="1";
 					$data = mysqli_fetch_array($result, MYSQLI_ASSOC);
 					 $_SESSION['ID'] = $data['ID'];
 					$_SESSION['Nom'] = $data['Nom'];
-					$_SESSION['Prenom'] = $data['Prenom'];
-					$_SESSION['Email'] = $data['Email'];
-					$_SESSION['type']= $i;
+						$_SESSION['Prenom'] = $data['Prenom'];
+				$_SESSION['Email'] = $data['Email'];
 				
 					sleep(1);
 					header('Location: index.php');

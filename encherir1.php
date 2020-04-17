@@ -1,3 +1,7 @@
+<?php
+session_start();
+$ref =$_GET['ref'];
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,37 +10,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 	 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="styleIndex.css">
 	<link rel="stylesheet" type="text/css" href="style.css">
 
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
-	<script type="text/javascript">
-function choix() {
-    if(document.getElementById('enchere').checked)
-	{
-	document.getElementById('nego').checked = false;
-	document.getElementById('achatImm').checked = false;
-	}
-	 if(document.getElementById('achatImm').checked)
-	{
-	document.getElementById('enchere').checked = false;
-	}
-	if(document.getElementById('achatImm').checked && document.getElementById('nego').checked)
-	{
-	document.getElementById('achatImm').value = 4;
-	document.getElementById('nego').value = 4;
-	}
-	else
-	{
-	document.getElementById('achatImm').value = 2;
-	document.getElementById('nego').value = 1;
-	}
-}
-</script>
 </head>
-
-
 <body>
 <div class="global">
 <div class="container-fluid"> 
@@ -79,12 +59,12 @@ function choix() {
 					</a></li>
 				</div>
 				<div class="col-lg-1">
-					 <li class="nav-item"><a class="nav-link" href="#"style="color:white;">
+					 <li class="nav-item">
 					 <div class="dropdown">
-						<p data-toggle="dropdown">Achat</p>
+						<p data-toggle="dropdown" class="nav-link" style="color:white;">Achat</p>
 						<div class="dropdown-menu">
 							<div class="dropdown-item">
-							Enchère
+							<a class="nav-link" href="encherir.php"> Enchère</a>
 							</div>
 							<div class="dropdown-item">
 							Achat immédiat
@@ -94,7 +74,7 @@ function choix() {
 							</div>
 						</div>
 					</div>
-					 </a></li>
+					 </li>
 				</div>
 				<div class="col-lg-1">
 					 <li class="nav-item"><a class="nav-link" href="#"style="color:white;">Vendre</a></li>
@@ -117,82 +97,95 @@ function choix() {
 						</div>
 					</form>
 				</div>
+				
+				<div class="col-lg-2">
+				<?php
+				if(empty($_SESSION['ID'])) 
+				{
+				echo"<li class='nav-item'><a class='nav-link' href='connexion.html' style='color:white;'>Se Connecter</a></li>";
+				
+				}
+				else 
+				{
+					echo "<li class='nav-item'><a class='nav-link' href='deconnexion.php' style='color:white;'>Se Deconnecter</a></li>";
+				}
+				 ?>
+				
+				</div>
 				 </ul>
 			 </div>
 </nav>
 </div>
 <br>
 </div>
-
-
-<div class="vente">
-<h1 style="text-align:center;"> Vendez vos biens aux meilleurs prix </h1><br></br>
-<h3 style="text-align:center;"> Séléctionner une catégorie </h3><br>
-<form action="vendre.php" method="post">
 <div class="row">
-
-<div class="col-lg">
-<input type="radio" id="Ferraille ou Trésor" name="categorie" value="Ferraille ou Tresor">Ferraille ou Trésor</div>
-
-<div class="col-lg">
-<input type="radio" id="Bon pour le musée" name="categorie" value="Bon pour le musee">Bon pour le musée</div>
-
-<div class="col-lg">
-<input type="radio" id="Accessoire VIP" name="categorie" value="Accessoire VIP">Accessoire VIP
-</div></div><br></br><br></br>
-
-
-<div class="row">
-<div class="col-lg">
-<p> Nom du bien mis en vente :</p></div>
-<div class="col-lg">
-<p> Description du bien mis en vente :</p></div>
-<div class="col-lg">
-<p> Type de vente souhaité :</p></div>
+<div class="col-lg-8">
+<div class="objet" style=" border:solid; border-color:#808080; height:auto;" >
+<?php
+echo"test";
+//identifier votre BDD
+$database = "ECEEbay";
+//connectez-vous de votre BDD
+$db_handle = mysqli_connect('localhost', 'root', '');
+$db_found = mysqli_select_db($db_handle, $database);
+if ($db_found) {
+		$sql = "SELECT * FROM Items WHERE ref='$ref'";
+		$result = mysqli_query($db_handle, $sql);
+		$row=mysqli_fetch_array($result, MYSQLI_ASSOC);
+		$nom=$row['Nom'];
+		$image=$row['Images'];
+		$description=$row['Description'];
+		
+		
+		echo $nom. "</br>";
+		//echo "<img src=".$img."</br>";
+		echo $decription. "</br>";
+}
+?>
 </div>
-
-
-<div class="row">
+</div>
 <div class="col-lg-4">
-<input type="text"  name="nom"></div>
-<div class="col-lg-4">
-<textarea name="description" rows="5" cols="40" maxlength="255"></textarea></div>
-<div class="col-lg-4">
-<table>
-	<tr>
-		<td><input type="checkbox" id="enchere" name="typeVente" value=3 onclick="choix();">Enchère</td>
-	</tr>
-	<tr>
-		<td><input type="checkbox" id="achatImm" name="typeVente" value=2 onclick="choix();">Achat immédiat</td>
-	</tr>
-	<tr>
-		<td><input type="checkbox" id="nego" name="typeVente" value=1 onclick="choix();" >Négocier</td>
-	</tr>
+<div class="enchere" style="border:solid; border-color:#808080; height:auto; margin-bottom:10px; margin-right:10px;">
+<?php
+$database = "EbayECE";
+$db_handle = mysqli_connect('localhost', 'root', '');
+$db_found = mysqli_select_db($db_handle, $database);
+$sql = "SELECT * FROM Items WHERE ref='$ref'";
+$result = mysqli_query($db_handle, $sql);
+		$row=mysqli_fetch_array($result, MYSQLI_ASSOC);
+		$vendeur=$row['IDVendeur'];
+		$prix=$row['Prix'];
+		$description=$row['Description'];
+		
+		
+echo "Nom du vendeur:".$vendeur. "</br>";
+echo "Prix actuel:" .$prix. "</br>";
+		
+echo '<form action="encherir.php?ref='.$ref.'" method="post">';
+$sql="SELECT * FROM Encheres WHERE Ref='$ref'";  
+$result = mysqli_query($db_handle, $sql);
+$row=mysqli_fetch_array($result, MYSQLI_ASSOC);
+$nom=$row['Nom'];
+echo'<h1>Enchérir sur: '.$nom.'</h1>
+<table> 
+<tr>
+<td>    Enchère de départ:</td>
+<td><input type="number"  name="dep">€</td>
+</tr>
+<tr>
+<td> Enchère max:</td>
+<td><input type="number"  name="max">€</td>
+</tr> 
+<tr> 
+<td colspan="2" align="center">';
+echo'<input type="submit" name="button1" value="soumettre">';
+?>
+</td>
+</tr>
 </table>
-</div>
-</div><br></br>
-
-<div class="row">
-<div class="col-lg-4">
-<p> Ajouter des photos ou des vidéos : </p></div>
-<div class="col-lg-4">
-<p> Prix initial : </p></div>
-</div>
-<div class="row">
-<div class="col-lg-4">
-<p> <div class="parent-div">
-      <button class="btn-upload">Choisir le fichier</button>
-      <input type="file" name="image" />
-    </div> </p></div>
-<div class="col-lg-4">
-<p> <input type="number"  name="prix">€</p></div>
-<div class="col-lg-4">
-<input type="submit" name="soumettre" value="Mettre en vente">
-</div>
-</div>
 </form>
 </div>
-
+</div>
 
 <footer class="page-footer">
 			 	<div class="container">
@@ -214,7 +207,6 @@ function choix() {
 					 </div>
 				</div>
 			 <div class="footer-copyright text-center">&copy; 2020 Copyright | Droit d'auteur: ProjetVG-PC-NT</div>
-		</footer>
+</footer>
 </body>
-
 </html>
