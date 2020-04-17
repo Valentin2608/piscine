@@ -107,13 +107,9 @@
  <h1>Galerie d'image</h1>
  <?php
 
-<<<<<<< HEAD
+
  $database = "EbayECE";
 $db_handle = mysqli_connect('localhost', 'root', 'root');
-=======
- $database = "ECEEbay";
-$db_handle = mysqli_connect('localhost', 'root', '');
->>>>>>> f037f3d5771d8343e48a68f2a71d7b3a8dd80f83
 $db_found = mysqli_select_db($db_handle, $database);
 $sql="SELECT * FROM `Encheres`";
 $resultat=mysqli_query($db_handle,$sql);
@@ -122,7 +118,6 @@ $type="image";
 $name="button";
 $classe1="img-thumbnail";
 $classe2="caption";
-<<<<<<< HEAD
 while ($row=mysqli_fetch_array($resultat, MYSQLI_ASSOC)) 
 {
 $ref=$row['Ref'];
@@ -142,25 +137,6 @@ echo '<form action="encherir1.php?ref='.$ref.'" method="post">
 </div> 
 </div></td>
 </tr></form>';
-=======
-while ($row=mysqli_fetch_array($resultat, MYSQLI_ASSOC))
-{
-$ref=$row['Ref'];
-$date="jusqu'au ".$row['dfin']." a ".$row['hfin'];
-$prix=$row['Prixactuel'];
-$sql2="SELECT * FROM `Items` WHERE `Ref`='$ref'";
-$resultat2=mysqli_query($db_handle,$sql2);
-$row2=mysqli_fetch_array($resultat2, MYSQLI_ASSOC);
-
-$nom=$row2['Nom'];
-$description=$row2['Description'];
-$img=$row2['Images'];
-echo "<div class=".$classe1."><input type=".$type." name=".$name." value=".$ref." src=".$img." widht=".$size." height=".$size.">
-<div class=".$clase2.">
-<p>Nom: ".$nom."</br>Description :".$description."</br>Date limite :".$date."</br>Prix :".$prix."</p>
-</div>
-</div>";
->>>>>>> f037f3d5771d8343e48a68f2a71d7b3a8dd80f83
 }
 ?>
 </div>

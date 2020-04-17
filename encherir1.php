@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+$ref =$_GET['ref'];
 ?>
 <!DOCTYPE html>
 <html>
@@ -118,20 +118,60 @@ session_start();
 </div>
 <br>
 </div>
-<div class="creer2">
+<div class="container-fluid">
+<div class="row">
+<div class="col-lg-8">
+<div class="objet" style=" border:solid; border-color:#808080; height:auto;" >
+<?php
+
+$ref =$_GET['ref'];
+//identifier votre BDD
+$database = "EbayECE";
+//connectez-vous de votre BDD
+$db_handle = mysqli_connect('localhost', 'root', 'root');
+$db_found = mysqli_select_db($db_handle, $database);
+
+		$sql = "SELECT * FROM Items WHERE ref='$ref'";
+		$result = mysqli_query($db_handle, $sql);
+		$row=mysqli_fetch_array($result, MYSQLI_ASSOC);
+		$nom=$row['Nom']; 
+		$image=$row['Images'];
+		$description=$row['Description'];
+		
+		
+		echo "Nom: ".$nom. "</br>";
+		echo "Description: ".$description. "</br>";
+		echo '<img src="'.$image.'" widht="150" height="150"></br>';
+		
+
+?>
+</div>
+</div>
+<div class="col-lg-4">
+<div class="enchere" style="border:solid; border-color:#808080; height:auto; margin-bottom:10px; margin-right:10px;">
 <?php
 $ref =$_GET['ref'];
-echo '<form action="encherir.php?ref='.$ref.'" method="post">';
-
 $database = "EbayECE";
 $db_handle = mysqli_connect('localhost', 'root', 'root');
 $db_found = mysqli_select_db($db_handle, $database);
-$sql="SELECT * FROM Encheres WHERE Ref='$ref'";  
-$resultat=mysqli_query($db_handle,$sql);
-$row=mysqli_fetch_array($resultat, MYSQLI_ASSOC);
+$result = mysqli_query($db_handle, $sql);
+		$row=mysqli_fetch_array($result, MYSQLI_ASSOC);
+		$vendeur=$row['IDVendeur'];
+		$prix=$row['Prix'];
+		$sql="SELECT * FROM Vendeur WHERE IDVendeur='$vendeur'";  
+		$result = mysqli_query($db_handle, $sql);
+		$row=mysqli_fetch_array($result, MYSQLI_ASSOC);
+		$vendeur=$row['Prenom']." ".$row['Nom'];
+echo "Nom du vendeur: ".$vendeur. "</br>";
+echo "Prix actuel:" .$prix. "</br>";
+		
+echo '<form action="encherir.php?ref='.$ref.'" method="post">';
+$sql="SELECT * FROM Items WHERE Ref='$ref'";  
+$result = mysqli_query($db_handle, $sql);
+$row=mysqli_fetch_array($result, MYSQLI_ASSOC);
 $nom=$row['Nom'];
-echo'<h1>Enchérir sur: '.$nom.'</h1>
-<table> 
+echo"<h1>Enchérir sur: ".$nom."</h1>";
+echo '<table> 
 <tr>
 <td>    Enchère de départ:</td>
 <td><input type="number"  name="dep">€</td>
@@ -148,6 +188,8 @@ echo'<input type="submit" name="button1" value="soumettre">';
 </tr>
 </table>
 </form>
+</div>
+</div>
 </div>
 <footer class="page-footer">
 			 	<div class="container">
