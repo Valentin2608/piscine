@@ -166,7 +166,7 @@ $_SESSION['type']=0;
 </div>
 
 <div class= "container-fluid">
- <h1>Galerie d'image</h1>
+ <h1 style="text-align:center">Les objets en achat immédiat</h1>
  <?php
 
 

@@ -166,7 +166,7 @@ $_SESSION['type']=0;
 </div>
 
 <div class= "container-fluid">
- <h1>Galerie d'image</h1>
+ <h1 style="text-align:center">Les offres ou la négociation est posible</h1>
  <?php
 
 
