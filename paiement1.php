@@ -1,4 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Paiement</title>
+<meta charset="utf-8">
+</head>
+<body>
 
+</body>
+</html><?php
+session_start();
+$ref =$_GET['ref'];
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -95,50 +107,69 @@
 					</form>
 				</div>
 				
+				<div class="col-lg-2">
+				<?php
+				if(empty($_SESSION['ID'])) 
+				{
+				echo"<li class='nav-item'><a class='nav-link' href='connexion.html' style='color:white;'>Se Connecter</a></li>";
 				
+				}
+				else 
+				{
+					echo "<li class='nav-item'><a class='nav-link' href='deconnexion.php' style='color:white;'>Se Deconnecter</a></li>";
+				}
+				 ?>
+				
+				</div>
 				 </ul>
 			 </div>
 </nav>
 </div>
 <br>
 </div>
+<h3>Paiement </h3>
+<?php
+$ida =$_GET['ida'];
+$from=$_GET['from'];
+echo '<form action="paiement.php?ida='.$ida.'&from='.$from.'" method="post">'
 
-<div class= "container-fluid">
- <h1>Galerie d'image</h1>
- <?php
-
-$ida=5;
-$database = "EbayECE";
-$db_handle = mysqli_connect('localhost', 'root', 'root');
-$db_found = mysqli_select_db($db_handle, $database);
-$sql="SELECT * FROM `Items`";
-$resultat=mysqli_query($db_handle,$sql);
-$size="150";
-$type="image";
-$name="button";
-$classe1="img-thumbnail";
-$classe2="caption";
-while ($row=mysqli_fetch_array($resultat, MYSQLI_ASSOC))  
-{
-$ref=$row['Ref'];
-$prix=$row['Prix'];
-$typev=$row['TypedeVente']; 
-$nom=$row['Nom'];
-$description=$row['Description']; 
-$categorie=$row['Categorie'];
-$img=$row['Images'];
-if($typev==2 || $typev==4)
-{echo '<form action="ajouteraupanier1.php?ref='.$ref.'&id='.$ida.'" method="post">
-<tr>
-<td><div class='.$classe1.'><input type='.$type.' name='.$name.' value='.$ref.' src='.$img.' widht='.$size.' height='.$size.'>
-<div class='.$clase2.'>
-<p>Nom: '.$nom.'</br>Description :'.$description.'</br>Categorie :'.$categorie.'</br>Prix :'.$prix.'€</p>
-</div> 
-</div></td>
-</tr></form>';
-}}
 ?>
-</div>
+<table>
+
+<td>Payer par:</td>
+<td>
+<input type="radio" name="creditCard" value="MasterCard">MasterCard
+<br>
+<input type="radio" name="creditCard" value="Visa">Visa <br>
+<input type="radio" name="creditCard" value="AmericanExpress">American
+Express <br>
+<input type="radio" name="creditCard" value="Paypal">Paypal
+Express <br><br>
+</td>
+</tr>
+<tr>
+<td>Numéro de carte</td>
+<td><input type="number" step="0.01" name="numeroC"></td>
+</tr>
+<tr>
+<td>Nom sur la carte</td>
+<td><input type="text" step="0.01" name="nomC"></td>
+</tr>
+<tr>
+<td>Date d'expiration</td>
+<td><input type="month" step="0.01" name="dateE"></td>
+</tr>
+<tr>
+<td>Cryptogramme</td>
+<td><input type="number" step="0.01" name="crypto"></td>
+</tr>
+<tr>
+<td colspan="2" align="center">
+<input type="submit" name="button1" value="Submit">
+</td>
+</tr>
+</table>
+</form>
 <footer class="page-footer">
 			 	<div class="container">
 					 <div class="row">

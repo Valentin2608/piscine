@@ -1,7 +1,8 @@
 <?php
 
 if (isset($_POST["button1"])) {
-
+$ida =$_GET['ida'];
+$from=$_GET['from'];
 $card = isset($_POST["creditCard"])? $_POST["creditCard"] :"";
 $numeroC = isset($_POST["numeroC"])? $_POST["numeroC"] : "";
 $nomC= isset($_POST["nomC"])? $_POST["nomC"] :"";
@@ -30,7 +31,7 @@ $erreur = "";
 $database = "EbayECE";
 	$db_handle = mysqli_connect('localhost', 'root', 'root');
 	$db_found = mysqli_select_db($db_handle, $database);
-		$sql="INSERT INTO `Payement`( `Numero`, `Typecart`, `Nom`, `Date`, `Crypto`) VALUES ('$numeroC','$card','$nomC','$dateE','$crypto')";
+		$sql="INSERT INTO `Payement`( `IDAcheteur`,`Numero`, `Typecart`, `Nom`, `Date`, `Crypto`) VALUES ('$ida','$numeroC','$card','$nomC','$dateE','$crypto')";
 		if(mysqli_query($db_handle, $sql)){ 
     	echo "Record was updated successfully."; 
 		} else 
@@ -47,4 +48,5 @@ else
  echo "Erreur : $erreur";
  }
 }
+header('Location:'.$form); 
 ?>

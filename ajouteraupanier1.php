@@ -1,4 +1,8 @@
+<?php
+session_start();
+$ref =$_GET['ref'];
 
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -95,49 +99,92 @@
 					</form>
 				</div>
 				
+				<div class="col-lg-2">
+				<?php
+				if(empty($_SESSION['ID'])) 
+				{
+				echo"<li class='nav-item'><a class='nav-link' href='connexion.html' style='color:white;'>Se Connecter</a></li>";
 				
+				}
+				else 
+				{
+					echo "<li class='nav-item'><a class='nav-link' href='deconnexion.php' style='color:white;'>Se Deconnecter</a></li>";
+				}
+				 ?>
+				
+				</div>
 				 </ul>
 			 </div>
 </nav>
 </div>
 <br>
 </div>
+<div class="container-fluid">
+<div class="row">
+<div class="col-lg-8">
+<div class="objet" style=" border:solid; border-color:#808080; height:auto;" >
+<?php
 
-<div class= "container-fluid">
- <h1>Galerie d'image</h1>
- <?php
-
-$ida=5;
+$ref=$_GET['ref'];
+//identifier votre BDD
 $database = "EbayECE";
+//connectez-vous de votre BDD
 $db_handle = mysqli_connect('localhost', 'root', 'root');
 $db_found = mysqli_select_db($db_handle, $database);
-$sql="SELECT * FROM `Items`";
-$resultat=mysqli_query($db_handle,$sql);
-$size="150";
-$type="image";
-$name="button";
-$classe1="img-thumbnail";
-$classe2="caption";
-while ($row=mysqli_fetch_array($resultat, MYSQLI_ASSOC))  
-{
-$ref=$row['Ref'];
-$prix=$row['Prix'];
-$typev=$row['TypedeVente']; 
-$nom=$row['Nom'];
-$description=$row['Description']; 
-$categorie=$row['Categorie'];
-$img=$row['Images'];
-if($typev==2 || $typev==4)
-{echo '<form action="ajouteraupanier1.php?ref='.$ref.'&id='.$ida.'" method="post">
-<tr>
-<td><div class='.$classe1.'><input type='.$type.' name='.$name.' value='.$ref.' src='.$img.' widht='.$size.' height='.$size.'>
-<div class='.$clase2.'>
-<p>Nom: '.$nom.'</br>Description :'.$description.'</br>Categorie :'.$categorie.'</br>Prix :'.$prix.'€</p>
-</div> 
-</div></td>
-</tr></form>';
-}}
+
+		$sql = "SELECT * FROM Items WHERE Ref='$ref'";
+		$result = mysqli_query($db_handle, $sql);
+		$row=mysqli_fetch_array($result, MYSQLI_ASSOC);
+		$nom=$row['Nom']; 
+		$image=$row['Images'];
+		$description=$row['Description'];
+		
+		
+		echo "Nom: ".$nom. "</br>";
+		echo "Description: ".$description. "</br>";
+		echo '<img src="'.$image.'" widht="150" height="150"></br>';
+		
+
 ?>
+</div>
+</div>
+<div class="col-lg-4">
+<div class="enchere" style="border:solid; border-color:#808080; height:auto; margin-bottom:10px; margin-right:10px;">
+<?php
+
+$ref=$_GET['ref'];
+//$idv=$_SESSION['ID'];
+$ida=$_GET['id'];
+$database = "EbayECE";
+ $db_handle = mysqli_connect('localhost', 'root', 'root');
+ $db_found = mysqli_select_db($db_handle, $database);
+ 
+  
+		$sql = "SELECT * FROM Items WHERE Ref='$ref'";
+		$result = mysqli_query($db_handle, $sql);
+		$row=mysqli_fetch_array($result, MYSQLI_ASSOC);
+		$prix=$row['Prix'];
+		$vendeur=$row['IDVendeur'];
+		$sql="SELECT * FROM Vendeur WHERE IDVendeur='$vendeur'";  
+		$result = mysqli_query($db_handle, $sql);
+		$row=mysqli_fetch_array($result, MYSQLI_ASSOC);
+		$vendeur=$row['Prenom']." ".$row['Nom'];
+echo "Nom du vendeur: ".$vendeur. "</br>";
+echo "Proposition du vendeur:" .$prix. "€</br>";		
+echo '<form action="ajouteraupanier.php?ref='.$ref.'&ida='.$ida.'" method="post">';
+$sql="SELECT * FROM Items WHERE Ref='$ref'";   
+$result = mysqli_query($db_handle, $sql);
+$row2=mysqli_fetch_array($result, MYSQLI_ASSOC); 
+$nom=$row2['Nom'];
+echo"<h1>Ajouter au panier: ".$nom."</h1>";
+echo '<table>
+<tr> 
+<td colspan="2" align="center">';
+echo'<input type="submit" name="button1" value="Ajouter"></td></tr></table></form></br>';
+
+?>
+</div>
+</div>
 </div>
 <footer class="page-footer">
 			 	<div class="container">

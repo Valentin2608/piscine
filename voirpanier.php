@@ -104,40 +104,61 @@
 </div>
 
 <div class= "container-fluid">
- <h1>Galerie d'image</h1>
+<h1>Voter Panier</h1>
+<div class="row">
+<div class="col-lg-8">
+<div class="objet" style=" border:solid; border-color:#808080; height:auto;" >
+ 
  <?php
 
 $ida=5;
 $database = "EbayECE";
 $db_handle = mysqli_connect('localhost', 'root', 'root');
 $db_found = mysqli_select_db($db_handle, $database);
-$sql="SELECT * FROM `Items`";
+$sql="SELECT * FROM `Panier` WHERE `IDAcheteur`='$ida'";
 $resultat=mysqli_query($db_handle,$sql);
-$size="150";
-$type="image";
-$name="button";
 $classe1="img-thumbnail";
 $classe2="caption";
+$prixtot=0;
 while ($row=mysqli_fetch_array($resultat, MYSQLI_ASSOC))  
 {
 $ref=$row['Ref'];
-$prix=$row['Prix'];
-$typev=$row['TypedeVente']; 
-$nom=$row['Nom'];
-$description=$row['Description']; 
-$categorie=$row['Categorie'];
-$img=$row['Images'];
-if($typev==2 || $typev==4)
-{echo '<form action="ajouteraupanier1.php?ref='.$ref.'&id='.$ida.'" method="post">
+$sql="SELECT * FROM `Items` WHERE `Ref`='$ref'";
+$resultat2=mysqli_query($db_handle,$sql);
+while ($row2=mysqli_fetch_array($resultat2, MYSQLI_ASSOC))  
+{
+$prix=$row2['Prix'];
+$prixtot=$prixtot+$prix;
+$nom=$row2['Nom'];
+$description=$row2['Description'];
+$categorie=$row2['Categorie'];
+$img=$row2['Images'];
+echo '<form action="suprimerdupanier.php?ref='.$ref.'&ida='.$ida.'" method="post">
+<table>
 <tr>
-<td><div class='.$classe1.'><input type='.$type.' name='.$name.' value='.$ref.' src='.$img.' widht='.$size.' height='.$size.'>
+<td><div class='.$classe1.'><img src="'.$img.'" widht="150" height="150">
 <div class='.$clase2.'>
 <p>Nom: '.$nom.'</br>Description :'.$description.'</br>Categorie :'.$categorie.'</br>Prix :'.$prix.'€</p>
 </div> 
 </div></td>
-</tr></form>';
+</tr><tr> 
+<td colspan="2" align="center">
+<input type="submit" name="button1" value="suprimer"></td></tr></table></form>';
 }}
+echo'<h3>Total: '.$prixtot.' €</h3>';
 ?>
+</div>
+</div>
+<div class="col-lg-4">
+<div class="enchere" style="border:solid; border-color:#808080; height:auto; margin-bottom:10px; margin-right:10px;">
+<h2>Passer à l'achat</h2>
+<?php
+$ida=5;
+echo '<form action="verife.php?ida='.$ida.'" method="post">';?>
+<input type="submit" name="button1" value="Valider votre Panier"></form>
+</div>
+</div>
+</div>
 </div>
 <footer class="page-footer">
 			 	<div class="container">
