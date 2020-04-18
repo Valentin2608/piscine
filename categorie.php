@@ -144,7 +144,7 @@ $_SESSION['ID']=0;
 
 <div class="row">
 <div class="col-lg-3">
-<h1 class="my-4">Catégories</h1>
+<h1 class="my-4"style="text-align:center">Catégories</h1>
         <div class="list-group" >
           <a href="listeFerrailleTresor.php" class="list-group-item" style="color:#466482">Ferraille ou Trésor</a>
           <a href="listeBonMusee.php" class="list-group-item"style="color:#466482">Bon pour le musée</a>

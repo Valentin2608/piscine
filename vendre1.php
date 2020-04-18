@@ -170,42 +170,42 @@ function choix() {
 </div>
 
 
-<div class="vente">
-<h1 style="text-align:center;"> Vendez vos biens aux meilleurs prix </h1><br></br>
+<div class="card shadow mb-4" style="margin-top:20px; margin-right:20px; margin-left:20px;">
+<h1 style="text-align:center; margin-top:10px;"> Vendez vos biens aux meilleurs prix </h1><br></br>
 <h3 style="text-align:center;"> Séléctionner une catégorie </h3><br>
 <form action="vendre.php" method="post" enctype="multipart/form-data">
 <div class="row">
 
-<div class="col-lg">
-<input type="radio" id="Ferraille ou Trésor" name="categorie" value="Ferraille ou Tresor">Ferraille ou Trésor</div>
+<div class="col-lg" style="text-align:center">
+<input type="radio" id="Ferraille ou Trésor" name="categorie" value="Ferraille ou Tresor" style="margin-left:5px;">Ferraille ou Trésor</div>
 
-<div class="col-lg">
+<div class="col-lg"style="text-align:center">
 <input type="radio" id="Bon pour le musée" name="categorie" value="Bon pour le musee">Bon pour le musée</div>
 
-<div class="col-lg">
+<div class="col-lg"style="text-align:center">
 <input type="radio" id="Accessoire VIP" name="categorie" value="Accessoire VIP">Accessoire VIP
 </div></div><br></br><br></br>
 
 
 <div class="row">
-<div class="col-lg">
-<p> Nom du bien mis en vente :</p></div>
+<div class="col-lg"style="text-align:center">
+<p style="margin-left:5px;"> Nom du bien mis en vente :</p></div>
 <div class="col-lg">
 <p> Description du bien mis en vente :</p></div>
-<div class="col-lg">
+<div class="col-lg"style="text-align:center">
 <p> Type de ventes souhaité :</p></div>
 </div>
 
 
 <div class="row">
-<div class="col-lg-4">
-<input type="text"  name="nom"></div>
+<div class="col-lg-4"style="text-align:center">
+<input type="text"  name="nom" style="margin-left:5px;"></div>
 <div class="col-lg-4">
 <textarea name="description" rows="5" cols="40" maxlength="255"></textarea></div>
-<div class="col-lg-4">
+<div class="col-lg-4" >
 <table>
     <tr>
-        <td><input type="checkbox" id="enchere" name="typeVente" value=3 onclick="choix();">Enchère</td>
+    <td><input type="checkbox" id="enchere" name="typeVente" value=3 onclick="choix();">Enchère</td>
     </tr>
 	<tr>
 	<td><div id="dateNego" style="display:none;"><label for="start">Start date:</label>
@@ -222,31 +222,38 @@ function choix() {
 	 </br></div></td>
 	</tr>
     <tr>
-        <td><input type="checkbox" id="achatImm" name="typeVente" value=2 onclick="choix();">Achat immédiat</td>
+       <td><input type="checkbox" id="achatImm" name="typeVente" value=2 onclick="choix();">Achat immédiat</td>
     </tr>
     <tr>
-        <td><input type="checkbox" id="nego" name="typeVente" value=1 onclick="choix();" >Négocier</td>
+      <td><input type="checkbox" id="nego" name="typeVente" value=1 onclick="choix();" >Négocier</td>
     </tr>
 </table>
 </div>
 </div><br></br>
 
 <div class="row">
-<div class="col-lg-4">
-<p> Ajouter des photos ou des vidéos : </p></div>
+<div class="col-lg-4"style="text-align:center">
+<p style="margin-left:5px;"> Ajouter des photos ou des vidéos : </p></div>
 <div class="col-lg-4">
 <p> Prix initial : </p></div>
 </div>
 <div class="row">
-<div class="col-lg-4">
+<div class="col-lg-4"style="text-align:center"	>
 <p> <div class="parent-div">
-      <button class="btn-upload">Choisir le fichier</button>
+      <button class="btn-upload" style="margin-left:5px;">Choisir le fichier</button>
       <input type="file" name="photo">
     </div> </p></div>
 <div class="col-lg-4">
 <p> <input type="number"  name="prix">€</p></div>
-<div class="col-lg-4">
-<input type="submit" name="soumettre" value="Mettre en vente">
+<div class="col-lg-4"style="text-align:center">
+<input type="submit" name="soumettre" value="Mettre en vente" style=" background-color: #007BFF;
+    Color:white;
+    font-weight: bold;
+    padding: 10px 40px;
+    border-radius: 3px;
+    cursor: pointer; 
+    box-shadow: 0 8px 16px 0 grey;
+    text-decoration: none;">
 </div>
 </div>
 </form>
