@@ -10,15 +10,15 @@
     
     
     $sql="SELECT * FROM `Panier` WHERE `IDAcheteur`='$ida'";
-    $resultat=mysqli_query($db_handle,$sql);
+    $resultat=mysqli_query($db_handle,$sql); 
     while ($row=mysqli_fetch_array($resultat, MYSQLI_ASSOC))  
     {
     	$ref=$row['Ref'];
-    	$sql="DELETE FROM `Items` WHERE `Ref`='$ref'";
-    	mysqli_query($db_handle, $sql);
+    	$sql2="DELETE FROM `Items` WHERE `Ref`='$ref'";
+    	mysqli_query($db_handle, $sql2);
     	
     }
-    
+
     echo"8642<br>";
     mysqli_close($db_handle);    
     header('Location:index.php');

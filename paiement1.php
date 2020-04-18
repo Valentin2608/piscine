@@ -131,7 +131,7 @@ $ref =$_GET['ref'];
 <?php
 $ida =$_GET['ida'];
 $from=$_GET['from'];
-echo '<form action="paiement.php?ida='.$ida.'&from='.$from.'" method="post">'
+echo '<form action="paiement.php?ida='.$ida.'&from='.$from.'" method="post">';
 
 ?>
 <table>

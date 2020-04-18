@@ -8,16 +8,16 @@
     $db_found = mysqli_select_db($db_handle, $database);
 
     
-    
+    $from=1;
     $sql="SELECT * FROM `Payement` WHERE `IDAcheteur`='$ida'";
     $resultat=mysqli_query($db_handle, $sql);
         if(mysqli_num_rows($resultat) == 0)
         { 
-        	header('Location:paiment1.php?id='.$ida.'&from="voirpanier.php"'); 
+        	header('Location:paiement1.php?ida='.$ida.'&from='.$from);
         }
         else 
         {
-            header('Location:comfirmerpanier.php?id='.$ida); 
+            header('Location:comfirmerpanier.php?ida='.$ida);
         }
     
    
