@@ -173,7 +173,7 @@ $compt=$row['Compteur'];
 
 		
  $prix=$row['Proposition']; 
-  
+  $acc=$row['Accepter'];
 		$ida=$row['IDAcheteur'];
 		$sql="SELECT * FROM Acheteur WHERE IDAcheteur='$ida'";  
 		$result = mysqli_query($db_handle, $sql);
@@ -181,6 +181,8 @@ $compt=$row['Compteur'];
 		$acheteur=$row['Prenom']." ".$row['Nom'];
 echo "Nom de l'acheteur: ".$acheteur. "</br>";
 echo "Proposition de l'acheteur" .$prix. "€</br>";
+if($acc==0)
+{
 if($compt%2 != 0)
 {		
 echo '<form action="repvendeur.php?ref='.$ref.'&ida='.$ida.'" method="post">';
@@ -191,6 +193,11 @@ $nom=$row2['Nom'];
 echo"<h1>Négocier: ".$nom."</h1>";
 echo '<table>
 <tr>
+<td>Accepter  </td>
+<td>
+<input type="checkbox" value="0" onclick="if (this.checked) this.value=1; else this.value=0;alert(this.value);" name="rep" />
+</td></tr>
+<tr>
 <td> Proposition :</td>
 <td><input type="number"  name="co"></td>   
 </tr>
@@ -199,9 +206,18 @@ echo '<table>
 echo'<input type="submit" name="button1" value="soumettre"></td></tr></table></form></br>';}
 else
 {
-echo"<h2>L'acheteur ne vous a pas encors répondu</h2>";
+echo"<h2>L'acheteur ne vous a pas encors répondu</h2>";}
 
-}}}
+}
+else
+{
+echo"<h2>Vous et l'acheteur êtes tombé d'accord</h2>";
+echo '<form action="finalisernego.php?ref='.$ref.'" method="post">';
+echo '<table>
+<tr> 
+<td colspan="2" align="center">';
+echo'<input type="submit" name="button1" value="finir">';}
+}}
 ?>
 </div>
 </div>

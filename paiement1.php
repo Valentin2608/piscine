@@ -131,8 +131,10 @@ $ref =$_GET['ref'];
 <?php
 $ida =$_GET['ida'];
 $from=$_GET['from'];
-echo '<form action="paiement.php?ida='.$ida.'&from='.$from.'" method="post">';
-
+if($form==2)
+{$ref=$_GET['ref'];
+echo '<form action="paiement.php?ida='.$ida.'&from='.$from.'&ref='.$ref.'" method="post">';}
+else{echo '<form action="paiement.php?ida='.$ida.'&from='.$from.'" method="post">';}
 ?>
 <table>
 

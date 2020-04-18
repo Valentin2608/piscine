@@ -35,7 +35,8 @@ $database = "EbayECE";
 		mysqli_query($db_handle, $sql);
 		if($from==1)
     	{header('Location:voirpanier.php');}
-		
+		if($from==2)
+		{header('Location:comfirmernego.php');}
 	mysqli_close($db_handle);     
 	
 	

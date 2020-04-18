@@ -154,7 +154,8 @@ echo'<h3>Total: '.$prixtot.' €</h3>';
 <h2>Passer à l'achat</h2>
 <?php
 $ida=5;
-echo '<form action="verife.php?ida='.$ida.'" method="post">';?>
+$from=1;
+echo '<form action="verife.php?ida='.$ida.'&from='.$from.'" method="post">';?>
 <input type="submit" name="button1" value="Valider votre Panier"></form>
 </div>
 </div>

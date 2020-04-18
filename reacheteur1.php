@@ -157,16 +157,26 @@ $database = "EbayECE";
  $db_handle = mysqli_connect('localhost', 'root', 'root');
  $db_found = mysqli_select_db($db_handle, $database);
  
+		$sql="SELECT * FROM `Nego` WHERE `Ref`='$ref'";
+ $resultat=mysqli_query($db_handle,$sql);
+ $imp=0;
+ while($row=mysqli_fetch_array($resultat, MYSQLI_ASSOC))
+ {
+ 	$acc=$row['Accepter'];
+ 	$id=$row['IDAcheteur'];
+ 	if($acc==1 && $id!=$ida)
+ 	{$imp=1;}
+ }
+ if($imp==0)
+{
 $sql="SELECT * FROM Nego WHERE Ref='$ref' AND IDAcheteur='$ida'";  
 $result = mysqli_query($db_handle, $sql);
 $row=mysqli_fetch_array($result, MYSQLI_ASSOC);
 $compt=$row['Compteur'];
-
-		$sql="SELECT * FROM `Nego` WHERE `Ref`='$ref'";
- $resultat=mysqli_query($db_handle,$sql);
- $row=mysqli_fetch_array($resultat, MYSQLI_ASSOC);
  $prix=$row['ContreProposition'];
- 
+ $acc=$row['Accepter'];
+ if($acc==0)
+		{
 		$sql = "SELECT * FROM Items WHERE Ref='$ref'";
 		$result = mysqli_query($db_handle, $sql);
 		$row=mysqli_fetch_array($result, MYSQLI_ASSOC);
@@ -179,13 +189,19 @@ echo "Nom du vendeur: ".$vendeur. "</br>";
 echo "Proposition du vendeur:" .$prix. "€</br>";
 if($compt%2 == 0)
 {		
-echo '<form action="repachteur.php?ref='.$ref.'" method="post">';
+$from=2;
+echo '<form action="repachteur.php?ref='.$ref.'&from='.$from.'" method="post">';
 $sql="SELECT * FROM Items WHERE Ref='$ref'";   
 $result = mysqli_query($db_handle, $sql);
 $row=mysqli_fetch_array($result, MYSQLI_ASSOC); 
 $nom=$row['Nom'];
 echo"<h1>Négocier: ".$nom."</h1>";
 echo '<table>
+<tr>
+<td>Accepter  </td>
+<td>
+<input type="checkbox" value="0" onclick="if (this.checked) this.value=1; else this.value=0;alert(this.value);" name="rep" />
+</td></tr>
 <tr>
 <td> Proposition :</td>
 <td><input type="number"  name="prix"></td>
@@ -201,7 +217,12 @@ echo '<table>
 <tr> 
 <td colspan="2" align="center">';
 echo'<input type="submit" name="button1" value="OK">';
-}
+}}
+
+else 
+{echo"<h2>Le Vendeur et vous êtes tombé d'accord</h2>";}}
+else 
+{echo"<h2>L'article à été vendu</h2>";}
 ?>
 </td>
 </tr>

@@ -108,7 +108,7 @@
  <?php
 
 $idv=1;
- $database = "EbayECE";
+$database = "EbayECE";
 $db_handle = mysqli_connect('localhost', 'root', 'root');
 $db_found = mysqli_select_db($db_handle, $database);
 $sql="SELECT * FROM `Items` WHERE IDVendeur='$idv'";
