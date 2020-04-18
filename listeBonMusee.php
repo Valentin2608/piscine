@@ -19,11 +19,16 @@ $_SESSION['type']=0;
 
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-
+	<script src="https://use.fontawesome.com/releases/v5.12.1/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
 </head>
 
 
-<body>
+<body style="background-color:#EDEDED">
 <div class="global">
 <div class="container-fluid"> 
 <div class="row" style="height:80px; background-color:#007179; border: solid; border-color:#808080;">
@@ -33,137 +38,105 @@ $_SESSION['type']=0;
 </div>
 
 
-<div class="row"style="height:60px; background-color:#007179; border-bottom: solid;border-left:solid; border-right:solid; border-color:#808080;">
-<nav class="navbar navbar-expand-lg">
-	
-	<button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#main-navigation">
-			 	<span class="navbar-toggler-icon"></span>
-	</button>
-	
-			 <div class="collapse navbar-collapse" id="main-navigation">
-				 <ul class="navbar-nav">
-				 
-				 <div class="col-lg-1.1">
-					 <li class="nav-item"><a class="nav-link" href="index.php" style="color:white;">Accueil</a></li>
-				</div>
-				<div class="col-lg-1.1">
-					 <li class="nav-item">
-					 <div class="dropdown">
-						<p data-toggle="dropdown" style="color:white; margin-top:7px; margin-left:5px;">Catégorie</p>
+<nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand js-scroll-trigger" href="#page-top">Ebay ECE</a><button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">Menu <i class="fas fa-bars"></i></button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+					<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="index.php">Accueil</a></li>
+                        <li class="nav-item mx-0 mx-lg-1">
+						<div class="dropdown"><a class="nav-link collapsed py-3 px-0 px-lg-3 rounded js-scroll-trigger" data-toggle="dropdown">Catégorie</a>
 						<div class="dropdown-menu">
-						<a class="nav-link" href="listeFerrailleTresor.php">
+							<div class="dropdown-item" href="listeFerrailleTresor.php">
+							<a  href="listeFerrailleTresor.php">Ferraille ou Trésor</a>
+							</div>
 							<div class="dropdown-item">
-							Ferraille ou Trésor
-							</div></a>
-							<a class="nav-link" href="listeBonMusee.php">
+							<a  href="listeBonMusee.php">Bon musée</a>
+							</div>
 							<div class="dropdown-item">
-							Bon pour le musée
-							</div></a>
-							<a class="nav-link" href="listeAccessoireVIP.php">
-							<div class="dropdown-item">
-							Accessoire VIP
-							</div></a>
+							<a  href="listeAccessoireVIP.php">Accessoire VIP</a>
+							</div>
+							<div class="dropdown-item" href="categorie.php">
+							<a  href="categorie.php">Tous</a>
+							</div>
 						</div>
 					</div>
-					</li>
-				</div>
-				<div class="col-lg-1">
-					 <li class="nav-item">
-					 <div class="dropdown">
-						<p data-toggle="dropdown" style="color:white; margin-top:7px; margin-left:5px;">Achat</p>
+						</li>
+                        <li class="nav-item mx-0 mx-lg-1">
+						<div class="dropdown"><a class="nav-link collapsed py-3 px-0 px-lg-3 rounded js-scroll-trigger" data-toggle="dropdown">Achat</a>
 						<div class="dropdown-menu">
-						<a class="nav-link" href="Enchere.php">
+							<div class="dropdown-item" >
+							<a  href="Enchere.php">Enchères</a>
+							</div>
 							<div class="dropdown-item">
-							Enchère
-							</div></a>
-							<a class="nav-link" href="listeAchatImmediat.php">
+							<a  href="listeAchatImmediat.php">Achat immédiat</a>
+							</div>
 							<div class="dropdown-item">
-							Achat immédiat
-							</div></a>
-							<a class="nav-link" href="listeMeilleureOffre.php">
+							<a   href="listeMeilleureOffre.php">Meilleure offre</a>
+							</div>
 							<div class="dropdown-item">
-							Meilleure offre
-							</div></a>
-						</div>
+							<a    href="achat.php">Tous</a>
+							</div>
 					</div>
-					</li>
-				</div>
-				<div class="col-lg-1">
-				<?php
+						</li>
+						<?php
 					if(empty($_SESSION['ID']))
 					{
-					 echo '<li class="nav-item"><a class="nav-link" href="connexionCompteVendeur.html"style="color:white;">Vendre</a></li>';
+					 echo '<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="connexionCompteVendeur.html">Vendre</a></li>';
 					}
 					if(($_SESSION['type'])=='2')
 					{
-						echo '<li class="nav-item"><a class="nav-link" href="vendre.html"style="color:white;">Vendre</a></li>';
+						echo '<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="vendre.html">Vendre</a></li>';
 					}
-				?>
-				</div>
-				<div class="col-lg-1">
+						?>
 				<?php
 					if(empty($_SESSION['ID']))
 					{
-					 echo '<li class="nav-item"><a class="nav-link" href="connexionCompteAcheteur.html"style="color:white;">Compte</a></li>';
+					 echo '<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="connexionCompteAcheteur.html">Compte</a></li>';
 					}
 					if(($_SESSION['type'])=='1')
 					{
-						echo '<li class="nav-item"><a class="nav-link" href="CompteAcheteur.html"style="color:white;">Compte</a></li>';
+						echo '<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="compteAcheteur.html">Compte</a></li>';
 					}
 					if(($_SESSION['type'])=='2')
 					{
-						echo '<li class="nav-item"><a class="nav-link" href="CompteVendeur.html"style="color:white;">Compte</a></li>';
+						echo '<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="compteVendeur.html">Compte</a></li>';
 					}
 				?>
-				</div>
-				<div class="col-lg-1">
 				<?php
 					if(empty($_SESSION['ID']))
 					{
-					 echo '<li class="nav-item"><a class="nav-link" href="connexionCompteAcheteur.html"style="color:white;">Panier</a></li>';
+					 echo '<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="connexionCompteAcheteur.html">Panier</a></li>';
+					}
+					if(($_SESSION['ID'])=='1')
+					{
+					 echo '<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="voirPanier.php">Panier</a></li>';
 					}
 				?>
-				</div>
-				<div class="col-lg-1">
 				<?php
 					if(empty($_SESSION['ID']))
 					{
-					 echo '<li class="nav-item"><a class="nav-link" href="connexionCompteAdmin.html"style="color:white;">Admin</a></li>';
+					 echo '<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="connexionCompteAdmin.html">Admin</a></li>';
 					}
 					if(($_SESSION['type'])=='3')
 					{
-						echo '<li class="nav-item"><a class="nav-link" href="compteAdmin.html"style="color:white;">Admin</a></li>';
+						echo '<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="compteAdmin.html">Admin</a></li>';
 					}
 				?>
-				</div>
-				<div class="col-lg-3"></div>
-				<div class="col-lg-2">
-					 <form class="navbar-form navbar-right inline-form">
-						<div class="form-group">
-						<input type="search" class="input-sm form-control" placeholder="Recherche">
-						<button type="submit" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-eye-open"></span> Chercher</button>
-						</div>
-					</form>
-				</div>
-				
-				<div class="col-lg-2">
-				<?php
-				if(empty($_SESSION['ID'])) 
-				{
-				echo"<li class='nav-item'><a class='nav-link' href='connexion.html' style='color:white;'>Se Connecter</a></li>";
-				
-				}
-				else 
-				{
-					echo "<li class='nav-item'><a class='nav-link' href='deconnexion.php' style='color:white;'>Se Deconnecter</a></li>";
-				}
-				 ?>
-				
-				</div>
-				 </ul>
-			 </div>
-</nav>
-</div>
+				<li class="nav-item mx-0 mx-lg-1"><form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+            <div class="input-group">
+              <input type="text" class="form-control bg-light border-0 small" placeholder="Rechercher" aria-label="Search" aria-describedby="basic-addon2">
+              <div class="input-group-append">
+                <button class="btn btn-primary" type="button" style="background-color:#466482">
+                  <i class="fas fa-search fa-sm"></i>
+                </button>
+              </div>
+            </div>
+          </form></li>
+				</ul>
+                </div>
+            </div>
+        </nav>
 <br>
 </div>
 

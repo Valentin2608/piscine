@@ -9,7 +9,7 @@ $_SESSION['type']=0;
 <!DOCTYPE html>
 <html>
 <head>
-<title>Liste des Accesoires VIP</title>
+<title>Panier</title>
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -140,105 +140,65 @@ $_SESSION['type']=0;
 <br>
 </div>
 
-
-<div class="liste">
 <div class= "container-fluid">
- <h1 style="text-align:center">Galerie des Accessoires VIP</h1>
+<h1>Votre Panier</h1>
+<div class="row">
+<div class="col-lg-8">
+<div class="objet" style=" border:solid; border-color:#808080; height:auto;" >
+ 
  <?php
+
+$ida=5;
 $database = "EbayECE";
 $db_handle = mysqli_connect('localhost', 'root', '');
 $db_found = mysqli_select_db($db_handle, $database);
-$sql="SELECT * FROM `Items` WHERE `Categorie`='VIP'";
+$sql="SELECT * FROM `Panier` WHERE `IDAcheteur`='$ida'";
 $resultat=mysqli_query($db_handle,$sql);
-$size="150";
-$name="button";
-$type="image";
-$classe1="card-img-top";
-$classe2="card-body";
-echo'<div class="row" style="margin-left:10%; margin-right:10%; margin-top:20px;">';
-while($row=mysqli_fetch_array($resultat, MYSQLI_ASSOC)) 
+$classe1="img-thumbnail";
+$classe2="caption";
+$prixtot=0;
+while ($row=mysqli_fetch_array($resultat, MYSQLI_ASSOC))  
 {
-	echo "<div class='col-lg-4 col-md-6 mb-4 '>";
-	echo"<div class='card h-100'>";
 $ref=$row['Ref'];
-$prix=$row['Prix'];
-$nom=$row['Nom'];
-$description=$row['Description']; 
-$img=$row['Images'];
-$typeVente=$row['TypedeVente'];
-
-if($typeVente=="4")
+$sql="SELECT * FROM `Items` WHERE `Ref`='$ref'";
+$resultat2=mysqli_query($db_handle,$sql);
+while ($row2=mysqli_fetch_array($resultat2, MYSQLI_ASSOC))  
 {
-echo '<form action="AchatNego.php?ref='.$ref.'" method="post">
-<input type='.$type.' class='.$classe1.' name='.$name.' value='.$ref.' src='.$img.' widht='.$size.' height='.$size.'>
-<div class='.$classe2.'>
-<h4 class="card-title">'.$nom.'</h4>
-<h5> '.$prix.'$</h5>
-<p class="card-text">Description :'.$description.'</p> 
-</div>
-</div>
-</div>
-</form>';
-}
-
-if($typeVente=="3")
-{
-$sql2="SELECT * FROM `encheres` WHERE `Ref`='$ref'";    
-$resultat2=mysqli_query($db_handle,$sql2); 
-$row2=mysqli_fetch_array($resultat2, MYSQLI_ASSOC); 
-$ref=$row2['Ref'];
-$date= $row2['dfin']." à ".$row2['hfin'];
-$prix=$row2['Prixactuel'];
-echo '<form action="encherir1.php?ref='.$ref.'" method="post">
-<input type='.$type.' class='.$classe1.' name='.$name.' value='.$ref.' src='.$img.' widht='.$size.' height='.$size.'>
-<div class='.$classe2.'>
-<h4 class="card-title">'.$nom.'</h4>
-<h5> '.$prix.' $</h5>
-<p class="card-text">Date limite, jusqu au :</br> '.$date.'</br>Description :'.$description.'</p> 
-</div>
-</div>
-</div>
-</form>';
-}
-
-if($typeVente=="2")
-{
-echo '<form action="achatImm.php?ref='.$ref.'" method="post">
-<input type='.$type.' class='.$classe1.' name='.$name.' value='.$ref.' src='.$img.' widht='.$size.' height='.$size.'>
-<div class='.$classe2.'>
-<h4 class="card-title">'.$nom.'</h4>
-<h5> '.$prix.' $</h5>
-<p class="card-text">Description :'.$description.'</p> 
-</div>
-</div>
-</div>
-</form>';
-}
-if($typeVente=="1")
-{
-echo '<form action="negociation.php?ref='.$ref.'" method="post">
-<input type='.$type.' class='.$classe1.' name='.$name.' value='.$ref.' src='.$img.' widht='.$size.' height='.$size.'>
-<div class='.$classe2.'>
-<h4 class="card-title">'.$nom.'</h4>
-<h5> '.$prix.' $</h5>
-<p class="card-text">Description :'.$description.'</p> 
-</div>
-</div>
-</div>
-</form>';
-}
-}
-echo "</div>";
+$prix=$row2['Prix'];
+$prixtot=$prixtot+$prix;
+$nom=$row2['Nom'];
+$description=$row2['Description'];
+$categorie=$row2['Categorie'];
+$img=$row2['Images'];
+echo '<form action="suprimerdupanier.php?ref='.$ref.'&ida='.$ida.'" method="post">
+<table>
+<tr>
+<td><div class='.$classe1.'><img src="'.$img.'" widht="150" height="150">
+<div class='.$clase2.'>
+<p>Nom: '.$nom.'</br>Description :'.$description.'</br>Categorie :'.$categorie.'</br>Prix :'.$prix.'€</p>
+</div> 
+</div></td>
+</tr><tr> 
+<td colspan="2" align="center">
+<input type="submit" name="button1" value="suprimer"></td></tr></table></form>';
+}}
+echo'<h3>Total: '.$prixtot.' €</h3>';
 ?>
 </div>
-
+</div>
+<div class="col-lg-4">
+<div class="enchere" style="border:solid; border-color:#808080; height:auto; margin-bottom:10px; margin-right:10px;">
+<h2>Passer à l'achat</h2>
+<?php
+$ida=5;
+$form=1;
+echo '<form action="verife.php?ida='.$ida.'&from='.$from.'" method="post">';
+?>
+<input type="submit" name="button1" value="Valider votre Panier"></form>
 </div>
 </div>
-
-
-
-
-
+</div>
+</div>
 <footer class="page-footer">
 			 	<div class="container">
 					 <div class="row">
@@ -259,7 +219,6 @@ echo "</div>";
 					 </div>
 				</div>
 			 <div class="footer-copyright text-center">&copy; 2020 Copyright | Droit d'auteur: ProjetVG-PC-NT</div>
-		</footer>
+</footer>
 </body>
-
 </html>

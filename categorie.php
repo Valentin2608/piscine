@@ -1,15 +1,16 @@
 <?php
 session_start();
-if(empty($_SESSION['type']))
+if(empty($_SESSION['ID']))
 {
 $_SESSION['type']=0;
-}	
+$_SESSION['ID']=0;
+}
 
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-<title>Liste des Accesoires VIP</title>
+<title>Catégorie</title>
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -47,7 +48,7 @@ $_SESSION['type']=0;
                         <li class="nav-item mx-0 mx-lg-1">
 						<div class="dropdown"><a class="nav-link collapsed py-3 px-0 px-lg-3 rounded js-scroll-trigger" data-toggle="dropdown">Catégorie</a>
 						<div class="dropdown-menu">
-							<div class="dropdown-item" href="listeFerrailleTresor.php">
+							<div class="dropdown-item">
 							<a  href="listeFerrailleTresor.php">Ferraille ou Trésor</a>
 							</div>
 							<div class="dropdown-item">
@@ -77,6 +78,7 @@ $_SESSION['type']=0;
 							<div class="dropdown-item">
 							<a    href="achat.php">Tous</a>
 							</div>
+						</div>
 					</div>
 						</li>
 						<?php
@@ -140,28 +142,36 @@ $_SESSION['type']=0;
 <br>
 </div>
 
-
-<div class="liste">
-<div class= "container-fluid">
- <h1 style="text-align:center">Galerie des Accessoires VIP</h1>
+<div class="row">
+<div class="col-lg-3">
+<h1 class="my-4">Catégories</h1>
+        <div class="list-group" >
+          <a href="listeFerrailleTresor.php" class="list-group-item" style="color:#466482">Ferraille ou Trésor</a>
+          <a href="listeBonMusee.php" class="list-group-item"style="color:#466482">Bon pour le musée</a>
+          <a href="listeAccessoireVIP.php" class="list-group-item"style="color:#466482">Accessoire VIP</a>
+        </div>
+</div>
+<div class="col-lg-9" >
+<div class="container-fluid" style="margin-top:10px; background-color:#EDEDED;">
  <?php
 $database = "EbayECE";
 $db_handle = mysqli_connect('localhost', 'root', '');
 $db_found = mysqli_select_db($db_handle, $database);
-$sql="SELECT * FROM `Items` WHERE `Categorie`='VIP'";
+$sql="SELECT * FROM `Items`";
 $resultat=mysqli_query($db_handle,$sql);
-$size="150";
-$name="button";
+$size="150";	
 $type="image";
+$name="button";
 $classe1="card-img-top";
 $classe2="card-body";
-echo'<div class="row" style="margin-left:10%; margin-right:10%; margin-top:20px;">';
+echo'<div class="row" >';
 while($row=mysqli_fetch_array($resultat, MYSQLI_ASSOC)) 
 {
 	echo "<div class='col-lg-4 col-md-6 mb-4 '>";
 	echo"<div class='card h-100'>";
 $ref=$row['Ref'];
 $prix=$row['Prix'];
+$sql2="SELECT * FROM `Items`";    
 $nom=$row['Nom'];
 $description=$row['Description']; 
 $img=$row['Images'];
@@ -173,8 +183,8 @@ echo '<form action="AchatNego.php?ref='.$ref.'" method="post">
 <input type='.$type.' class='.$classe1.' name='.$name.' value='.$ref.' src='.$img.' widht='.$size.' height='.$size.'>
 <div class='.$classe2.'>
 <h4 class="card-title">'.$nom.'</h4>
-<h5> '.$prix.'$</h5>
-<p class="card-text">Description :'.$description.'</p> 
+<h5> '.$prix.' $</h5>
+<p class="card-text">Description : '.$description.'</p> 
 </div>
 </div>
 </div>
@@ -194,7 +204,7 @@ echo '<form action="encherir1.php?ref='.$ref.'" method="post">
 <div class='.$classe2.'>
 <h4 class="card-title">'.$nom.'</h4>
 <h5> '.$prix.' $</h5>
-<p class="card-text">Date limite, jusqu au :</br> '.$date.'</br>Description :'.$description.'</p> 
+<p class="card-text">Date limite, jusqu au :</br> <p style="text-align:center;">'.$date.'</p></br>Description : '.$description.'</p> 
 </div>
 </div>
 </div>
@@ -208,7 +218,7 @@ echo '<form action="achatImm.php?ref='.$ref.'" method="post">
 <div class='.$classe2.'>
 <h4 class="card-title">'.$nom.'</h4>
 <h5> '.$prix.' $</h5>
-<p class="card-text">Description :'.$description.'</p> 
+<p class="card-text">Description : '.$description.'</p> 
 </div>
 </div>
 </div>
@@ -221,7 +231,7 @@ echo '<form action="negociation.php?ref='.$ref.'" method="post">
 <div class='.$classe2.'>
 <h4 class="card-title">'.$nom.'</h4>
 <h5> '.$prix.' $</h5>
-<p class="card-text">Description :'.$description.'</p> 
+<p class="card-text">Catégorie : '.$description.'</p> 
 </div>
 </div>
 </div>
@@ -230,7 +240,6 @@ echo '<form action="negociation.php?ref='.$ref.'" method="post">
 }
 echo "</div>";
 ?>
-</div>
 
 </div>
 </div>
@@ -239,7 +248,7 @@ echo "</div>";
 
 
 
-<footer class="page-footer">
+<footer class="page-footer" style="background-color:#466482">
 			 	<div class="container">
 					 <div class="row">
 						 <div class="col-lg-8 col-md-8 col-sm-12">

@@ -49,13 +49,16 @@ $_SESSION['ID']=0;
 						<div class="dropdown"><a class="nav-link collapsed py-3 px-0 px-lg-3 rounded js-scroll-trigger" data-toggle="dropdown">Catégorie</a>
 						<div class="dropdown-menu">
 							<div class="dropdown-item" href="listeFerrailleTresor.php">
-							Ferraille ou Trésor
+							<a  href="listeFerrailleTresor.php">Ferraille ou Trésor</a>
 							</div>
-							<div class="dropdown-item" href="listeBonMusee.php">
-							Bon pour le musée
+							<div class="dropdown-item">
+							<a  href="listeBonMusee.php">Bon musée</a>
 							</div>
-							<div class="dropdown-item" href="listeAccessoireVIP.php">
-							Accessoire VIP
+							<div class="dropdown-item">
+							<a  href="listeAccessoireVIP.php">Accessoire VIP</a>
+							</div>
+							<div class="dropdown-item" href="categorie.php">
+							<a  href="categorie.php">Tous</a>
 							</div>
 						</div>
 					</div>
@@ -63,14 +66,17 @@ $_SESSION['ID']=0;
                         <li class="nav-item mx-0 mx-lg-1">
 						<div class="dropdown"><a class="nav-link collapsed py-3 px-0 px-lg-3 rounded js-scroll-trigger" data-toggle="dropdown">Achat</a>
 						<div class="dropdown-menu">
-							<div class="dropdown-item" href="Enchere.php">
-							Encheres
+							<div class="dropdown-item" >
+							<a  href="Enchere.php">Enchères</a>
 							</div>
-							<div class="dropdown-item" href="listeAchatImmediat.php">
-							Achat immédiat
+							<div class="dropdown-item">
+							<a  href="listeAchatImmediat.php">Achat immédiat</a>
 							</div>
-							<div class="dropdown-item" href="listemeilleureOffre.php">
-							Meilleure offre
+							<div class="dropdown-item">
+							<a   href="listeMeilleureOffre.php">Meilleure offre</a>
+							</div>
+							<div class="dropdown-item">
+							<a    href="achat.php">Tous</a>
 							</div>
 						</div>
 					</div>
