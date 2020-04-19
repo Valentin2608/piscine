@@ -1,25 +1,29 @@
+<?php
+session_start();
+$ref =$_GET['ref'];
+?>
 <!DOCTYPE html>
 <html>
 <head>
-<title>Mon panier</title>
+<title>Vendre</title>
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 	 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="styleIndex.css">
 	<link rel="stylesheet" type="text/css" href="style.css">
 
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
 </head>
-
-
 <body>
 <div class="global">
 <div class="container-fluid"> 
 <div class="row" style="height:80px; background-color:#007179; border: solid; border-color:#808080;">
-	<div class="col-lg-5" ></div>
-	<div class="col-lg-2" ><img src="logo.png" alt="" height="70px;"></div>
-	<div class="col-lg-5" ></div>
+	<div class="col-lg" ></div>
+	<div class="col-lg" style="text-align:center" ><img src="logo.png" alt="" height="70px;"></div>
+	<div class="col-lg" ></div>
 </div>
 
 
@@ -55,12 +59,12 @@
 					</a></li>
 				</div>
 				<div class="col-lg-1">
-					 <li class="nav-item"><a class="nav-link" href="#"style="color:white;">
+					 <li class="nav-item">
 					 <div class="dropdown">
-						<p data-toggle="dropdown">Achat</p>
+						<p data-toggle="dropdown" class="nav-link" style="color:white;">Achat</p>
 						<div class="dropdown-menu">
 							<div class="dropdown-item">
-							Enchère
+							<a class="nav-link" href="encherir.php"> Enchère</a>
 							</div>
 							<div class="dropdown-item">
 							Achat immédiat
@@ -70,7 +74,7 @@
 							</div>
 						</div>
 					</div>
-					 </a></li>
+					 </li>
 				</div>
 				<div class="col-lg-1">
 					 <li class="nav-item"><a class="nav-link" href="#"style="color:white;">Vendre</a></li>
@@ -93,23 +97,104 @@
 						</div>
 					</form>
 				</div>
+				
+				<div class="col-lg-2">
+				<?php
+				if(empty($_SESSION['ID'])) 
+				{
+				echo"<li class='nav-item'><a class='nav-link' href='connexion.html' style='color:white;'>Se Connecter</a></li>";
+				
+				}
+				else 
+				{
+					echo "<li class='nav-item'><a class='nav-link' href='deconnexion.php' style='color:white;'>Se Deconnecter</a></li>";
+				}
+				 ?>
+				
+				</div>
 				 </ul>
 			 </div>
 </nav>
 </div>
 <br>
 </div>
-
-<div class="pannier">
-<h1> Mon panier</h1><br></br>
+<div class="container-fluid">
 <div class="row">
-<div class="col-lg"><img src="images/licorne.png" alt="" height="100px" width="100px"/>
-</div>
-<div class="col-lg">
-</div>
-</div>
+<div class="col-lg-8">
+<div class="objet" style=" border:solid; border-color:#808080; height:auto;" >
+<?php
 
+$ref =$_GET['ref'];
+//identifier votre BDD
+$database = "EbayECE";
+//connectez-vous de votre BDD
+$db_handle = mysqli_connect('localhost', 'root', '');
+$db_found = mysqli_select_db($db_handle, $database);
 
+		$sql = "SELECT * FROM Items WHERE Ref='$ref'";
+		$result = mysqli_query($db_handle, $sql);
+		$row=mysqli_fetch_array($result, MYSQLI_ASSOC);
+		$nom=$row['Nom']; 
+		$image=$row['Images'];
+		$description=$row['Description'];
+		
+		
+		echo "Nom: ".$nom. "</br>";
+		echo "Description: ".$description. "</br>";
+		echo '<img src="'.$image.'" widht="150" height="150"></br>';
+		
+
+?>
+</div>
+</div>
+<div class="col-lg-4">
+<div class="enchere" style="border:solid; border-color:#808080; height:auto; margin-bottom:10px; margin-right:10px;">
+<?php
+$ref =$_GET['ref'];
+//$ida=$_SESSION['ID'];
+$ida=5;
+$database = "EbayECE";
+$db_handle = mysqli_connect('localhost', 'root', '');
+$db_found = mysqli_select_db($db_handle, $database);
+$sql="SELECT * FROM Nego WHERE Ref='$ref' AND IDAcheteur='$ida'";  
+$result = mysqli_query($db_handle, $sql);
+if(mysqli_num_rows($result) == 0)
+{
+		$sql = "SELECT * FROM Items WHERE Ref='$ref'";
+		$result = mysqli_query($db_handle, $sql);
+		$row=mysqli_fetch_array($result, MYSQLI_ASSOC);
+		$vendeur=$row['IDVendeur'];
+		$prix=$row['Prix'];
+		$sql="SELECT * FROM Vendeur WHERE IDVendeur='$vendeur'";  
+		$result = mysqli_query($db_handle, $sql);
+		$row=mysqli_fetch_array($result, MYSQLI_ASSOC);
+		$vendeur=$row['Prenom']." ".$row['Nom'];
+echo "Nom du vendeur: ".$vendeur. "</br>";
+echo "Prix actuel:" .$prix. "</br>";
+		
+echo '<form action="demarernego.php?ref='.$ref.'" method="post">';
+$sql="SELECT * FROM Items WHERE Ref='$ref'";   
+$result = mysqli_query($db_handle, $sql);
+$row=mysqli_fetch_array($result, MYSQLI_ASSOC); 
+$nom=$row['Nom'];
+echo"<h1>Négocier: ".$nom."</h1>";
+echo '<table>
+<tr>
+<td> Prix :</td>
+<td><input type="number"  name="prix"></td>
+</tr>
+<tr> 
+<td colspan="2" align="center">';
+echo'<input type="submit" name="button1" value="soumettre">';}
+else{header('Location:reacheteur1.php?ref='.$ref);}
+?>
+</td>
+</tr>
+</table>
+</form>
+</div>
+</div>
+</div>
 <footer class="page-footer">
 			 	<div class="container">
 					 <div class="row">
@@ -130,7 +215,6 @@
 					 </div>
 				</div>
 			 <div class="footer-copyright text-center">&copy; 2020 Copyright | Droit d'auteur: ProjetVG-PC-NT</div>
-		</footer>
+</footer>
 </body>
-
 </html>

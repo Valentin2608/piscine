@@ -1,25 +1,26 @@
+
 <!DOCTYPE html>
 <html>
 <head>
-<title>Mon panier</title>
+<title>Vendre</title>
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 	 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="styleIndex.css">
 	<link rel="stylesheet" type="text/css" href="style.css">
 
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
 </head>
-
-
 <body>
 <div class="global">
 <div class="container-fluid"> 
 <div class="row" style="height:80px; background-color:#007179; border: solid; border-color:#808080;">
-	<div class="col-lg-5" ></div>
-	<div class="col-lg-2" ><img src="logo.png" alt="" height="70px;"></div>
-	<div class="col-lg-5" ></div>
+	<div class="col-lg" ></div>
+	<div class="col-lg" style="text-align:center" ><img src="logo.png" alt="" height="70px;"></div>
+	<div class="col-lg" ></div>
 </div>
 
 
@@ -55,12 +56,12 @@
 					</a></li>
 				</div>
 				<div class="col-lg-1">
-					 <li class="nav-item"><a class="nav-link" href="#"style="color:white;">
+					 <li class="nav-item">
 					 <div class="dropdown">
-						<p data-toggle="dropdown">Achat</p>
+						<p data-toggle="dropdown" class="nav-link" style="color:white;">Achat</p>
 						<div class="dropdown-menu">
 							<div class="dropdown-item">
-							Enchère
+							<a class="nav-link" href="encherir.php"> Enchère</a>
 							</div>
 							<div class="dropdown-item">
 							Achat immédiat
@@ -70,7 +71,7 @@
 							</div>
 						</div>
 					</div>
-					 </a></li>
+					 </li>
 				</div>
 				<div class="col-lg-1">
 					 <li class="nav-item"><a class="nav-link" href="#"style="color:white;">Vendre</a></li>
@@ -93,6 +94,8 @@
 						</div>
 					</form>
 				</div>
+				
+				
 				 </ul>
 			 </div>
 </nav>
@@ -100,16 +103,44 @@
 <br>
 </div>
 
-<div class="pannier">
-<h1> Mon panier</h1><br></br>
-<div class="row">
-<div class="col-lg"><img src="images/licorne.png" alt="" height="100px" width="100px"/>
-</div>
-<div class="col-lg">
-</div>
-</div>
+<div class= "container-fluid">
+ <h1>Galerie des vendeurs</h1>
+ <?php
 
-
+$idv=1;
+ $database = "EbayECE";
+$db_handle = mysqli_connect('localhost', 'root', 'root');
+$db_found = mysqli_select_db($db_handle, $database);
+$sql="SELECT * FROM `Vendeur`";
+$resultat=mysqli_query($db_handle,$sql);
+$size="150";
+$type="image";
+$name="button";
+$classe1="img-thumbnail";
+$classe2="caption";
+while ($row=mysqli_fetch_array($resultat, MYSQLI_ASSOC))  
+{
+$admin=$row['Admin'];
+if($admin==0)
+{
+$id=$row['IDVendeur'];
+$nom=$row['Nom'];
+$prenom=$row['Prenom']; 
+$email=$row['Email'];
+$adresse=$row['Adresse'];
+echo '<form action="suprimervendeur.php?id='.$id.'" method="post">
+<tr><td>
+<p>Nom: '.$nom.'</p>
+<p>Prénom: '.$prenom.'</p>
+<p>Email: '.$email.'</p>
+<p>Adresse: '.$adresse.'</p>
+</td></tr>
+<tr>
+<td colspan="2" align="center"><input type="submit" name="button1" value="Suprimer"></td></tr>
+</form></br>';
+}}
+?>
+</div>
 <footer class="page-footer">
 			 	<div class="container">
 					 <div class="row">
@@ -130,7 +161,6 @@
 					 </div>
 				</div>
 			 <div class="footer-copyright text-center">&copy; 2020 Copyright | Droit d'auteur: ProjetVG-PC-NT</div>
-		</footer>
+</footer>
 </body>
-
 </html>

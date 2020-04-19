@@ -1,15 +1,16 @@
 <?php
 session_start();
-if(empty($_SESSION['type']))
+if(empty($_SESSION['ID']))
 {
 $_SESSION['type']=0;
+$_SESSION['ID']=0;
 }
+
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-
-<title>Vendre</title>
+<title>Achat</title>
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -25,35 +26,6 @@ $_SESSION['type']=0;
         <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
-
-<script type="text/javascript">
-function choix() {
-    if(document.getElementById('enchere').checked)
-    {
-	document.getElementById('dateNego').style.display = "block";
-    document.getElementById('nego').checked = false;
-    document.getElementById('achatImm').checked = false;
-	
-    }
-     if(document.getElementById('achatImm').checked)
-    {
-	document.getElementById('dateNego').style.display = "none";
-    document.getElementById('enchere').checked = false;
-    }
-    if(document.getElementById('achatImm').checked && document.getElementById('nego').checked)
-    {
-	document.getElementById('dateNego').style.display = "none";
-    document.getElementById('achatImm').value = 4;
-    document.getElementById('nego').value = 4;
-    }
-    else
-    {
-    document.getElementById('achatImm').value = 2;
-    document.getElementById('nego').value = 1;
-    }
-}
-</script>
-
 </head>
 
 
@@ -69,7 +41,7 @@ function choix() {
 
 <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
             <div class="container">
-                <a class="navbar-brand js-scroll-trigger" href="#page-top">Ebay ECE</a><button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">Menu <i class="fas fa-bars"></i></button>
+                <a class="navbar-brand js-scroll-trigger" href="index.php">Ebay ECE</a><button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">Menu <i class="fas fa-bars"></i></button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
 					<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="index.php">Accueil</a></li>
@@ -106,6 +78,7 @@ function choix() {
 							<div class="dropdown-item">
 							<a    href="achat.php">Tous</a>
 							</div>
+						</div>
 					</div>
 						</li>
 						<?php
@@ -115,7 +88,7 @@ function choix() {
 					}
 					if(($_SESSION['type'])=='2')
 					{
-						echo '<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="vendre.html">Vendre</a></li>';
+						echo '<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="vendre1.php">Vendre</a></li>';
 					}
 						?>
 				<?php
@@ -125,11 +98,11 @@ function choix() {
 					}
 					if(($_SESSION['type'])=='1')
 					{
-						echo '<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="compteAcheteur.html">Compte</a></li>';
+						echo '<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="moncompte.php">Compte</a></li>';
 					}
 					if(($_SESSION['type'])=='2')
 					{
-						echo '<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="compteVendeur.html">Compte</a></li>';
+						echo '<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="monCompteVendeur.php">Compte</a></li>';
 					}
 				?>
 				<?php
@@ -151,17 +124,25 @@ function choix() {
 					{
 						echo '<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="compteAdmin.html">Admin</a></li>';
 					}
+					
 				?>
-				<li class="nav-item mx-0 mx-lg-1"><form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+				<li class="nav-item mx-0 mx-lg-1"><form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" action="recherche.php" method="post">
             <div class="input-group">
-              <input type="text" class="form-control bg-light border-0 small" placeholder="Rechercher" aria-label="Search" aria-describedby="basic-addon2">
+              <input type="text" class="form-control bg-light border-0 small" placeholder="Rechercher" aria-label="Search" aria-describedby="basic-addon2" name="search">
               <div class="input-group-append">
-                <button class="btn btn-primary" type="button" style="background-color:#466482">
+                <button class="btn btn-primary" type="submit" style="background-color:#466482" name="connect">
                   <i class="fas fa-search fa-sm"></i>
                 </button>
               </div>
             </div>
           </form></li>
+		   <?php
+					if(($_SESSION['ID'])!='0')
+					{
+					 echo '<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="deconnexion.php">Deconnexion</a></li>';
+					}
+					
+				?>
 				</ul>
                 </div>
             </div>
@@ -169,91 +150,113 @@ function choix() {
 <br>
 </div>
 
-
-<div class="vente">
-<h1 style="text-align:center;"> Vendez vos biens aux meilleurs prix </h1><br></br>
-<h3 style="text-align:center;"> Séléctionner une catégorie </h3><br>
-<form action="vendre.php" method="post" enctype="multipart/form-data">
 <div class="row">
+<div class="col-lg-3">
+<h1 class="my-4" style="text-align:center">Achat</h1>
+        <div class="list-group" >
+          <a href="Enchere.php" class="list-group-item" style="color:#466482">Enchères</a>
+          <a href="listeAchatImmediat.php" class="list-group-item"style="color:#466482">Achat immédiat</a>
+          <a href="listeMeilleureOffre.php" class="list-group-item"style="color:#466482">Négociation</a>
+        </div>
+</div>
+<div class="col-lg-9" >
+<div class="container-fluid" style="margin-top:10px; background-color:#EDEDED;">
+ <?php
+$database = "EbayECE";
+$db_handle = mysqli_connect('localhost', 'root', '');
+$db_found = mysqli_select_db($db_handle, $database);
+$sql="SELECT * FROM `Items`";
+$resultat=mysqli_query($db_handle,$sql);
+$size="150";	
+$type="image";
+$name="button";
+$classe1="card-img-top";
+$classe2="card-body";
+echo'<div class="row" >';
+while($row=mysqli_fetch_array($resultat, MYSQLI_ASSOC)) 
+{
+	echo "<div class='col-lg-4 col-md-6 mb-4 '>";
+	echo"<div class='card h-100'>";
+$ref=$row['Ref'];
+$prix=$row['Prix'];
+$sql2="SELECT * FROM `Items`";    
+$nom=$row['Nom'];
+$description=$row['Description']; 
+$img=$row['Images'];
+$typeVente=$row['TypedeVente'];
 
-<div class="col-lg">
-<input type="radio" id="Ferraille ou Trésor" name="categorie" value="Ferraille ou Tresor">Ferraille ou Trésor</div>
+if($typeVente=="4")
+{
+echo '<form action="AchatNego.php?ref='.$ref.'" method="post">
+<input type='.$type.' class='.$classe1.' name='.$name.' value='.$ref.' src='.$img.' widht='.$size.' height='.$size.'>
+<div class='.$classe2.'>
+<h4 class="card-title">'.$nom.'</h4>
+<h5> '.$prix.' $</h5>
+<p class="card-text">Type de  vente :</br> Achat immédiat et négociation</p> 
+</div>
+</div>
+</div>
+</form>';
+}
 
-<div class="col-lg">
-<input type="radio" id="Bon pour le musée" name="categorie" value="Bon pour le musee">Bon pour le musée</div>
+if($typeVente=="3")
+{
+$sql2="SELECT * FROM `encheres` WHERE `Ref`='$ref'";    
+$resultat2=mysqli_query($db_handle,$sql2); 
+$row2=mysqli_fetch_array($resultat2, MYSQLI_ASSOC); 
+$ref=$row2['Ref'];
+$date= $row2['dfin']." à ".$row2['hfin'];
+$prix=$row2['Prixactuel'];
+echo '<form action="encherir1.php?ref='.$ref.'" method="post">
+<input type='.$type.' class='.$classe1.' name='.$name.' value='.$ref.' src='.$img.' widht='.$size.' height='.$size.'>
+<div class='.$classe2.'>
+<h4 class="card-title">'.$nom.'</h4>
+<h5> '.$prix.' $</h5>
+<p class="card-text">Date limite, jusqu au :</br> <p style="text-align:center;">'.$date.'</p></br>Type de  vente : Enchère</p> 
+</div>
+</div>
+</div>
+</form>';
+}
 
-<div class="col-lg">
-<input type="radio" id="Accessoire VIP" name="categorie" value="Accessoire VIP">Accessoire VIP
-</div></div><br></br><br></br>
+if($typeVente=="2")
+{
+echo '<form action="achatImm.php?ref='.$ref.'" method="post">
+<input type='.$type.' class='.$classe1.' name='.$name.' value='.$ref.' src='.$img.' widht='.$size.' height='.$size.'>
+<div class='.$classe2.'>
+<h4 class="card-title">'.$nom.'</h4>
+<h5> '.$prix.' $</h5>
+<p class="card-text">Type de  vente : Achat immédiat</p> 
+</div>
+</div>
+</div>
+</form>';
+}
+if($typeVente=="1")
+{
+echo '<form action="negociation.php?ref='.$ref.'" method="post">
+<input type='.$type.' class='.$classe1.' name='.$name.' value='.$ref.' src='.$img.' widht='.$size.' height='.$size.'>
+<div class='.$classe2.'>
+<h4 class="card-title">'.$nom.'</h4>
+<h5> '.$prix.' $</h5>
+<p class="card-text">Type de  vente : Meilleur Offre</p> 
+</div>
+</div>
+</div>
+</form>';
+}
+}
+echo "</div>";
+?>
 
-
-<div class="row">
-<div class="col-lg">
-<p> Nom du bien mis en vente :</p></div>
-<div class="col-lg">
-<p> Description du bien mis en vente :</p></div>
-<div class="col-lg">
-<p> Type de ventes souhaité :</p></div>
+</div>
 </div>
 
 
-<div class="row">
-<div class="col-lg-4">
-<input type="text"  name="nom"></div>
-<div class="col-lg-4">
-<textarea name="description" rows="5" cols="40" maxlength="255"></textarea></div>
-<div class="col-lg-4">
-<table>
-    <tr>
-        <td><input type="checkbox" id="enchere" name="typeVente" value=3 onclick="choix();">Enchère</td>
-    </tr>
-	<tr>
-	<td><div id="dateNego" style="display:none;"><label for="start">Start date:</label>
-
-<input type="date" id="start" name="date-start"
-       value="2020-04-25"
-       min="2020-04-25" max="2030-12-31"></br>
-	   
-	   <label for="start">End date:</label>
-
-<input type="date" id="end" name="date-end"
-       value="2020-04-25"
-       min='.$date.' max="2030-12-31"></br>
-	 </br></div></td>
-	</tr>
-    <tr>
-        <td><input type="checkbox" id="achatImm" name="typeVente" value=2 onclick="choix();">Achat immédiat</td>
-    </tr>
-    <tr>
-        <td><input type="checkbox" id="nego" name="typeVente" value=1 onclick="choix();" >Négocier</td>
-    </tr>
-</table>
-</div>
-</div><br></br>
-
-<div class="row">
-<div class="col-lg-4">
-<p> Ajouter des photos ou des vidéos : </p></div>
-<div class="col-lg-4">
-<p> Prix initial : </p></div>
-</div>
-<div class="row">
-<div class="col-lg-4">
-<p> <div class="parent-div">
-      <button class="btn-upload">Choisir le fichier</button>
-      <input type="file" name="photo">
-    </div> </p></div>
-<div class="col-lg-4">
-<p> <input type="number"  name="prix">€</p></div>
-<div class="col-lg-4">
-<input type="submit" name="soumettre" value="Mettre en vente">
-</div>
-</div>
-</form>
-</div>
 
 
-<footer class="page-footer">
+
+<footer class="page-footer" style="background-color:#466482">
 			 	<div class="container">
 					 <div class="row">
 						 <div class="col-lg-8 col-md-8 col-sm-12">

@@ -1,15 +1,11 @@
 <?php
 session_start();
-if(empty($_SESSION['type']))
-{
-$_SESSION['type']=0;
-}
+$ref =$_GET['ref'];
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-
-<title>Vendre</title>
+<title>Négociation</title>
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -25,35 +21,6 @@ $_SESSION['type']=0;
         <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
-
-<script type="text/javascript">
-function choix() {
-    if(document.getElementById('enchere').checked)
-    {
-	document.getElementById('dateNego').style.display = "block";
-    document.getElementById('nego').checked = false;
-    document.getElementById('achatImm').checked = false;
-	
-    }
-     if(document.getElementById('achatImm').checked)
-    {
-	document.getElementById('dateNego').style.display = "none";
-    document.getElementById('enchere').checked = false;
-    }
-    if(document.getElementById('achatImm').checked && document.getElementById('nego').checked)
-    {
-	document.getElementById('dateNego').style.display = "none";
-    document.getElementById('achatImm').value = 4;
-    document.getElementById('nego').value = 4;
-    }
-    else
-    {
-    document.getElementById('achatImm').value = 2;
-    document.getElementById('nego').value = 1;
-    }
-}
-</script>
-
 </head>
 
 
@@ -69,7 +36,7 @@ function choix() {
 
 <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
             <div class="container">
-                <a class="navbar-brand js-scroll-trigger" href="#page-top">Ebay ECE</a><button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">Menu <i class="fas fa-bars"></i></button>
+                <a class="navbar-brand js-scroll-trigger" href="index.php">Ebay ECE</a><button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">Menu <i class="fas fa-bars"></i></button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
 					<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="index.php">Accueil</a></li>
@@ -106,6 +73,7 @@ function choix() {
 							<div class="dropdown-item">
 							<a    href="achat.php">Tous</a>
 							</div>
+						</div>
 					</div>
 						</li>
 						<?php
@@ -115,7 +83,7 @@ function choix() {
 					}
 					if(($_SESSION['type'])=='2')
 					{
-						echo '<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="vendre.html">Vendre</a></li>';
+						echo '<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="vendre1.php">Vendre</a></li>';
 					}
 						?>
 				<?php
@@ -125,11 +93,11 @@ function choix() {
 					}
 					if(($_SESSION['type'])=='1')
 					{
-						echo '<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="compteAcheteur.html">Compte</a></li>';
+						echo '<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="moncompte.php">Compte</a></li>';
 					}
 					if(($_SESSION['type'])=='2')
 					{
-						echo '<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="compteVendeur.html">Compte</a></li>';
+						echo '<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="monCompteVendeur.php">Compte</a></li>';
 					}
 				?>
 				<?php
@@ -151,108 +119,146 @@ function choix() {
 					{
 						echo '<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="compteAdmin.html">Admin</a></li>';
 					}
+					
 				?>
-				<li class="nav-item mx-0 mx-lg-1"><form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+				<li class="nav-item mx-0 mx-lg-1"><form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" action="recherche.php" method="post">
             <div class="input-group">
-              <input type="text" class="form-control bg-light border-0 small" placeholder="Rechercher" aria-label="Search" aria-describedby="basic-addon2">
+              <input type="text" class="form-control bg-light border-0 small" placeholder="Rechercher" aria-label="Search" aria-describedby="basic-addon2" name="search">
               <div class="input-group-append">
-                <button class="btn btn-primary" type="button" style="background-color:#466482">
+                <button class="btn btn-primary" type="submit" style="background-color:#466482" name="connect">
                   <i class="fas fa-search fa-sm"></i>
                 </button>
               </div>
             </div>
           </form></li>
+		   <?php
+					if(($_SESSION['ID'])!='0')
+					{
+					 echo '<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="deconnexion.php">Deconnexion</a></li>';
+					}
+					
+				?>
 				</ul>
                 </div>
             </div>
         </nav>
 <br>
 </div>
-
-
-<div class="vente">
-<h1 style="text-align:center;"> Vendez vos biens aux meilleurs prix </h1><br></br>
-<h3 style="text-align:center;"> Séléctionner une catégorie </h3><br>
-<form action="vendre.php" method="post" enctype="multipart/form-data">
+<div class="container-fluid">
 <div class="row">
+<div class="col-lg-8">
+<div class="card shadow " style="margin-bottom:5px;">
+<div class="card-header " >
+<?php
 
-<div class="col-lg">
-<input type="radio" id="Ferraille ou Trésor" name="categorie" value="Ferraille ou Tresor">Ferraille ou Trésor</div>
+$ref =$_GET['ref'];
+//identifier votre BDD
+$database = "EbayECE";
+//connectez-vous de votre BDD
+$db_handle = mysqli_connect('localhost', 'root', '');
+$db_found = mysqli_select_db($db_handle, $database);
 
-<div class="col-lg">
-<input type="radio" id="Bon pour le musée" name="categorie" value="Bon pour le musee">Bon pour le musée</div>
+		$sql = "SELECT * FROM Items WHERE Ref='$ref'";
+		$result = mysqli_query($db_handle, $sql);
+		$row=mysqli_fetch_array($result, MYSQLI_ASSOC);
+		$nom=$row['Nom']; 
+		$image=$row['Images'];
+		$description=$row['Description'];
+		
+		
+		echo "<h4 class='m-0 font-weight-bold text-primary'>Nom: ".$nom. "</br></h4></div>";
+		echo " <div class='card-body' style='text-align:center;'><input type='image' src=".$image." widht='150' height='150'></br></div>";
+		echo "<div class='card-body' style=' font-size:large'>".$description. "</br></div>";
+		
 
-<div class="col-lg">
-<input type="radio" id="Accessoire VIP" name="categorie" value="Accessoire VIP">Accessoire VIP
-</div></div><br></br><br></br>
-
-
-<div class="row">
-<div class="col-lg">
-<p> Nom du bien mis en vente :</p></div>
-<div class="col-lg">
-<p> Description du bien mis en vente :</p></div>
-<div class="col-lg">
-<p> Type de ventes souhaité :</p></div>
+?>
 </div>
-
-
-<div class="row">
+</div>
 <div class="col-lg-4">
-<input type="text"  name="nom"></div>
-<div class="col-lg-4">
-<textarea name="description" rows="5" cols="40" maxlength="255"></textarea></div>
-<div class="col-lg-4">
-<table>
-    <tr>
-        <td><input type="checkbox" id="enchere" name="typeVente" value=3 onclick="choix();">Enchère</td>
-    </tr>
-	<tr>
-	<td><div id="dateNego" style="display:none;"><label for="start">Start date:</label>
+<div class="card shadow ">
+<div class="card-header " >
+<?php
+$ref =$_GET['ref'];
+//$ida=$_SESSION['ID'];
+$ida=5;
+$database = "EbayECE";
+ $db_handle = mysqli_connect('localhost', 'root', '');
+ $db_found = mysqli_select_db($db_handle, $database);
+ 
+		$sql="SELECT * FROM `Nego` WHERE `Ref`='$ref'";
+ $resultat=mysqli_query($db_handle,$sql);
+ $imp=0;
+ while($row=mysqli_fetch_array($resultat, MYSQLI_ASSOC))
+ {
+ 	$acc=$row['Accepter'];
+ 	$id=$row['IDAcheteur'];
+ 	if($acc==1 && $id!=$ida)
+ 	{$imp=1;}
+ }
+ if($imp==0)
+{
+$sql="SELECT * FROM Nego WHERE Ref='$ref' AND IDAcheteur='$ida'";  
+$result = mysqli_query($db_handle, $sql);
+$row=mysqli_fetch_array($result, MYSQLI_ASSOC);
+$compt=$row['Compteur'];
+ $prix=$row['ContreProposition'];
+ $acc=$row['Accepter'];
+ if($acc==0)
+		{
+		$sql = "SELECT * FROM Items WHERE Ref='$ref'";
+		$result = mysqli_query($db_handle, $sql);
+		$row=mysqli_fetch_array($result, MYSQLI_ASSOC);
+		$vendeur=$row['IDVendeur'];
+		$sql="SELECT * FROM Vendeur WHERE IDVendeur='$vendeur'";  
+		$result = mysqli_query($db_handle, $sql);
+		$row=mysqli_fetch_array($result, MYSQLI_ASSOC);
+		$vendeur=$row['Prenom']." ".$row['Nom'];
+echo "<h4 class='m-0 font-weight-bold text-primary'>Prix:" .$prix. "€</br></h4></div>";
+echo "<div class='card-body'>Nom du vendeur: ".$vendeur. "</br></div>";
+if($compt%2 == 0)
+{		
+$from=2;
+echo '<form action="repachteur.php?ref='.$ref.'&from='.$from.'" method="post">';
+$sql="SELECT * FROM Items WHERE Ref='$ref'";   
+$result = mysqli_query($db_handle, $sql);
+$row=mysqli_fetch_array($result, MYSQLI_ASSOC); 
+$nom=$row['Nom'];
+echo"<h1>Négocier: ".$nom."</h1>";
+echo '<table>
+<tr>
+<td>Accepter  </td>
+<td>
+<input type="checkbox" value="0" onclick="if (this.checked) this.value=1; else this.value=0;alert(this.value);" name="rep" />
+</td></tr>
+<tr>
+<td> Proposition :</td>
+<td><input type="number"  name="prix"></td>
+</tr>
+<tr> 
+<td colspan="2" align="center">';
+echo'<div class="card-body"><input type="submit" name="button1" value="soumettre"></div>';}
+else
+{
+echo"<div class='card-body'><h2>Le Vendeur ne vous a pas encors répondu</h2></div>";
+echo '<form action="index.php" method="post">';
+echo '<table>
+<tr> 
+<td colspan="2" align="center">';
+echo'<div class="card-body"><input type="submit" name="button1" value="OK"></div>';
+}}
 
-<input type="date" id="start" name="date-start"
-       value="2020-04-25"
-       min="2020-04-25" max="2030-12-31"></br>
-	   
-	   <label for="start">End date:</label>
-
-<input type="date" id="end" name="date-end"
-       value="2020-04-25"
-       min='.$date.' max="2030-12-31"></br>
-	 </br></div></td>
-	</tr>
-    <tr>
-        <td><input type="checkbox" id="achatImm" name="typeVente" value=2 onclick="choix();">Achat immédiat</td>
-    </tr>
-    <tr>
-        <td><input type="checkbox" id="nego" name="typeVente" value=1 onclick="choix();" >Négocier</td>
-    </tr>
+else 
+{echo"<div class='card-body'><h2>Le Vendeur et vous êtes tombé d'accord</h2></div>";}}
+else 
+{echo"<div class='card-body'><h2>L'article à été vendu</h2></div>";}
+?>
+</td>
+</tr>
 </table>
-</div>
-</div><br></br>
-
-<div class="row">
-<div class="col-lg-4">
-<p> Ajouter des photos ou des vidéos : </p></div>
-<div class="col-lg-4">
-<p> Prix initial : </p></div>
-</div>
-<div class="row">
-<div class="col-lg-4">
-<p> <div class="parent-div">
-      <button class="btn-upload">Choisir le fichier</button>
-      <input type="file" name="photo">
-    </div> </p></div>
-<div class="col-lg-4">
-<p> <input type="number"  name="prix">€</p></div>
-<div class="col-lg-4">
-<input type="submit" name="soumettre" value="Mettre en vente">
-</div>
-</div>
 </form>
 </div>
-
-
+</div>
+</div>
 <footer class="page-footer">
 			 	<div class="container">
 					 <div class="row">
@@ -273,7 +279,6 @@ function choix() {
 					 </div>
 				</div>
 			 <div class="footer-copyright text-center">&copy; 2020 Copyright | Droit d'auteur: ProjetVG-PC-NT</div>
-		</footer>
+</footer>
 </body>
-
 </html>

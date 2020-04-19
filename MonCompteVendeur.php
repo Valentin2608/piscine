@@ -1,58 +1,35 @@
 <?php
 session_start();
-if(empty($_SESSION['type']))
-{
-$_SESSION['type']=0;
-}
+
+
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-
-<title>Vendre</title>
+<title>Mon compte Vendeur</title>
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 	 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="styleIndex.css">
-	<link rel="stylesheet" type="text/css" href="style.css">
+	
 
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-	<script src="https://use.fontawesome.com/releases/v5.12.1/js/all.js" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js%22%3E"</script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js%22%3E"</script>
+    <script src="https://use.fontawesome.com/releases/v5.12.1/js/all.js" crossorigin="anonymous"></script>
         <!-- Google fonts-->
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
         <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
+  <!--Liens pour le template Boostrap-->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
-<script type="text/javascript">
-function choix() {
-    if(document.getElementById('enchere').checked)
-    {
-	document.getElementById('dateNego').style.display = "block";
-    document.getElementById('nego').checked = false;
-    document.getElementById('achatImm').checked = false;
-	
-    }
-     if(document.getElementById('achatImm').checked)
-    {
-	document.getElementById('dateNego').style.display = "none";
-    document.getElementById('enchere').checked = false;
-    }
-    if(document.getElementById('achatImm').checked && document.getElementById('nego').checked)
-    {
-	document.getElementById('dateNego').style.display = "none";
-    document.getElementById('achatImm').value = 4;
-    document.getElementById('nego').value = 4;
-    }
-    else
-    {
-    document.getElementById('achatImm').value = 2;
-    document.getElementById('nego').value = 1;
-    }
-}
-</script>
+  <!--Css pour le template Boostrap-->
+ 
+
 
 </head>
 
@@ -69,7 +46,7 @@ function choix() {
 
 <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
             <div class="container">
-                <a class="navbar-brand js-scroll-trigger" href="#page-top">Ebay ECE</a><button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">Menu <i class="fas fa-bars"></i></button>
+                <a class="navbar-brand js-scroll-trigger" href="index.php">Ebay ECE</a><button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">Menu <i class="fas fa-bars"></i></button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
 					<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="index.php">Accueil</a></li>
@@ -77,16 +54,16 @@ function choix() {
 						<div class="dropdown"><a class="nav-link collapsed py-3 px-0 px-lg-3 rounded js-scroll-trigger" data-toggle="dropdown">Catégorie</a>
 						<div class="dropdown-menu">
 							<div class="dropdown-item" href="listeFerrailleTresor.php">
-							<a  href="listeFerrailleTresor.php">Ferraille ou Trésor</a>
+							Ferraille ou Trésor
 							</div>
-							<div class="dropdown-item">
-							<a  href="listeBonMusee.php">Bon musée</a>
+							<div class="dropdown-item" href="listeBonMusee.php">
+							Bon pour le musée
 							</div>
-							<div class="dropdown-item">
-							<a  href="listeAccessoireVIP.php">Accessoire VIP</a>
+							<div class="dropdown-item" href="listeAccessoireVIP.php">
+							Accessoire VIP
 							</div>
 							<div class="dropdown-item" href="categorie.php">
-							<a  href="categorie.php">Tous</a>
+							Tous
 							</div>
 						</div>
 					</div>
@@ -94,18 +71,19 @@ function choix() {
                         <li class="nav-item mx-0 mx-lg-1">
 						<div class="dropdown"><a class="nav-link collapsed py-3 px-0 px-lg-3 rounded js-scroll-trigger" data-toggle="dropdown">Achat</a>
 						<div class="dropdown-menu">
-							<div class="dropdown-item" >
-							<a  href="Enchere.php">Enchères</a>
+							<div class="dropdown-item" href="Enchere.php">
+							Encheres
 							</div>
-							<div class="dropdown-item">
-							<a  href="listeAchatImmediat.php">Achat immédiat</a>
+							<div class="dropdown-item" href="listeAchatImmediat.php">
+							Achat immédiat
 							</div>
-							<div class="dropdown-item">
-							<a   href="listeMeilleureOffre.php">Meilleure offre</a>
+							<div class="dropdown-item" href="listemeilleureOffre.php">
+							Meilleure offre
 							</div>
-							<div class="dropdown-item">
-							<a    href="achat.php">Tous</a>
+							<div class="dropdown-item" href="achat.php">
+							Tous
 							</div>
+						</div>
 					</div>
 						</li>
 						<?php
@@ -169,91 +147,110 @@ function choix() {
 <br>
 </div>
 
+ <div id="content">
+<div class="container-fluid">
+<!-- Page Heading -->
+			</br>
+			</br>
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Mon Espace Vendeur</h1>
+          </div>
 
-<div class="vente">
-<h1 style="text-align:center;"> Vendez vos biens aux meilleurs prix </h1><br></br>
-<h3 style="text-align:center;"> Séléctionner une catégorie </h3><br>
-<form action="vendre.php" method="post" enctype="multipart/form-data">
-<div class="row">
-
-<div class="col-lg">
-<input type="radio" id="Ferraille ou Trésor" name="categorie" value="Ferraille ou Tresor">Ferraille ou Trésor</div>
-
-<div class="col-lg">
-<input type="radio" id="Bon pour le musée" name="categorie" value="Bon pour le musee">Bon pour le musée</div>
-
-<div class="col-lg">
-<input type="radio" id="Accessoire VIP" name="categorie" value="Accessoire VIP">Accessoire VIP
-</div></div><br></br><br></br>
-
-
-<div class="row">
-<div class="col-lg">
-<p> Nom du bien mis en vente :</p></div>
-<div class="col-lg">
-<p> Description du bien mis en vente :</p></div>
-<div class="col-lg">
-<p> Type de ventes souhaité :</p></div>
+          <div class="row">
+			 <div class="col-lg-6">
+			  <!-- Basic Card Example -->
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Informations Personelles</h6>
+                </div>
+                <div class="card-body">
+                  Nom : <?php echo $_SESSION['Nom'];?>
+                </div>
+				<div class="card-body">
+                  Prenom :  <?php echo $_SESSION['Prenom'];?>
+                </div>
+				<div class="card-body">
+                  Email :  <?php echo $_SESSION['Email'];?>
+                </div>
+				<div class="card-body">
+                 Adresse  :  <?php echo $_SESSION['Adresse'];?>
+                </div>
+				<div class="card-body">
+                  Nombre d'objet en vente :  <?php echo $_SESSION['NombreO'];?>
+                </div>
+              </div>
+			  </div>
+			  <div class="col-lg-2">
+			  </div>
+			  <div class="col-lg-2">
+			  <div class="card shadow mb-4">
+			  <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary" align="center">Photo de Profil</h6>
+				   <div class="card-body" align="center">
+					<?php
+					$photo=$_SESSION['PhotoP'];
+				   echo '<img class="img-thumbnail" src="'.$photo.'" alt="Votre Photo de Profil" height="200px" width="206px" />';
+				   ?>
+					</div>
+			  </div>
+			    </div>
+				</div>
+				<div class="col-lg-2">
+				</div>
+			
+			
+			</div>
+			<div class="row">
+				<div class="col-lg-2">
+					<a href="Modificationvendeur.html" class="btn btn-info btn-icon-split btn-lg">
+                    <span class="icon text-white-55">
+                      <i class="fas fa-info-circle"></i>
+                    </span>
+                    <span class="text">Modifier mes Informations</span>
+                  </a>
+				</div>
+				<div class="col-lg-1">
+				</div>
+				<div class="col-lg-2">
+				<a href="VendreObjet.php" class="btn btn-success btn-icon-split btn-lg">
+                    <span class="icon text-white-50">
+                      <i class="fa fa-shopping-cart"></i>
+                    </span>
+                    <span class="text">    Vendre un Objet    </span>	
+				</a>
+				</div>
+				<div class="col-lg-1">
+				</div>
+				<?php
+				if(($_SESSION['type'])=='3')
+					{
+						echo '<div class="col-lg-2">
+				<a href="listeVendeur.php" class="btn btn-danger btn-icon-split  btn-lg">
+                    <span class="icon text-white-50">
+                      <i class="fas fa-trash"></i>
+                    </span>
+                    <span class="text">    Supprimer un vendeur   </span>	
+				</a></div><div class="col-lg-1">
+				</div>';
+						echo '<div class="col-lg-2">
+				<a href="listeItems.php" class="btn btn-warning btn-icon-split  btn-lg ">
+                    <span class="icon text-white-50">
+                      <i class="fas fa-trash"></i>
+                    </span>
+                    <span class="text">   Supprimer un Objet    </span>	
+				</a></div>';
+				
+					}
+				?>
+				
+			
+			
+			</div>
+			
 </div>
 
+<footer class="page-footer" style="margin-top:50px">
 
-<div class="row">
-<div class="col-lg-4">
-<input type="text"  name="nom"></div>
-<div class="col-lg-4">
-<textarea name="description" rows="5" cols="40" maxlength="255"></textarea></div>
-<div class="col-lg-4">
-<table>
-    <tr>
-        <td><input type="checkbox" id="enchere" name="typeVente" value=3 onclick="choix();">Enchère</td>
-    </tr>
-	<tr>
-	<td><div id="dateNego" style="display:none;"><label for="start">Start date:</label>
-
-<input type="date" id="start" name="date-start"
-       value="2020-04-25"
-       min="2020-04-25" max="2030-12-31"></br>
-	   
-	   <label for="start">End date:</label>
-
-<input type="date" id="end" name="date-end"
-       value="2020-04-25"
-       min='.$date.' max="2030-12-31"></br>
-	 </br></div></td>
-	</tr>
-    <tr>
-        <td><input type="checkbox" id="achatImm" name="typeVente" value=2 onclick="choix();">Achat immédiat</td>
-    </tr>
-    <tr>
-        <td><input type="checkbox" id="nego" name="typeVente" value=1 onclick="choix();" >Négocier</td>
-    </tr>
-</table>
-</div>
-</div><br></br>
-
-<div class="row">
-<div class="col-lg-4">
-<p> Ajouter des photos ou des vidéos : </p></div>
-<div class="col-lg-4">
-<p> Prix initial : </p></div>
-</div>
-<div class="row">
-<div class="col-lg-4">
-<p> <div class="parent-div">
-      <button class="btn-upload">Choisir le fichier</button>
-      <input type="file" name="photo">
-    </div> </p></div>
-<div class="col-lg-4">
-<p> <input type="number"  name="prix">€</p></div>
-<div class="col-lg-4">
-<input type="submit" name="soumettre" value="Mettre en vente">
-</div>
-</div>
-</form>
-</div>
-
-
-<footer class="page-footer">
 			 	<div class="container">
 					 <div class="row">
 						 <div class="col-lg-8 col-md-8 col-sm-12">
@@ -274,6 +271,7 @@ function choix() {
 				</div>
 			 <div class="footer-copyright text-center">&copy; 2020 Copyright | Droit d'auteur: ProjetVG-PC-NT</div>
 		</footer>
+</div>
 </body>
 
 </html>
