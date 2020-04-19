@@ -36,7 +36,15 @@ $database = "EbayECE";
 		if($from==1)
     	{header('Location:voirpanier.php');}
 		if($from==2)
-		{header('Location:comfirmernego.php');}
+            {
+            $ref=$_GET['ref'];
+            header('Location:comfirmernego.php?ida='.$ida.'&ref='.$ref);
+            }
+            if($from==3)
+            {
+            $ref=$_GET['ref'];
+            header('Location:comfirmerenchere.php?ref='.$ref);
+            }
 	mysqli_close($db_handle);     
 	
 	

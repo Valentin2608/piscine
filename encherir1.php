@@ -151,9 +151,17 @@ $db_found = mysqli_select_db($db_handle, $database);
 <div class="enchere" style="border:solid; border-color:#808080; height:auto; margin-bottom:10px; margin-right:10px;">
 <?php
 $ref =$_GET['ref'];
+$ida=5;
 $database = "EbayECE";
 $db_handle = mysqli_connect('localhost', 'root', 'root');
 $db_found = mysqli_select_db($db_handle, $database);
+$sql="SELECT * FROM Encherisseur WHERE IDAcheteur='$ida'";  
+$resultat=mysqli_query($db_handle,$sql);      
+$row=mysqli_fetch_array($resultat, MYSQLI_ASSOC);
+$gagner=$row['Gagner'];
+if(mysqli_num_rows($result) == 0)
+{
+$sql = "SELECT * FROM Items WHERE ref='$ref'";
 $result = mysqli_query($db_handle, $sql);
 		$row=mysqli_fetch_array($result, MYSQLI_ASSOC);
 		$vendeur=$row['IDVendeur'];
@@ -182,12 +190,28 @@ echo '<table>
 </tr> 
 <tr> 
 <td colspan="2" align="center">';
-echo'<input type="submit" name="button1" value="soumettre">';
-?>
-</td>
+echo'<input type="submit" name="button1" value="soumettre"></td>
 </tr>
 </table>
-</form>
+</form>';}
+else
+{
+	if($gagner==1)
+	{
+		$from=3;
+		echo '<form action="verife.php?ref='.$ref.'&from='.$from.'&ida='..$ida'" method="post">';
+		echo"<h1>Vous avez remporté cette enchère</h1>";
+		echo'<input type="submit" name="button1" value="OK"></form>';
+	}
+	else
+	{
+		echo '<form action="index.php" method="post">';
+		echo"<h1>Vous participez déjà à cette enchère</h1>";
+		echo'<input type="submit" name="button1" value="OK"></form>';
+	}
+}
+?>
+
 </div>
 </div>
 </div>

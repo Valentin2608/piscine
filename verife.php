@@ -13,7 +13,11 @@
     $resultat=mysqli_query($db_handle, $sql);
         if(mysqli_num_rows($resultat) == 0)
         { 
-        	header('Location:paiement1.php?ida='.$ida.'&from='.$from);
+        	if($from==1)
+        	{header('Location:paiement1.php?ida='.$ida.'&from='.$from);}
+        	if($from==2 || $from==3)
+        	{header('Location:paiement1.php?ida='.$ida.'&from='.$from.'&ref='.$ref);}
+        	
         }
         else 
         {
@@ -23,6 +27,11 @@
             {
             $ref=$_GET['ref'];
             header('Location:comfirmernego.php?ida='.$ida.'&ref='.$ref);
+            }
+            if($from==3)
+            {
+            $ref=$_GET['ref'];
+            header('Location:comfirmerenchere.php?ref='.$ref);
             }
         }
     
