@@ -1,8 +1,4 @@
-<?php
-session_start();
-$ref =$_GET['ref'];
 
-?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -99,126 +95,69 @@ $ref =$_GET['ref'];
 					</form>
 				</div>
 				
-				<div class="col-lg-2">
-				<?php
-				if(empty($_SESSION['ID'])) 
-				{
-				echo"<li class='nav-item'><a class='nav-link' href='connexion.html' style='color:white;'>Se Connecter</a></li>";
 				
-				}
-				else 
-				{
-					echo "<li class='nav-item'><a class='nav-link' href='deconnexion.php' style='color:white;'>Se Deconnecter</a></li>";
-				}
-				 ?>
-				
-				</div>
 				 </ul>
 			 </div>
 </nav>
 </div>
 <br>
 </div>
-<div class="container-fluid">
+
+<div class= "container-fluid">
+<h1>Voter Panier</h1>
 <div class="row">
 <div class="col-lg-8">
 <div class="objet" style=" border:solid; border-color:#808080; height:auto;" >
-<?php
+ 
+ <?php
 
-$ref=$_GET['ref'];
-//identifier votre BDD
+$ida=5;
 $database = "EbayECE";
-//connectez-vous de votre BDD
 $db_handle = mysqli_connect('localhost', 'root', 'root');
 $db_found = mysqli_select_db($db_handle, $database);
-
-		$sql = "SELECT * FROM Items WHERE Ref='$ref'";
-		$result = mysqli_query($db_handle, $sql);
-		$row=mysqli_fetch_array($result, MYSQLI_ASSOC);
-		$nom=$row['Nom']; 
-		$image=$row['Images'];
-		$description=$row['Description'];
-		
-		
-		echo "Nom: ".$nom. "</br>";
-		echo "Description: ".$description. "</br>";
-		echo '<img src="'.$image.'" widht="150" height="150"></br>';
-		
-
+$sql="SELECT * FROM `Panier` WHERE `IDAcheteur`='$ida'";
+$resultat=mysqli_query($db_handle,$sql);
+$classe1="img-thumbnail";
+$classe2="caption";
+$prixtot=0;
+while ($row=mysqli_fetch_array($resultat, MYSQLI_ASSOC))  
+{
+$ref=$row['Ref'];
+$sql="SELECT * FROM `Items` WHERE `Ref`='$ref'";
+$resultat2=mysqli_query($db_handle,$sql);
+while ($row2=mysqli_fetch_array($resultat2, MYSQLI_ASSOC))  
+{
+$prix=$row2['Prix'];
+$prixtot=$prixtot+$prix;
+$nom=$row2['Nom'];
+$description=$row2['Description'];
+$categorie=$row2['Categorie'];
+$img=$row2['Images'];
+echo '<form action="suprimerdupanier.php?ref='.$ref.'&ida='.$ida.'" method="post">
+<table>
+<tr>
+<td><div class='.$classe1.'><img src="'.$img.'" widht="150" height="150">
+<div class='.$clase2.'>
+<p>Nom: '.$nom.'</br>Description :'.$description.'</br>Categorie :'.$categorie.'</br>Prix :'.$prix.'€</p>
+</div> 
+</div></td>
+</tr><tr> 
+<td colspan="2" align="center">
+<input type="submit" name="button1" value="suprimer"></td></tr></table></form>';
+}}
+echo'<h3>Total: '.$prixtot.' €</h3>';
 ?>
 </div>
 </div>
 <div class="col-lg-4">
 <div class="enchere" style="border:solid; border-color:#808080; height:auto; margin-bottom:10px; margin-right:10px;">
+<h2>Passer à l'achat</h2>
 <?php
-
-$ref=$_GET['ref'];
-//$idv=$_SESSION['ID'];
-$idv=1;
-$database = "EbayECE";
- $db_handle = mysqli_connect('localhost', 'root', 'root');
- $db_found = mysqli_select_db($db_handle, $database);
- 
-$sql="SELECT * FROM Nego WHERE Ref='$ref' AND IDVendeur='$idv'";  
-$resultat = mysqli_query($db_handle, $sql);
-if(mysqli_num_rows($resultat) == 0)
-{echo"<h2>Perssonne ne veut negocier</h2>";
-echo '<form action="index.php" method="post">'; 
-echo'<input type="submit" name="button1" value="OK"></form>';} 
-else
-{
-while ($row=mysqli_fetch_array($resultat, MYSQLI_ASSOC))   
-{
-$compt=$row['Compteur']; 
-
-		
- $prix=$row['Proposition']; 
-  $acc=$row['Accepter'];
-		$ida=$row['IDAcheteur'];
-		$sql="SELECT * FROM Acheteur WHERE IDAcheteur='$ida'";  
-		$result = mysqli_query($db_handle, $sql);
-		$row=mysqli_fetch_array($result, MYSQLI_ASSOC);
-		$acheteur=$row['Prenom']." ".$row['Nom'];
-echo "Nom de l'acheteur: ".$acheteur. "</br>";
-echo "Proposition de l'acheteur" .$prix. "€</br>";
-if($acc==0)
-{
-if($compt%2 != 0)
-{		
-echo '<form action="repvendeur.php?ref='.$ref.'&ida='.$ida.'" method="post">';
-$sql="SELECT * FROM Items WHERE Ref='$ref'";   
-$result = mysqli_query($db_handle, $sql);
-$row2=mysqli_fetch_array($result, MYSQLI_ASSOC); 
-$nom=$row2['Nom'];
-echo"<h1>Négocier: ".$nom."</h1>";
-echo '<table>
-<tr>
-<td>Accepter  </td>
-<td>
-<input type="checkbox" value="0" onclick="if (this.checked) this.value=1; else this.value=0;alert(this.value);" name="rep" />
-</td></tr>
-<tr>
-<td> Proposition :</td>
-<td><input type="number"  name="co"></td>   
-</tr>
-<tr> 
-<td colspan="2" align="center">';
-echo'<input type="submit" name="button1" value="soumettre"></td></tr></table></form></br>';}
-else
-{
-echo"<h2>L'acheteur ne vous a pas encors répondu</h2>";}
-
-}
-else
-{
-echo"<h2>Vous et l'acheteur êtes tombé d'accord</h2>";
-echo '<form action="finalisernego.php?ref='.$ref.'" method="post">';
-echo '<table>
-<tr> 
-<td colspan="2" align="center">';
-echo'<input type="submit" name="button1" value="finir">';}
-}}
-?>
+$ida=5;
+$from=1;
+echo '<form action="verife.php?ida='.$ida.'&from='.$from.'" method="post">';?>
+<input type="submit" name="button1" value="Valider votre Panier"></form>
+</div>
 </div>
 </div>
 </div>

@@ -3,7 +3,9 @@
 	$ref =$_GET['ref'];
 	//$ida=$_SESSION['ID'];
 	$ida=5;
+	
 	$prix = isset($_POST["prix"])? $_POST["prix"] : "";
+	
 	$database = "EbayECE";
     $db_handle = mysqli_connect('localhost', 'root', 'root');
     $db_found = mysqli_select_db($db_handle, $database);

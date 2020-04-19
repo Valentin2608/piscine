@@ -1,7 +1,8 @@
 <?php
 
 if (isset($_POST["button1"])) {
-
+$ida =$_GET['ida'];
+$from=$_GET['from'];
 $card = isset($_POST["creditCard"])? $_POST["creditCard"] :"";
 $numeroC = isset($_POST["numeroC"])? $_POST["numeroC"] : "";
 $nomC= isset($_POST["nomC"])? $_POST["nomC"] :"";
@@ -24,21 +25,28 @@ $erreur = "";
  if ($crypto == "") {
  $erreur .= "crypto est vide. <br>"; }
 
-
+echo $from; 
  if ($erreur == "") 
  {
 $database = "EbayECE";
 	$db_handle = mysqli_connect('localhost', 'root', 'root');
 	$db_found = mysqli_select_db($db_handle, $database);
-		$sql="INSERT INTO `Payement`( `Numero`, `Typecart`, `Nom`, `Date`, `Crypto`) VALUES ('$numeroC','$card','$nomC','$dateE','$crypto')";
-		if(mysqli_query($db_handle, $sql)){ 
-    	echo "Record was updated successfully."; 
-		} else 
-		{ 
-    		echo "ERROR: Could not able to execute $sql. "  
-                            . mysqli_error($db_handle); 
-		}  
-	mysqli_close($link); 
+		$sql="INSERT INTO `Payement`( `IDAcheteur`,`Numero`, `Typecart`, `Nom`, `Date`, `Crypto`) VALUES ('$ida','$numeroC','$card','$nomC','$dateE','$crypto')";
+		mysqli_query($db_handle, $sql);
+		if($from==1)
+    	{header('Location:voirpanier.php');}
+		if($from==2)
+            {
+            $ref=$_GET['ref'];
+            header('Location:comfirmernego.php?ida='.$ida.'&ref='.$ref);
+            }
+            if($from==3)
+            {
+            $ref=$_GET['ref'];
+            header('Location:comfirmerenchere.php?ref='.$ref);
+            }
+	mysqli_close($db_handle);     
+	
 	
 
 }

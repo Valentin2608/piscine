@@ -154,70 +154,34 @@ $db_found = mysqli_select_db($db_handle, $database);
 
 $ref=$_GET['ref'];
 //$idv=$_SESSION['ID'];
-$idv=1;
+$ida=$_GET['id'];
 $database = "EbayECE";
  $db_handle = mysqli_connect('localhost', 'root', 'root');
  $db_found = mysqli_select_db($db_handle, $database);
  
-$sql="SELECT * FROM Nego WHERE Ref='$ref' AND IDVendeur='$idv'";  
-$resultat = mysqli_query($db_handle, $sql);
-if(mysqli_num_rows($resultat) == 0)
-{echo"<h2>Perssonne ne veut negocier</h2>";
-echo '<form action="index.php" method="post">'; 
-echo'<input type="submit" name="button1" value="OK"></form>';} 
-else
-{
-while ($row=mysqli_fetch_array($resultat, MYSQLI_ASSOC))   
-{
-$compt=$row['Compteur']; 
-
-		
- $prix=$row['Proposition']; 
-  $acc=$row['Accepter'];
-		$ida=$row['IDAcheteur'];
-		$sql="SELECT * FROM Acheteur WHERE IDAcheteur='$ida'";  
+  
+		$sql = "SELECT * FROM Items WHERE Ref='$ref'";
 		$result = mysqli_query($db_handle, $sql);
 		$row=mysqli_fetch_array($result, MYSQLI_ASSOC);
-		$acheteur=$row['Prenom']." ".$row['Nom'];
-echo "Nom de l'acheteur: ".$acheteur. "</br>";
-echo "Proposition de l'acheteur" .$prix. "€</br>";
-if($acc==0)
-{
-if($compt%2 != 0)
-{		
-echo '<form action="repvendeur.php?ref='.$ref.'&ida='.$ida.'" method="post">';
+		$prix=$row['Prix'];
+		$vendeur=$row['IDVendeur'];
+		$sql="SELECT * FROM Vendeur WHERE IDVendeur='$vendeur'";  
+		$result = mysqli_query($db_handle, $sql);
+		$row=mysqli_fetch_array($result, MYSQLI_ASSOC);
+		$vendeur=$row['Prenom']." ".$row['Nom'];
+echo "Nom du vendeur: ".$vendeur. "</br>";
+echo "Proposition du vendeur:" .$prix. "€</br>";		
+echo '<form action="ajouteraupanier.php?ref='.$ref.'&ida='.$ida.'" method="post">';
 $sql="SELECT * FROM Items WHERE Ref='$ref'";   
 $result = mysqli_query($db_handle, $sql);
 $row2=mysqli_fetch_array($result, MYSQLI_ASSOC); 
 $nom=$row2['Nom'];
-echo"<h1>Négocier: ".$nom."</h1>";
+echo"<h1>Ajouter au panier: ".$nom."</h1>";
 echo '<table>
-<tr>
-<td>Accepter  </td>
-<td>
-<input type="checkbox" value="0" onclick="if (this.checked) this.value=1; else this.value=0;alert(this.value);" name="rep" />
-</td></tr>
-<tr>
-<td> Proposition :</td>
-<td><input type="number"  name="co"></td>   
-</tr>
 <tr> 
 <td colspan="2" align="center">';
-echo'<input type="submit" name="button1" value="soumettre"></td></tr></table></form></br>';}
-else
-{
-echo"<h2>L'acheteur ne vous a pas encors répondu</h2>";}
+echo'<input type="submit" name="button1" value="Ajouter"></td></tr></table></form></br>';
 
-}
-else
-{
-echo"<h2>Vous et l'acheteur êtes tombé d'accord</h2>";
-echo '<form action="finalisernego.php?ref='.$ref.'" method="post">';
-echo '<table>
-<tr> 
-<td colspan="2" align="center">';
-echo'<input type="submit" name="button1" value="finir">';}
-}}
 ?>
 </div>
 </div>

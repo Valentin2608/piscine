@@ -11,6 +11,30 @@
 
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+function choix() {
+    if(document.getElementById('enchere').checked)
+    {
+    document.getElementById('nego').checked = false;
+    document.getElementById('achatImm').checked = false;
+    }
+     if(document.getElementById('achatImm').checked)
+    {
+    document.getElementById('enchere').checked = false;
+    }
+    if(document.getElementById('achatImm').checked && document.getElementById('nego').checked)
+    {
+    document.getElementById('achatImm').value = 4;
+    document.getElementById('nego').value = 4;
+    }
+    else
+    {
+    document.getElementById('achatImm').value = 2;
+    document.getElementById('nego').value = 1;
+    }
+}
+</script>
+
 
 </head>
 
@@ -137,15 +161,15 @@
 <textarea name="description" rows="5" cols="40" maxlength="255"></textarea></div>
 <div class="col-lg-4">
 <table>
-	<tr>
-		<td><input type="radio" name="typeVente" value="3">Enchère</td>
-	</tr>
-	<tr>
-		<td><input type="radio"  name="typeVente" value="2">Achat immédiat</td>
-	</tr>
-	<tr>
-		<td><input type="radio" name="typeVente" value="1">Négocier</td>
-	</tr>
+    <tr>
+        <td><input type="checkbox" id="enchere" name="typeVente" value=3 onclick="choix();">Enchère</td>
+    </tr>
+    <tr>
+        <td><input type="checkbox" id="achatImm" name="typeVente" value=2 onclick="choix();">Achat immédiat</td>
+    </tr>
+    <tr>
+        <td><input type="checkbox" id="nego" name="typeVente" value=1 onclick="choix();" >Négocier</td>
+    </tr>
 </table>
 </div>
 </div><br></br>
