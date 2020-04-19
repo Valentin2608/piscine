@@ -214,7 +214,7 @@ function choix() {
        name="ddebut" value="2020-05-14T19:30"
        min="2020-04-14T00:00" max="2020-06-14T00:00">
 <input type="datetime-local"
-       name="ddfin" value="2020-05-14T19:30"
+       name="dfin" value="2020-05-14T19:30"
        min="2020-04-15T00:00" max="2022-06-14T00:00"></br>
 	 </br></div></td>
 	</tr>

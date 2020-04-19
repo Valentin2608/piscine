@@ -61,19 +61,32 @@ $message="Entrez une nouvelle date de fin";
 		$max=$max+1;
 		$max.=".jpeg";
 		$sql="INSERT INTO `Items`(`Nom`, `Description`, `Images`, `Categorie`, `TypedeVente`, `IDVendeur`, `Prix`) VALUES ('$nom','$description','$max','$categorie','$typedeVente','$IDVendeur','$prix ')";
-		$sql2="SELECT MAX(Ref) FROM Items";
-		$ref=mysqli_query($db_handle,$sql2);
-		if($typedeVente == "3")
-		{
-			$sql="INSERT INTO Encheres (IDVendeur, ddebut, dfin, Ref, Prixmin) VALUES ('$IDVendeur', '$ddebut', '$dfin', '$ref', '$prix')";
-		}
-		if(mysqli_query($db_handle, $sql)){ 
+		mysqli_query($db_handle,$sql);
+		$sql2="SELECT * FROM Items";
+		$resultat=mysqli_query($db_handle,$sql2);
+    $ref=0;
+    while ($row2=mysqli_fetch_array($resultat, MYSQLI_ASSOC))
+    {
+        $min=$row2['Ref'];
+        if($ref<$min)
+        {
+            $ref=$min;
+            
+        }
+
+    }
+        if($typedeVente == 3)
+        {
+            $sql3="INSERT INTO Encheres (IDvendeur, ddebut,dfin, Ref, Prixmin, Prixactuel) VALUES ('$IDVendeur', '$ddebut', '$dfin', '$ref', '$prix', '$prix')";
+			if(mysqli_query($db_handle, $sql3)){ 
     	echo "Record was updated successfully."; 
 		} else 
 		{ 
-    		echo "ERROR: Could not able to execute $sql. "  
+    		echo "ERROR: Could not able to execute $sql3. "  
                             . mysqli_error($db_handle); 
 		} 
+        }
+		
 		
 		// récupération et dl de la photo
          if (isset($_FILES['photo']['tmp_name'])) {
@@ -89,5 +102,5 @@ $message="Entrez une nouvelle date de fin";
 	mysqli_close($db_handle); 
 	}
  }
- header('Location: index.php');
+ //header('Location: index.php');
 ?> 

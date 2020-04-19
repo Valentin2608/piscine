@@ -210,7 +210,7 @@ $sql2="SELECT * FROM `encheres` WHERE `Ref`='$ref'";
 $resultat2=mysqli_query($db_handle,$sql2); 
 $row2=mysqli_fetch_array($resultat2, MYSQLI_ASSOC); 
 $ref=$row2['Ref'];
-$date= $row2['dfin']." à ".$row2['hfin'];
+$date= $row2['dfin'];
 $prix=$row2['Prixactuel'];
 echo '<form action="encherir1.php?ref='.$ref.'" method="post">
 <input type='.$type.' class='.$classe1.' name='.$name.' value='.$ref.' src='.$img.' widht='.$size.' height='.$size.'>

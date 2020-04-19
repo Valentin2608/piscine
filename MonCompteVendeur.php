@@ -221,6 +221,14 @@ session_start();
 				</div>
 				<div class="col-lg-1">
 				</div>
+				<div class="col-lg-2">
+				<a href="Negovendeur.php" class="btn btn-success btn-icon-split btn-lg">
+                    <span class="icon text-white-50">
+                      <i class="fa fa-shopping-cart"></i>
+                    </span>
+                    <span class="text">    Liste objet en vente    </span>	
+				</a>
+				</div>
 				<?php
 				if(($_SESSION['type'])=='3')
 					{
