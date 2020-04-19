@@ -4,10 +4,11 @@ $ddebut = isset($_POST["ddebut"])? $_POST["ddebut"] : "";
  $dfin = isset($_POST["dfin"])? $_POST["dfin"] : "";
  $ref = isset($_POST["ref"])? $_POST["ref"] : "";
 $prixmin = isset($_POST["prixmin"])? $_POST["prixmin"] : "";
+echo $ddebut;
 
-$database = "EbayECE";
+$database = "ECEEbay";
 
-    $db_handle = mysqli_connect('localhost', 'root', 'root');
+    $db_handle = mysqli_connect('localhost', 'root', '');
     $db_found = mysqli_select_db($db_handle, $database);
     echo "hgjgg";
     if ($_POST["button1"]) {

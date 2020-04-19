@@ -69,7 +69,8 @@
     		echo "ERROR: Could not able to execute $sql. "  
                             . mysqli_error($db_handle); 
 		}  
-		//header('Location: index.php');
+		sleep(1);
+		header('Location: connexionacheteur.html');
 		}
 		else
 		{ 

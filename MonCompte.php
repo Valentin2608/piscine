@@ -188,7 +188,7 @@ session_start();
                   Email :  <?php echo $_SESSION['Email'];?>
                 </div>
 				<div class="card-body">
-                 Adresse 1 :  <?php $_SESSION['Adresse1'];?>
+                 Adresse 1 :  <?php echo $_SESSION['Adresse1'];?>
                 </div>
 				<div class="card-body">
                   Adresse 2 :  <?php echo $_SESSION['Adresse2'];?>
@@ -245,7 +245,7 @@ session_start();
 				<div class="col-lg-2">
 				</div>
 				<div class="col-lg-2">
-					<a href="MonPanier.php" class="btn btn-danger btn-icon-split btn-lg">
+					<a href="MonPanier.html" class="btn btn-danger btn-icon-split btn-lg">
                     <span class="icon text-white-50">
                       <i class="fa fa-shopping-cart"></i>
                     </span>
@@ -253,7 +253,7 @@ session_start();
                   </a>
 				</div>
 				<div class="col-lg-2">
-					<a href="ModifierinfoA.php" class="btn btn-info btn-icon-split btn-lg">
+					<a href="Modifier.html" class="btn btn-info btn-icon-split btn-lg">
                     <span class="icon text-white-50">
                       <i class="fas fa-info-circle"></i>
                     </span>

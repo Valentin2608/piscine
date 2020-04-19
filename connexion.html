@@ -15,130 +15,56 @@
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
   <!-- Custom styles for this template-->
-  <link href="css/sb-admin-2.min.css" rel="stylesheet">
+  <link href="sb-admin-2.min.css" rel="stylesheet">
 </head>
 
 
 <body>
-<div class="global">
-<div class="container-fluid"> 
-<div class="row" style="height:80px; background-color:#007179; border: solid; border-color:#808080;">
-	<div class="col-lg-5" ></div>
-	<div class="col-lg-2" ><img src="logo.png" alt="" height="70px;"></div>
-	<div class="col-lg-5" ></div>
-</div>
+<body background="Image/encheres.jpg">
+
+  <div class="container">
+
+    <div class="card o-hidden border-0 shadow-lg my-5">
+      <div class="card-body p-0">
+        <!-- Nested Row within Card Body -->
+        <div class="row">
+		
+          <div class="col-lg-12">
+            <div class="p-5">
+              <div class="text-center">
+                <h1 class="h4 text-gray-900 mb-4">Connexion à votre compte acheteur !</h1>
+              </div>
+             <form action="connexion.php" method="post">
+                
+				<div class="form-group">
+                  <input type="text" class="form-control form-control-user"  name="login" placeholder="Email">
+                </div>
+                <div class="form-group">
+                  <input type="password" class="form-control form-control-user"  name="password" placeholder="Password">
+                </div>
+               
+                <input  name="Connect" type="submit" class="btn btn-primary btn-user btn-block" value="Se connectez à mon compte EbayECE">     
+               <hr>
+                <a href="error.php" class="btn btn-google btn-user btn-block">
+                  <i class="fab fa-google fa-fw"></i> Login with Google
+                </a>
+                <a href="error.php" class="btn btn-facebook btn-user btn-block">
+                  <i class="fab fa-facebook-f fa-fw"></i>Login with Facebook
+                </a>
+              </form>
+              <div class="text-center">
+                <a class="small" href="creercompteacheteur.html">Pas de compte?! Cliquez ici</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  
 
 
-<div class="row"style="height:60px; background-color:#007179; border-bottom: solid;border-left:solid; border-right:solid; border-color:#808080;">
-<nav class="navbar navbar-expand-lg">
-	
-	<button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#main-navigation">
-			 	<span class="navbar-toggler-icon"></span>
-	</button>
-	
-			 <div class="collapse navbar-collapse" id="main-navigation">
-				 <ul class="navbar-nav">
-				 
-				 <div class="col-lg-1.1">
-					 <li class="nav-item"><a class="nav-link" href="#" style="color:white;">Accueil</a></li>
-				</div>
-				<div class="col-lg-1.1">
-					 <li class="nav-item"><a class="nav-link" href="#"style="color:white;">
-					 <div class="dropdown">
-						<p data-toggle="dropdown">Catégorie</p>
-						<div class="dropdown-menu">
-							<div class="dropdown-item">
-							Ferraille ou Trésor
-							</div>
-							<div class="dropdown-item">
-							Bon pour le musée
-							</div>
-							<div class="dropdown-item">
-							Accessoire VIP
-							</div>
-						</div>
-					</div>
-					</a></li>
-				</div>
-				<div class="col-lg-1">
-					 <li class="nav-item"><a class="nav-link" href="#"style="color:white;">
-					 <div class="dropdown">
-						<p data-toggle="dropdown">Achat</p>
-						<div class="dropdown-menu">
-							<div class="dropdown-item">
-							Enchère
-							</div>
-							<div class="dropdown-item">
-							Achat immédiat
-							</div>
-							<div class="dropdown-item">
-							Meilleure offre
-							</div>
-						</div>
-					</div>
-					 </a></li>
-				</div>
-				<div class="col-lg-1">
-					 <li class="nav-item"><a class="nav-link" href="#"style="color:white;">Vendre</a></li>
-				</div>
-				<div class="col-lg-1">
-					 <li class="nav-item"><a class="nav-link" href="#"style="color:white;">Compte</a></li>
-				</div>
-				<div class="col-lg-1">
-					 <li class="nav-item"><a class="nav-link" href="#"style="color:white;">Panier</a></li>
-				</div>
-				<div class="col-lg-1">
-					 <li class="nav-item"><a class="nav-link" href="#"style="color:white;">Admin</a></li>
-				</div>
-				<div class="col-lg-6"></div>
-				<div class="col-lg-2">
-					 <form class="navbar-form navbar-right inline-form">
-						<div class="form-group">
-						<input type="search" class="input-sm form-control" placeholder="Recherche">
-						<button type="submit" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-eye-open"></span> Chercher</button>
-						</div>
-					</form>
-				</div>
-				 </ul>
-			 </div>
-</nav>
-</div>
-<br>
-
-<div class="connex">
-<h1> Bonjour ! </h1><br>
-<h4>Se connecter à Ebay ECE ou <a href="#">se créer un compte </a></h4><br></br>
-<form action="connexion.php" method="post">
-<h5> Login : <br><input type="text"  name="login"></h5>
-<h5>Mot de passe : <br><input type="password"  name="password"></h5><br></br>
-<input type="submit" name="button1" value="Se connecter"></div>
-</div>
-
-
-
-
-
-<footer class="page-footer">
-			 	<div class="container">
-					 <div class="row">
-						 <div class="col-lg-8 col-md-8 col-sm-12">
-							 <h6 class="text-uppercase font-weight-bold">Information additionnelle</h6>
-							 
-						 </div>
-						 
-						 <div class="col-lg-4 col-md-4 col-sm-12">
-							 <h6 class="text-uppercase font-weight-bold">Contact</h6>
-							 <p>
-							 37, quai de Grenelle, 75015 Paris, France <br>
-							 info@webDynamique.ece.fr <br>
-							 +33 01 02 03 04 05 <br>
-							 +33 01 03 02 05 04
-							 </p>
-						 </div>
-					 </div>
-				</div>
-			 <div class="footer-copyright text-center">&copy; 2020 Copyright | Droit d'auteur: ProjetVG-PC-NT</div>
-		</footer>
 </body>
 
 </html>

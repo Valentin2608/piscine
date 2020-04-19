@@ -3,8 +3,8 @@
 	$ref =$_GET['ref'];
 	//$ida=$_SESSION['ID'];
 	
-	$database = "EbayECE";
-    $db_handle = mysqli_connect('localhost', 'root', 'root');
+	$database = "ECEEbay";
+    $db_handle = mysqli_connect('localhost', 'root', '');
     $db_found = mysqli_select_db($db_handle, $database);
 
     
