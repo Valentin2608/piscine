@@ -5,7 +5,7 @@ $ref =$_GET['ref'];
 <!DOCTYPE html>
 <html>
 <head>
-<title>Négociation</title>
+<title>Vendre</title>
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -154,7 +154,7 @@ $ref =$_GET['ref'];
 //$ida=$_SESSION['ID'];
 $ida=5;
 $database = "EbayECE";
-$db_handle = mysqli_connect('localhost', 'root', 'root');
+$db_handle = mysqli_connect('localhost', 'root', '');
 $db_found = mysqli_select_db($db_handle, $database);
 $sql="SELECT * FROM Nego WHERE Ref='$ref' AND IDAcheteur='$ida'";  
 $result = mysqli_query($db_handle, $sql);

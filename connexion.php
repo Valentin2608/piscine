@@ -1,3 +1,5 @@
+
+
 <?php
 session_start();
  $login = isset($_POST["login"])? $_POST["login"] : ""; //if then else
@@ -5,7 +7,7 @@ session_start();
 
 
 //identifier votre BDD
-$database = "ECEEbay";
+$database = "EbayECE";
 //connectez-vous de votre BDD
 $db_handle = mysqli_connect('localhost', 'root', '');
 $db_found = mysqli_select_db($db_handle, $database);
@@ -13,7 +15,7 @@ $db_found = mysqli_select_db($db_handle, $database);
 //Partie 1:recherche login et mot de passe dans la BDD
 //*****************************
 
-if (isset($_POST['button1'])) {
+if (isset($_POST['Connect'])) {
 	if ($db_found) {
 		$sql = "SELECT * FROM acheteur";
 		if ($login != "") {
@@ -30,18 +32,34 @@ if (isset($_POST['button1'])) {
 				else {
 						
 					
-					$sql = "SELECT ID, Nom, Prenom, Email, MdP FROM Acheteur WHERE Email = '$login'";
+					$sql = "SELECT * FROM Acheteur WHERE Email = '$login'";
 					$result = mysqli_query($db_handle, $sql);
-					$i="1";
 					$data = mysqli_fetch_array($result, MYSQLI_ASSOC);
-					 $_SESSION['ID'] = $data['ID'];
+					$_SESSION['ID'] = $data['IDAcheteur'];
 					$_SESSION['Nom'] = $data['Nom'];
 					$_SESSION['Prenom'] = $data['Prenom'];
 					$_SESSION['Email'] = $data['Email'];
+					$_SESSION['Adresse1'] = $data['Adresse1'];
+					$_SESSION['Adresse2'] = $data['Adresse2'];
+					$_SESSION['Tel'] = $data['Tel'];
+					$_SESSION['Pays'] = $data['Pays'];
+					$_SESSION['CodePostal'] = $data['CodePostal'];
+					$_SESSION['password'] = $data['MdP'];
+					$id=$_SESSION['ID'];
+					$i="1";
 					$_SESSION['type']= $i;
+					
+					$sql = "SELECT * FROM payement WHERE IDclient ='$id'";
+					$result = mysqli_query($db_handle, $sql);
+					$data = mysqli_fetch_array($result, MYSQLI_ASSOC);
+					$_SESSION['Typecart'] = $data['Typecart'];
+					$_SESSION['Numero'] = $data['Numero'];
+					$_SESSION['Nom2'] = $data['Nom'];
+					$_SESSION['Date'] = $data['Date'];
+					$_SESSION['Crypto'] = $data['Crypto'];
 				
 					sleep(1);
-					header('Location: index.php');
+					header('Location: moncompte.php');
 					
 					mysqli_close($db_handle); 
 
@@ -53,3 +71,4 @@ if (isset($_POST['button1'])) {
 			}
 }
 ?> 
+

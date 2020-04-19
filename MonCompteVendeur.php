@@ -28,7 +28,7 @@ session_start();
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
   <!--Css pour le template Boostrap-->
-  <link href="sb-admin-2.min.css" rel="stylesheet">
+ 
 
 
 </head>
@@ -46,7 +46,7 @@ session_start();
 
 <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
             <div class="container">
-                <a class="navbar-brand js-scroll-trigger" href="#page-top">Ebay ECE</a><button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">Menu <i class="fas fa-bars"></i></button>
+                <a class="navbar-brand js-scroll-trigger" href="index.php">Ebay ECE</a><button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">Menu <i class="fas fa-bars"></i></button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
 					<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="index.php">Accueil</a></li>
@@ -225,7 +225,7 @@ session_start();
 				if(($_SESSION['type'])=='3')
 					{
 						echo '<div class="col-lg-2">
-				<a href="SupprimerVendeur.php" class="btn btn-danger btn-icon-split  btn-lg">
+				<a href="listeVendeur.php" class="btn btn-danger btn-icon-split  btn-lg">
                     <span class="icon text-white-50">
                       <i class="fas fa-trash"></i>
                     </span>
@@ -233,7 +233,7 @@ session_start();
 				</a></div><div class="col-lg-1">
 				</div>';
 						echo '<div class="col-lg-2">
-				<a href="SupprimerObjet.php" class="btn btn-warning btn-icon-split  btn-lg ">
+				<a href="listeItems.php" class="btn btn-warning btn-icon-split  btn-lg ">
                     <span class="icon text-white-50">
                       <i class="fas fa-trash"></i>
                     </span>

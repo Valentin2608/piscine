@@ -27,7 +27,7 @@
  	
 	
 	echo "123</br>";
- 	$database = "ECEEbay";
+ 	$database = "EbayECE";
 	$db_handle = mysqli_connect('localhost', 'root', '');
 	$db_found = mysqli_select_db($db_handle, $database);
 	if (isset($_POST["CreaCompt"]))
@@ -55,7 +55,7 @@
 		$max=0;
 		while ($row=mysqli_fetch_array($resultat, MYSQLI_ASSOC))
 		{
-        $min=$row['ID'];
+        $min=$row['IDVendeur'];
         if($max<$min)
         {
             $max=$min;
@@ -104,6 +104,6 @@
  else {
  echo "Erreur : $erreur";
  }
- //sleep(1);
-//header('Location: connexionvendeur.html');
+ sleep(1);
+header('Location: connexionvendeur.html');
 ?> 

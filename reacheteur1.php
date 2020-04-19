@@ -1,15 +1,11 @@
 <?php
 session_start();
-if(empty($_SESSION['type']))
-{
-$_SESSION['type']=0;
-}	
-
+$ref =$_GET['ref'];
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-<title>Liste des Enchères</title>
+<title>Négociation</title>
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -148,48 +144,120 @@ $_SESSION['type']=0;
         </nav>
 <br>
 </div>
+<div class="container-fluid">
+<div class="row">
+<div class="col-lg-8">
+<div class="card shadow " style="margin-bottom:5px;">
+<div class="card-header " >
+<?php
 
-<div class= "container-fluid">
- <h1 style="text-align:center;">Liste des objets aux enchères</h1>
- <?php
-
-
- $database = "EbayECE";
+$ref =$_GET['ref'];
+//identifier votre BDD
+$database = "EbayECE";
+//connectez-vous de votre BDD
 $db_handle = mysqli_connect('localhost', 'root', '');
 $db_found = mysqli_select_db($db_handle, $database);
-$sql="SELECT * FROM `Encheres`";
-$resultat=mysqli_query($db_handle,$sql);
-$size="150";
-$type="image";
-$name="button";
-$classe1="card-img-top";
-$classe2="card-body";
-echo'<div class="row" style="margin-left:10%; margin-right:10%; margin-top:20px;">';
-while ($row=mysqli_fetch_array($resultat, MYSQLI_ASSOC)) 
-{
-	echo "<div class='col-lg-4 col-md-6 mb-4 '>";
-	echo"<div class='card h-100'>";
-$ref=$row['Ref'];
-$date= $row['dfin']." à ".$row['hfin'];
-$prix=$row['Prixactuel'];
-$sql2="SELECT * FROM `Items` WHERE `Ref`='$ref'";    
-$resultat2=mysqli_query($db_handle,$sql2); 
-$row2=mysqli_fetch_array($resultat2, MYSQLI_ASSOC); 
-$img=$row2['Images'];
-$nom=$row2['Nom'];
-$description=$row2['Description']; 
-echo '<form action="AchatNego.php?ref='.$ref.'" method="post">
-<input type='.$type.' class='.$classe1.' name='.$name.' value='.$ref.' src='.$img.' widht='.$size.' height='.$size.'>
-<div class='.$classe2.'>
-<h4 class="card-title">'.$nom.'</h4>
-<h5> '.$prix.' $</h5>
-<p class="card-text">Date limite, jusqu au :</br> '.$date.'</br>Description :</br>'.$description.'</p> 
-</div>
-</div>
-</div>
-</form>';
-}
+
+		$sql = "SELECT * FROM Items WHERE Ref='$ref'";
+		$result = mysqli_query($db_handle, $sql);
+		$row=mysqli_fetch_array($result, MYSQLI_ASSOC);
+		$nom=$row['Nom']; 
+		$image=$row['Images'];
+		$description=$row['Description'];
+		
+		
+		echo "<h4 class='m-0 font-weight-bold text-primary'>Nom: ".$nom. "</br></h4></div>";
+		echo " <div class='card-body' style='text-align:center;'><input type='image' src=".$image." widht='150' height='150'></br></div>";
+		echo "<div class='card-body' style=' font-size:large'>".$description. "</br></div>";
+		
+
 ?>
+</div>
+</div>
+<div class="col-lg-4">
+<div class="card shadow ">
+<div class="card-header " >
+<?php
+$ref =$_GET['ref'];
+//$ida=$_SESSION['ID'];
+$ida=5;
+$database = "EbayECE";
+ $db_handle = mysqli_connect('localhost', 'root', '');
+ $db_found = mysqli_select_db($db_handle, $database);
+ 
+		$sql="SELECT * FROM `Nego` WHERE `Ref`='$ref'";
+ $resultat=mysqli_query($db_handle,$sql);
+ $imp=0;
+ while($row=mysqli_fetch_array($resultat, MYSQLI_ASSOC))
+ {
+ 	$acc=$row['Accepter'];
+ 	$id=$row['IDAcheteur'];
+ 	if($acc==1 && $id!=$ida)
+ 	{$imp=1;}
+ }
+ if($imp==0)
+{
+$sql="SELECT * FROM Nego WHERE Ref='$ref' AND IDAcheteur='$ida'";  
+$result = mysqli_query($db_handle, $sql);
+$row=mysqli_fetch_array($result, MYSQLI_ASSOC);
+$compt=$row['Compteur'];
+ $prix=$row['ContreProposition'];
+ $acc=$row['Accepter'];
+ if($acc==0)
+		{
+		$sql = "SELECT * FROM Items WHERE Ref='$ref'";
+		$result = mysqli_query($db_handle, $sql);
+		$row=mysqli_fetch_array($result, MYSQLI_ASSOC);
+		$vendeur=$row['IDVendeur'];
+		$sql="SELECT * FROM Vendeur WHERE IDVendeur='$vendeur'";  
+		$result = mysqli_query($db_handle, $sql);
+		$row=mysqli_fetch_array($result, MYSQLI_ASSOC);
+		$vendeur=$row['Prenom']." ".$row['Nom'];
+echo "<h4 class='m-0 font-weight-bold text-primary'>Prix:" .$prix. "€</br></h4></div>";
+echo "<div class='card-body'>Nom du vendeur: ".$vendeur. "</br></div>";
+if($compt%2 == 0)
+{		
+$from=2;
+echo '<form action="repachteur.php?ref='.$ref.'&from='.$from.'" method="post">';
+$sql="SELECT * FROM Items WHERE Ref='$ref'";   
+$result = mysqli_query($db_handle, $sql);
+$row=mysqli_fetch_array($result, MYSQLI_ASSOC); 
+$nom=$row['Nom'];
+echo"<h1>Négocier: ".$nom."</h1>";
+echo '<table>
+<tr>
+<td>Accepter  </td>
+<td>
+<input type="checkbox" value="0" onclick="if (this.checked) this.value=1; else this.value=0;alert(this.value);" name="rep" />
+</td></tr>
+<tr>
+<td> Proposition :</td>
+<td><input type="number"  name="prix"></td>
+</tr>
+<tr> 
+<td colspan="2" align="center">';
+echo'<div class="card-body"><input type="submit" name="button1" value="soumettre"></div>';}
+else
+{
+echo"<div class='card-body'><h2>Le Vendeur ne vous a pas encors répondu</h2></div>";
+echo '<form action="index.php" method="post">';
+echo '<table>
+<tr> 
+<td colspan="2" align="center">';
+echo'<div class="card-body"><input type="submit" name="button1" value="OK"></div>';
+}}
+
+else 
+{echo"<div class='card-body'><h2>Le Vendeur et vous êtes tombé d'accord</h2></div>";}}
+else 
+{echo"<div class='card-body'><h2>L'article à été vendu</h2></div>";}
+?>
+</td>
+</tr>
+</table>
+</form>
+</div>
+</div>
 </div>
 <footer class="page-footer">
 			 	<div class="container">

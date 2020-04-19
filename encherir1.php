@@ -15,9 +15,16 @@ $ref =$_GET['ref'];
 
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-
+	<script src="https://use.fontawesome.com/releases/v5.12.1/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
 </head>
-<body>
+
+
+<body style="background-color:#EDEDED">
 <div class="global">
 <div class="container-fluid"> 
 <div class="row" style="height:80px; background-color:#007179; border: solid; border-color:#808080;">
@@ -27,147 +34,182 @@ $ref =$_GET['ref'];
 </div>
 
 
-<div class="row"style="height:60px; background-color:#007179; border-bottom: solid;border-left:solid; border-right:solid; border-color:#808080;">
-<nav class="navbar navbar-expand-lg">
-	
-	<button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#main-navigation">
-			 	<span class="navbar-toggler-icon"></span>
-	</button>
-	
-			 <div class="collapse navbar-collapse" id="main-navigation">
-				 <ul class="navbar-nav">
-				 
-				 <div class="col-lg-1.1">
-					 <li class="nav-item"><a class="nav-link" href="#" style="color:white;">Accueil</a></li>
-				</div>
-				<div class="col-lg-1.1">
-					 <li class="nav-item"><a class="nav-link" href="#"style="color:white;">
-					 <div class="dropdown">
-						<p data-toggle="dropdown">Catégorie</p>
+<nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand js-scroll-trigger" href="index.php">Ebay ECE</a><button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">Menu <i class="fas fa-bars"></i></button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+					<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="index.php">Accueil</a></li>
+                        <li class="nav-item mx-0 mx-lg-1">
+						<div class="dropdown"><a class="nav-link collapsed py-3 px-0 px-lg-3 rounded js-scroll-trigger" data-toggle="dropdown">Catégorie</a>
 						<div class="dropdown-menu">
-							<div class="dropdown-item">
-							Ferraille ou Trésor
+							<div class="dropdown-item" href="listeFerrailleTresor.php">
+							<a  href="listeFerrailleTresor.php">Ferraille ou Trésor</a>
 							</div>
 							<div class="dropdown-item">
-							Bon pour le musée
+							<a  href="listeBonMusee.php">Bon musée</a>
 							</div>
 							<div class="dropdown-item">
-							Accessoire VIP
+							<a  href="listeAccessoireVIP.php">Accessoire VIP</a>
+							</div>
+							<div class="dropdown-item" href="categorie.php">
+							<a  href="categorie.php">Tous</a>
 							</div>
 						</div>
 					</div>
-					</a></li>
-				</div>
-				<div class="col-lg-1">
-					 <li class="nav-item">
-					 <div class="dropdown">
-						<p data-toggle="dropdown" class="nav-link" style="color:white;">Achat</p>
+						</li>
+                        <li class="nav-item mx-0 mx-lg-1">
+						<div class="dropdown"><a class="nav-link collapsed py-3 px-0 px-lg-3 rounded js-scroll-trigger" data-toggle="dropdown">Achat</a>
 						<div class="dropdown-menu">
-							<div class="dropdown-item">
-							<a class="nav-link" href="encherir.php"> Enchère</a>
+							<div class="dropdown-item" >
+							<a  href="Enchere.php">Enchères</a>
 							</div>
 							<div class="dropdown-item">
-							Achat immédiat
+							<a  href="listeAchatImmediat.php">Achat immédiat</a>
 							</div>
 							<div class="dropdown-item">
-							Meilleure offre
+							<a   href="listeMeilleureOffre.php">Meilleure offre</a>
+							</div>
+							<div class="dropdown-item">
+							<a    href="achat.php">Tous</a>
 							</div>
 						</div>
 					</div>
-					 </li>
-				</div>
-				<div class="col-lg-1">
-					 <li class="nav-item"><a class="nav-link" href="#"style="color:white;">Vendre</a></li>
-				</div>
-				<div class="col-lg-1">
-					 <li class="nav-item"><a class="nav-link" href="#"style="color:white;">Compte</a></li>
-				</div>
-				<div class="col-lg-1">
-					 <li class="nav-item"><a class="nav-link" href="#"style="color:white;">Panier</a></li>
-				</div>
-				<div class="col-lg-1">
-					 <li class="nav-item"><a class="nav-link" href="#"style="color:white;">Admin</a></li>
-				</div>
-				<div class="col-lg-3"></div>
-				<div class="col-lg-2">
-					 <form class="navbar-form navbar-right inline-form">
-						<div class="form-group">
-						<input type="search" class="input-sm form-control" placeholder="Recherche">
-						<button type="submit" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-eye-open"></span> Chercher</button>
-						</div>
-					</form>
-				</div>
-				
-				<div class="col-lg-2">
+						</li>
+						<?php
+					if(empty($_SESSION['ID']))
+					{
+					 echo '<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="connexionCompteVendeur.html">Vendre</a></li>';
+					}
+					if(($_SESSION['type'])=='2')
+					{
+						echo '<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="vendre1.php">Vendre</a></li>';
+					}
+						?>
 				<?php
-				if(empty($_SESSION['ID'])) 
-				{
-				echo"<li class='nav-item'><a class='nav-link' href='connexion.html' style='color:white;'>Se Connecter</a></li>";
-				
-				}
-				else 
-				{
-					echo "<li class='nav-item'><a class='nav-link' href='deconnexion.php' style='color:white;'>Se Deconnecter</a></li>";
-				}
-				 ?>
-				
-				</div>
-				 </ul>
-			 </div>
-</nav>
-</div>
+					if(empty($_SESSION['ID']))
+					{
+					 echo '<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="connexionCompteAcheteur.html">Compte</a></li>';
+					}
+					if(($_SESSION['type'])=='1')
+					{
+						echo '<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="moncompte.php">Compte</a></li>';
+					}
+					if(($_SESSION['type'])=='2')
+					{
+						echo '<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="monCompteVendeur.php">Compte</a></li>';
+					}
+				?>
+				<?php
+					if(empty($_SESSION['ID']))
+					{
+					 echo '<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="connexionCompteAcheteur.html">Panier</a></li>';
+					}
+					if(($_SESSION['ID'])=='1')
+					{
+					 echo '<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="voirPanier.php">Panier</a></li>';
+					}
+				?>
+				<?php
+					if(empty($_SESSION['ID']))
+					{
+					 echo '<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="connexionCompteAdmin.html">Admin</a></li>';
+					}
+					if(($_SESSION['type'])=='3')
+					{
+						echo '<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="compteAdmin.html">Admin</a></li>';
+					}
+					
+				?>
+				<li class="nav-item mx-0 mx-lg-1"><form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" action="recherche.php" method="post">
+            <div class="input-group">
+              <input type="text" class="form-control bg-light border-0 small" placeholder="Rechercher" aria-label="Search" aria-describedby="basic-addon2" name="search">
+              <div class="input-group-append">
+                <button class="btn btn-primary" type="submit" style="background-color:#466482" name="connect">
+                  <i class="fas fa-search fa-sm"></i>
+                </button>
+              </div>
+            </div>
+          </form></li>
+		   <?php
+					if(($_SESSION['ID'])!='0')
+					{
+					 echo '<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="deconnexion.php">Deconnexion</a></li>';
+					}
+					
+				?>
+				</ul>
+                </div>
+            </div>
+        </nav>
 <br>
 </div>
+<div class="container-fluid">
 <div class="row">
 <div class="col-lg-8">
-<div class="objet" style=" border:solid; border-color:#808080; height:auto;" >
+<div class="card shadow mb-4">
+<div class="card-header py-3" >
 <?php
-echo"test";
+
+$ref =$_GET['ref'];
 //identifier votre BDD
-$database = "ECEEbay";
+$database = "EbayECE";
 //connectez-vous de votre BDD
 $db_handle = mysqli_connect('localhost', 'root', '');
 $db_found = mysqli_select_db($db_handle, $database);
-if ($db_found) {
+
 		$sql = "SELECT * FROM Items WHERE ref='$ref'";
 		$result = mysqli_query($db_handle, $sql);
 		$row=mysqli_fetch_array($result, MYSQLI_ASSOC);
-		$nom=$row['Nom'];
+		$nom=$row['Nom']; 
 		$image=$row['Images'];
 		$description=$row['Description'];
 		
 		
-		echo $nom. "</br>";
-		//echo "<img src=".$img."</br>";
-		echo $decription. "</br>";
-}
+		echo "<h4 class='m-0 font-weight-bold text-primary'>Nom: ".$nom."</br></h4></div>";
+		echo " <div class='card-body' style='text-align:center;'><input type='image' src=".$image." widht='150' height='150'></br></div>";
+		echo "<div class='card-body' style=' font-size:large'>".$description. "</br></div>";
+		
+
 ?>
+
 </div>
 </div>
 <div class="col-lg-4">
-<div class="enchere" style="border:solid; border-color:#808080; height:auto; margin-bottom:10px; margin-right:10px;">
+<div class="card shadow mb-4" style="text-align:center; padding:1em;">
+<div class="card-header py-3" >
 <?php
+$ref =$_GET['ref'];
+$ida=$_SESSION['ID'];
 $database = "EbayECE";
 $db_handle = mysqli_connect('localhost', 'root', '');
 $db_found = mysqli_select_db($db_handle, $database);
+$sql="SELECT * FROM Encherisseur WHERE IDAcheteur='$ida'";  
+$resultat=mysqli_query($db_handle,$sql);      
+$row=mysqli_fetch_array($resultat, MYSQLI_ASSOC);
+$gagner=$row['Gagner'];
+if(mysqli_num_rows($resultat) == 0)
+{
 $sql = "SELECT * FROM Items WHERE ref='$ref'";
 $result = mysqli_query($db_handle, $sql);
 		$row=mysqli_fetch_array($result, MYSQLI_ASSOC);
 		$vendeur=$row['IDVendeur'];
 		$prix=$row['Prix'];
-		$description=$row['Description'];
-		
-		
-echo "Nom du vendeur:".$vendeur. "</br>";
-echo "Prix actuel:" .$prix. "</br>";
+		$sql="SELECT * FROM Vendeur WHERE IDVendeur='$vendeur'";  
+		$result = mysqli_query($db_handle, $sql);
+		$row=mysqli_fetch_array($result, MYSQLI_ASSOC);
+		$vendeur=$row['Prenom']." ".$row['Nom'];
+		echo "<h4 class='m-0 font-weight-bold text-primary'>Prix actuel :" .$prix. " €</br></h4></div>";
+echo "Nom du vendeur: ".$vendeur. "</br>";
+
 		
 echo '<form action="encherir.php?ref='.$ref.'" method="post">';
-$sql="SELECT * FROM Encheres WHERE Ref='$ref'";  
+$sql="SELECT * FROM Items WHERE Ref='$ref'";  
 $result = mysqli_query($db_handle, $sql);
 $row=mysqli_fetch_array($result, MYSQLI_ASSOC);
 $nom=$row['Nom'];
-echo'<h1>Enchérir sur: '.$nom.'</h1>
-<table> 
+echo"<h1>Enchérir sur: ".$nom."</h1>";
+echo '<table> 
 <tr>
 <td>    Enchère de départ:</td>
 <td><input type="number"  name="dep">€</td>
@@ -178,15 +220,31 @@ echo'<h1>Enchérir sur: '.$nom.'</h1>
 </tr> 
 <tr> 
 <td colspan="2" align="center">';
-echo'<input type="submit" name="button1" value="soumettre">';
-?>
-</td>
+echo'<input type="submit" name="button1" value="soumettre"></td>
 </tr>
 </table>
-</form>
-</div>
-</div>
+</form>';}
+else
+{
+	if($gagner==1)
+	{
+		$from=3;
+		echo '<form action="verife.php?ref='.$ref.'&from='.$from.'&ida='.$ida.'" method="post">';
+		echo"<h1>Vous avez remporté cette enchère</h1>";
+		echo'<input type="submit" name="button1" value="OK"></form>';
+	}
+	else
+	{
+		echo '<form action="index.php" method="post">';
+		echo"<h1>Vous participez déjà à cette enchère</h1>";
+		echo'<input type="submit" name="button1" value="OK"></form>';
+	}
+}
+?>
 
+</div>
+</div>
+</div>
 <footer class="page-footer">
 			 	<div class="container">
 					 <div class="row">

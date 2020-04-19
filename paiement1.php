@@ -1,15 +1,19 @@
-<?php
-session_start();
-if(empty($_SESSION['type']))
-{
-$_SESSION['type']=0;
-}	
+<!DOCTYPE html>
+<html>
+<head>
+<title>Paiement</title>
+<meta charset="utf-8">
+</head>
+<body>
 
+</body>
+</html><?php
+session_start();
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-<title>Liste des Enchères</title>
+<title>Paiement</title>
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -148,48 +152,64 @@ $_SESSION['type']=0;
         </nav>
 <br>
 </div>
-
-<div class= "container-fluid">
- <h1 style="text-align:center;">Liste des objets aux enchères</h1>
- <?php
-
-
- $database = "EbayECE";
-$db_handle = mysqli_connect('localhost', 'root', '');
-$db_found = mysqli_select_db($db_handle, $database);
-$sql="SELECT * FROM `Encheres`";
-$resultat=mysqli_query($db_handle,$sql);
-$size="150";
-$type="image";
-$name="button";
-$classe1="card-img-top";
-$classe2="card-body";
-echo'<div class="row" style="margin-left:10%; margin-right:10%; margin-top:20px;">';
-while ($row=mysqli_fetch_array($resultat, MYSQLI_ASSOC)) 
+<div class="row">
+<div class="col-lg-3"></div>
+<div class="col-lg-6"style="padding:1em; ">
+<div class="card shadow ">
+<div class="card-header " >
+<h4 class='m-0 font-weight-bold text-primary'>Paiement</br></h4></div>
+<?php
+$ida =$_GET['ida'];
+$from=$_GET['from'];
+if($from==2  || $from==3)
 {
-	echo "<div class='col-lg-4 col-md-6 mb-4 '>";
-	echo"<div class='card h-100'>";
-$ref=$row['Ref'];
-$date= $row['dfin']." à ".$row['hfin'];
-$prix=$row['Prixactuel'];
-$sql2="SELECT * FROM `Items` WHERE `Ref`='$ref'";    
-$resultat2=mysqli_query($db_handle,$sql2); 
-$row2=mysqli_fetch_array($resultat2, MYSQLI_ASSOC); 
-$img=$row2['Images'];
-$nom=$row2['Nom'];
-$description=$row2['Description']; 
-echo '<form action="AchatNego.php?ref='.$ref.'" method="post">
-<input type='.$type.' class='.$classe1.' name='.$name.' value='.$ref.' src='.$img.' widht='.$size.' height='.$size.'>
-<div class='.$classe2.'>
-<h4 class="card-title">'.$nom.'</h4>
-<h5> '.$prix.' $</h5>
-<p class="card-text">Date limite, jusqu au :</br> '.$date.'</br>Description :</br>'.$description.'</p> 
-</div>
-</div>
-</div>
-</form>';
-}
+	$ref=$_GET['ref'];
+echo '<form action="paiement.php?ida='.$ida.'&from='.$from.'&ref='.$ref.'" method="post">';}
+else{
+	echo '<form action="paiement.php?ida='.$ida.'&from='.$from.'" method="post">';
+	}
 ?>
+<div class="card-body">
+<table>
+
+<td>Payer par:</td>
+<td>
+<input type="radio" name="creditCard" value="MasterCard">MasterCard
+<br>
+<input type="radio" name="creditCard" value="Visa">Visa <br>
+<input type="radio" name="creditCard" value="AmericanExpress">American
+Express <br>
+<input type="radio" name="creditCard" value="Paypal">Paypal
+Express <br><br>
+</td>
+</tr>
+<tr>
+<td>Numéro de carte</td>
+<td><input type="number" step="0.01" name="numeroC"></td>
+</tr>
+<tr>
+<td>Nom sur la carte</td>
+<td><input type="text" step="0.01" name="nomC"></td>
+</tr>
+<tr>
+<td>Date d'expiration</td>
+<td><input type="month" step="0.01" name="dateE"></td>
+</tr>
+<tr>
+<td>Cryptogramme</td>
+<td><input type="number" step="0.01" name="crypto"></td>
+</tr>
+<tr>
+<td colspan="2" align="center"><br>
+<input type="submit" name="button1" value="Submit">
+</td>
+</tr>
+</table>
+</form>
+</div>
+</div>
+</div>
+<div class="col-lg-3"></div>
 </div>
 <footer class="page-footer">
 			 	<div class="container">

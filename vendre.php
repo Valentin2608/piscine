@@ -1,12 +1,15 @@
 <?php
+session_start();
  $nom = isset($_POST["nom"])? $_POST["nom"] : ""; 
- $ddebut = isset($_POST["date-start"])? $_POST["date-start"] : "";
- $dfin = isset($_POST["date-fin"])? $_POST["date-fin"] : "";
+ $ddebut = isset($_POST["ddebut"])? $_POST["ddebut"] : "";
+ $dfin = isset($_POST["dfin"])? $_POST["dfin"] : "";
+ echo $dfin;
+ echo $ddebut;
  $description = isset($_POST["description"])? $_POST["description"] : "";
  //$image = isset($_POST["image"])? $_POST["image"] : "";
   $categorie = isset($_POST["categorie"])? $_POST["categorie"] : "";
-  $typeVente = isset($_POST["typeVente"])? $_POST["typeVente"] : ""; 
- $IDVendeur = 0;
+  $typedeVente = isset($_POST["typeVente"])? $_POST["typeVente"] : ""; 
+	$IDVendeur = $_SESSION['ID'];
   $prix = isset($_POST["prix"])? $_POST["prix"] : "";
 
 
@@ -25,7 +28,7 @@ echo '<script type="text/javascript">window.alert("'.$message.'");</script>'; }
  if ($categorie == "") {
  $message= "La catégorie est vide."; 
  echo '<script type="text/javascript">window.alert("'.$message.'");</script>';}
- if ($typeVente == "") {
+ if ($typedeVente == "") {
  $message= "Le Type de Vente est vide."; 
  echo '<script type="text/javascript">window.alert("'.$message.'");</script>';}
  if ($prix == "") {
@@ -57,10 +60,10 @@ $message="Entrez une nouvelle date de fin";
 		}
 		$max=$max+1;
 		$max.=".jpeg";
-		$sql="INSERT INTO `Items`(`Nom`, `Description`, `Images`, `Categorie`, `TypedeVente`, `IDVendeur`, `Prix`) VALUES ('$nom','$description','$max','$categorie','$typeVente','$IDVendeur','$prix ')";
+		$sql="INSERT INTO `Items`(`Nom`, `Description`, `Images`, `Categorie`, `TypedeVente`, `IDVendeur`, `Prix`) VALUES ('$nom','$description','$max','$categorie','$typedeVente','$IDVendeur','$prix ')";
 		$sql2="SELECT MAX(Ref) FROM Items";
 		$ref=mysqli_query($db_handle,$sql2);
-		if($typedeVente == "enchere")
+		if($typedeVente == "3")
 		{
 			$sql="INSERT INTO Encheres (IDVendeur, ddebut, dfin, Ref, Prixmin) VALUES ('$IDVendeur', '$ddebut', '$dfin', '$ref', '$prix')";
 		}
@@ -86,5 +89,5 @@ $message="Entrez une nouvelle date de fin";
 	mysqli_close($db_handle); 
 	}
  }
- //header('Location: index.php');
+ header('Location: index.php');
 ?> 

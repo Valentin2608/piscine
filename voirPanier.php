@@ -1,9 +1,6 @@
 <?php
 session_start();
-if(empty($_SESSION['type']))
-{
-$_SESSION['type']=0;
-}	
+
 
 ?>
 <!DOCTYPE html>
@@ -40,7 +37,7 @@ $_SESSION['type']=0;
 
 <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
             <div class="container">
-                <a class="navbar-brand js-scroll-trigger" href="#page-top">Ebay ECE</a><button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">Menu <i class="fas fa-bars"></i></button>
+                <a class="navbar-brand js-scroll-trigger" href="index.php">Ebay ECE</a><button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">Menu <i class="fas fa-bars"></i></button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
 					<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="index.php">Accueil</a></li>
@@ -77,6 +74,7 @@ $_SESSION['type']=0;
 							<div class="dropdown-item">
 							<a    href="achat.php">Tous</a>
 							</div>
+						</div>
 					</div>
 						</li>
 						<?php
@@ -86,7 +84,7 @@ $_SESSION['type']=0;
 					}
 					if(($_SESSION['type'])=='2')
 					{
-						echo '<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="vendre.html">Vendre</a></li>';
+						echo '<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="vendre1.php">Vendre</a></li>';
 					}
 						?>
 				<?php
@@ -96,11 +94,11 @@ $_SESSION['type']=0;
 					}
 					if(($_SESSION['type'])=='1')
 					{
-						echo '<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="compteAcheteur.html">Compte</a></li>';
+						echo '<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="moncompte.php">Compte</a></li>';
 					}
 					if(($_SESSION['type'])=='2')
 					{
-						echo '<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="compteVendeur.html">Compte</a></li>';
+						echo '<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="monCompteVendeur.php">Compte</a></li>';
 					}
 				?>
 				<?php
@@ -122,17 +120,25 @@ $_SESSION['type']=0;
 					{
 						echo '<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="compteAdmin.html">Admin</a></li>';
 					}
+					
 				?>
-				<li class="nav-item mx-0 mx-lg-1"><form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+				<li class="nav-item mx-0 mx-lg-1"><form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" action="recherche.php" method="post">
             <div class="input-group">
-              <input type="text" class="form-control bg-light border-0 small" placeholder="Rechercher" aria-label="Search" aria-describedby="basic-addon2">
+              <input type="text" class="form-control bg-light border-0 small" placeholder="Rechercher" aria-label="Search" aria-describedby="basic-addon2" name="search">
               <div class="input-group-append">
-                <button class="btn btn-primary" type="button" style="background-color:#466482">
+                <button class="btn btn-primary" type="submit" style="background-color:#466482" name="connect">
                   <i class="fas fa-search fa-sm"></i>
                 </button>
               </div>
             </div>
           </form></li>
+		   <?php
+					if(($_SESSION['ID'])!='0')
+					{
+					 echo '<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="deconnexion.php">Deconnexion</a></li>';
+					}
+					
+				?>
 				</ul>
                 </div>
             </div>
@@ -141,14 +147,13 @@ $_SESSION['type']=0;
 </div>
 
 <div class= "container-fluid">
-<h1>Votre Panier</h1>
 <div class="row">
 <div class="col-lg-8">
-<div class="objet" style=" border:solid; border-color:#808080; height:auto;" >
- 
+<div class="card shadow mb-4">
+<div class="card-header py-3" >
  <?php
 
-$ida=5;
+$ida=$_SESSION['ID'];
 $database = "EbayECE";
 $db_handle = mysqli_connect('localhost', 'root', '');
 $db_found = mysqli_select_db($db_handle, $database);
@@ -157,6 +162,7 @@ $resultat=mysqli_query($db_handle,$sql);
 $classe1="img-thumbnail";
 $classe2="caption";
 $prixtot=0;
+echo "<h4 class='m-0 font-weight-bold text-primary'>Votre panier</br></h4></div>";
 while ($row=mysqli_fetch_array($resultat, MYSQLI_ASSOC))  
 {
 $ref=$row['Ref'];
@@ -174,7 +180,7 @@ echo '<form action="suprimerdupanier.php?ref='.$ref.'&ida='.$ida.'" method="post
 <table>
 <tr>
 <td><div class='.$classe1.'><img src="'.$img.'" widht="150" height="150">
-<div class='.$clase2.'>
+<div class='.$classe2.'>
 <p>Nom: '.$nom.'</br>Description :'.$description.'</br>Categorie :'.$categorie.'</br>Prix :'.$prix.'€</p>
 </div> 
 </div></td>
@@ -187,14 +193,17 @@ echo'<h3>Total: '.$prixtot.' €</h3>';
 </div>
 </div>
 <div class="col-lg-4">
-<div class="enchere" style="border:solid; border-color:#808080; height:auto; margin-bottom:10px; margin-right:10px;">
-<h2>Passer à l'achat</h2>
+<div class="card shadow mb-4" style="text-align:center;">
+<div class="card-header py-3" >
+<h4 class='m-0 font-weight-bold text-primary'>Passer à l'achat</br></h4></div>
 <?php
-$ida=5;
-$form=1;
-echo '<form action="verife.php?ida='.$ida.'&from='.$from.'" method="post">';
+$ida=$_SESSION['ID'];
+$from=1;
+$ref=0;
+echo '<br><form action="verife.php?ida='.$ida.'&from='.$from.'$ref='.$ref.'" method="post" style="padding:1em;">';
 ?>
 <input type="submit" name="button1" value="Valider votre Panier"></form>
+</div>
 </div>
 </div>
 </div>

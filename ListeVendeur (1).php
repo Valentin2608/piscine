@@ -1,15 +1,8 @@
-<?php
-session_start();
-if (isset ($_GET['id'])){ 
-$ID = $_GET['id'];
-}
 
-
-?>
 <!DOCTYPE html>
 <html>
 <head>
-<title>Encherir</title>
+<title>Vendre</title>
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -102,89 +95,51 @@ $ID = $_GET['id'];
 					</form>
 				</div>
 				
-				<div class="col-lg-2">
-				<?php
-				if(empty($_SESSION['ID'])) 
-				{
-				echo"<li class='nav-item'><a class='nav-link' href='connexion.html' style='color:white;'>Se Connecter</a></li>";
 				
-				}
-				else 
-				{
-					echo "<li class='nav-item'><a class='nav-link' href='deconnexion.php' style='color:white;'>Se Deconnecter</a></li>";
-				}
-				 ?>
-				
-				</div>
 				 </ul>
 			 </div>
 </nav>
 </div>
 <br>
 </div>
-<div class="Items" style="margin-right:40%;">
-<?php
-//identifier votre BDD
-$database = "ECEEbay";
-//connectez-vous de votre BDD
-$db_handle = mysqli_connect('localhost', 'root', '');
-$db_found = mysqli_select_db($db_handle, $database);
-if ($db_found) {
-		$sql = "SELECT * FROM Items";
-		$sql ="WHERE ID='$ID'";
-		$result = mysqli_query($db_handle, $sql);
-		$row=mysqli_fetch_array($result, MYSQLI_ASSOC);
-		$nom=$row['Nom'];
-		$image=$row['Images'];
-		$description=$row['Description'];
-		
-		
-		echo $nom. "</br>";
-		//echo "<img src=".$img."</br>";
-		echo $decription. "</br>";
-}
-?>
-</div>
-<div class="creer2" style="margin-left:60%; border:solid; border-color:#808080; height:auto;">
-<?php
-//identifier votre BDD
-$database = "ECEEbay";
-//connectez-vous de votre BDD
-$db_handle = mysqli_connect('localhost', 'root', '');
-$db_found = mysqli_select_db($db_handle, $database);
 
-if ($db_found) {
-		$sql = "SELECT * FROM Items";
-		$sql ="WHERE ID='$ID'";
-		$result = mysqli_query($db_handle, $sql);
-		$row=mysqli_fetch_array($result, MYSQLI_ASSOC);
-		$vendeur=$row['IDVendeur'];
-		$prix=$row['Prix'];
-		$description=$row['Description'];
-		
-		
-		echo "Nom du vendeur:".$vendeur. "</br>";
-		echo "Prix actuel:" .$prix. "</br>";
-}
+<div class= "container-fluid">
+ <h1>Galerie des vendeurs</h1>
+ <?php
+
+$idv=1;
+ $database = "EbayECE";
+$db_handle = mysqli_connect('localhost', 'root', 'root');
+$db_found = mysqli_select_db($db_handle, $database);
+$sql="SELECT * FROM `Vendeur`";
+$resultat=mysqli_query($db_handle,$sql);
+$size="150";
+$type="image";
+$name="button";
+$classe1="img-thumbnail";
+$classe2="caption";
+while ($row=mysqli_fetch_array($resultat, MYSQLI_ASSOC))  
+{
+$admin=$row['Admin'];
+if($admin==0)
+{
+$id=$row['IDVendeur'];
+$nom=$row['Nom'];
+$prenom=$row['Prenom']; 
+$email=$row['Email'];
+$adresse=$row['Adresse'];
+echo '<form action="suprimervendeur.php?id='.$id.'" method="post">
+<tr><td>
+<p>Nom: '.$nom.'</p>
+<p>Prénom: '.$prenom.'</p>
+<p>Email: '.$email.'</p>
+<p>Adresse: '.$adresse.'</p>
+</td></tr>
+<tr>
+<td colspan="2" align="center"><input type="submit" name="button1" value="Suprimer"></td></tr>
+</form></br>';
+}}
 ?>
-<form action="encherir.php" method="post">
-<h1>Enchérir sur: </h1>
-<table>
-<tr>
-<td>    Enchère de départ:</td>
-<td><input type="number"  name="dep">€</td>
-</tr>
-<tr>
-<td> Enchère max:</td>
-<td><input type="number"  name="max">€</td>
-</tr>
-<tr>
-<td colspan="2" align="center">
-<input type="submit" name="button1" value="Soumettre">
-</td>
-</tr>
-</table>
-</form>
 </div>
 <footer class="page-footer">
 			 	<div class="container">

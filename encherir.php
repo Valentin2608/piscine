@@ -6,14 +6,15 @@ $ref =$_GET['ref'];
 $database = "EbayECE";
 //$idenchere = "1";
 	date_default_timezone_set('Europe/Paris');
-    $db_handle = mysqli_connect('localhost', 'root','root');
+    $db_handle = mysqli_connect('localhost', 'root','');
     $db_found = mysqli_select_db($db_handle, $database); 
-    if (isset($_POST["button1"])) {
+    if (isset($_POST["button1"])) 
+	{
          
-        $id=5;
+        $id=$_SESSION['ID'];
         $sql="SELECT * FROM Encherisseur WHERE IDAcheteur='$id'";  
 		$resultat=mysqli_query($db_handle,$sql);      
-		if(mysqli_num_rows($result) == 0)
+		if(mysqli_num_rows($resultat) == 0)
         {
         $sql="SELECT * FROM Encheres WHERE Ref='$ref'"; 
 		$resultat=mysqli_query($db_handle,$sql);
@@ -22,14 +23,13 @@ $database = "EbayECE";
         $datetime = date("Y-m-d H:i:s");
         $ide=$row['IDEnchere'];
         $prixmin=$row['Prixmin'];
-        echo $ref;
 		if ($datetime>=$dateF) 
 		{
 			echo "Enchère Finie"; 
 		}
 		else {
 		
-		$sql="INSERT INTO `Encherisseur`(`IDEnchere`, `IDAcheteur`, `Encheremax`, `enchereactuelle`) VALUES ('$ide','$id','$max1','$dep')";
+		$sql="INSERT INTO `Encherisseur`(`IDEnchere`, `IDAcheteur`, `Encheremax`, `enchereactuelle`, Gagner) VALUES ('$ide','$id','$max1','$dep', '0')";
         mysqli_query($db_handle, $sql);
 		$sql="SELECT * FROM `Encherisseur` WHERE `IDEnchere` LIKE '$ide'";
     $resultat=mysqli_query($db_handle,$sql);
@@ -70,9 +70,8 @@ $database = "EbayECE";
     mysqli_query($db_handle, $sql);
     
     }}
-    
-    echo"8645<br>";
-    
+		header('Location : index.php');
+    }
     mysqli_close($db_handle); 
 
 ?>

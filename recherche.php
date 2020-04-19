@@ -1,15 +1,36 @@
 <?php
 session_start();
-if(empty($_SESSION['type']))
-{
-$_SESSION['type']=0;
-}	
+ $recherche = isset($_POST["search"])? $_POST["search"] : ""; //if then else
 
+
+//identifier votre BDD
+$database = "EbayECE";
+//connectez-vous de votre BDD
+$db_handle = mysqli_connect('localhost', 'root', '');
+$db_found = mysqli_select_db($db_handle, $database);
+
+//Partie 1:recherche login et mot de passe dans la BDD
+//*****************************
+
+if (isset($_POST['connect'])) {
+	if ($db_found) 
+	{
+		$sql = "SELECT * FROM Items";
+		if ($recherche != "") {
+			$sql .= " WHERE Nom LIKE '%$recherche%' || Description LIKE '%$recherche%' || Categorie LIKE '%$recherche%'";
+							}
+		$result = mysqli_query($db_handle, $sql);
+		//regarder s'il y a de résultat
+		if (mysqli_num_rows($result) == 0) 
+		{
+			echo "Pas de résultat";
+		}
+		else {
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-<title>Liste des Enchères</title>
+<title>Recherche</title>
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -148,69 +169,96 @@ $_SESSION['type']=0;
         </nav>
 <br>
 </div>
-
-<div class= "container-fluid">
- <h1 style="text-align:center;">Liste des objets aux enchères</h1>
- <?php
-
-
- $database = "EbayECE";
+<h1 style="text-align:center;"> Résultat de la recherche</h1>	
+<div class="container-fluid" style="margin-top:10px; background-color:#EDEDED;">						 
+<?php
+$database = "EbayECE";
 $db_handle = mysqli_connect('localhost', 'root', '');
 $db_found = mysqli_select_db($db_handle, $database);
-$sql="SELECT * FROM `Encheres`";
-$resultat=mysqli_query($db_handle,$sql);
-$size="150";
+$size="150";	
 $type="image";
 $name="button";
 $classe1="card-img-top";
 $classe2="card-body";
-echo'<div class="row" style="margin-left:10%; margin-right:10%; margin-top:20px;">';
-while ($row=mysqli_fetch_array($resultat, MYSQLI_ASSOC)) 
+echo'<div class="row" style="margin-left:10%; margin-right:10%;">';
+while($row=mysqli_fetch_array($result, MYSQLI_ASSOC)) 
 {
 	echo "<div class='col-lg-4 col-md-6 mb-4 '>";
 	echo"<div class='card h-100'>";
 $ref=$row['Ref'];
-$date= $row['dfin']." à ".$row['hfin'];
-$prix=$row['Prixactuel'];
-$sql2="SELECT * FROM `Items` WHERE `Ref`='$ref'";    
-$resultat2=mysqli_query($db_handle,$sql2); 
-$row2=mysqli_fetch_array($resultat2, MYSQLI_ASSOC); 
-$img=$row2['Images'];
-$nom=$row2['Nom'];
-$description=$row2['Description']; 
+$prix=$row['Prix'];   
+$nom=$row['Nom'];
+$description=$row['Description']; 
+$img=$row['Images'];
+$typeVente=$row['TypedeVente'];
+
+if($typeVente=="4")
+{
 echo '<form action="AchatNego.php?ref='.$ref.'" method="post">
 <input type='.$type.' class='.$classe1.' name='.$name.' value='.$ref.' src='.$img.' widht='.$size.' height='.$size.'>
 <div class='.$classe2.'>
 <h4 class="card-title">'.$nom.'</h4>
 <h5> '.$prix.' $</h5>
-<p class="card-text">Date limite, jusqu au :</br> '.$date.'</br>Description :</br>'.$description.'</p> 
+<p class="card-text">Description :'.$description.'</p> 
 </div>
 </div>
 </div>
 </form>';
 }
-?>
+
+if($typeVente=="3")
+{
+$sql2="SELECT * FROM `encheres` WHERE `Ref`='$ref'";    
+$resultat2=mysqli_query($db_handle,$sql2); 
+$row2=mysqli_fetch_array($resultat2, MYSQLI_ASSOC); 
+$ref=$row2['Ref'];
+$date= $row2['dfin']." à ".$row2['hfin'];
+$prix=$row2['Prixactuel'];
+echo '<form action="encherir1.php?ref='.$ref.'" method="post">
+<input type='.$type.' class='.$classe1.' name='.$name.' value='.$ref.' src='.$img.' widht='.$size.' height='.$size.'>
+<div class='.$classe2.'>
+<h4 class="card-title">'.$nom.'</h4>
+<h5> '.$prix.' $</h5>
+<p class="card-text">Date limite, jusqu au :</br> <p style="text-align:center;">'.$date.'</p></br>Description :'.$description.'</p> 
 </div>
-<footer class="page-footer">
-			 	<div class="container">
-					 <div class="row">
-						 <div class="col-lg-8 col-md-8 col-sm-12">
-							 <h6 class="text-uppercase font-weight-bold">Information additionnelle</h6>
-							 
-						 </div>
-						 
-						 <div class="col-lg-4 col-md-4 col-sm-12">
-							 <h6 class="text-uppercase font-weight-bold">Contact</h6>
-							 <p>
-							 37, quai de Grenelle, 75015 Paris, France <br>
-							 info@webDynamique.ece.fr <br>
-							 +33 01 02 03 04 05 <br>
-							 +33 01 03 02 05 04
-							 </p>
-						 </div>
-					 </div>
-				</div>
-			 <div class="footer-copyright text-center">&copy; 2020 Copyright | Droit d'auteur: ProjetVG-PC-NT</div>
-</footer>
-</body>
-</html>
+</div>
+</div>
+</form>';
+}
+
+if($typeVente=="2")
+{
+echo '<form action="achatImm.php?ref='.$ref.'" method="post">
+<input type='.$type.' class='.$classe1.' name='.$name.' value='.$ref.' src='.$img.' widht='.$size.' height='.$size.'>
+<div class='.$classe2.'>
+<h4 class="card-title">'.$nom.'</h4>
+<h5> '.$prix.' $</h5>
+<p class="card-text">Description :'.$description.'</p> 
+</div>
+</div>
+</div>
+</form>';
+}
+if($typeVente=="1")
+{
+echo '<form action="negociation.php?ref='.$ref.'" method="post">
+<input type='.$type.' class='.$classe1.' name='.$name.' value='.$ref.' src='.$img.' widht='.$size.' height='.$size.'>
+<div class='.$classe2.'>
+<h4 class="card-title">'.$nom.'</h4>
+<h5> '.$prix.' $</h5>
+<p class="card-text">Description :'.$description.'</p> 
+</div>
+</div>
+</div>
+</form>';
+}
+}
+echo "</div>";
+			}
+	}
+	else {
+		echo "Compte non trouvé";
+		mysqli_close($db_handle); 
+			}
+}
+?> 

@@ -69,7 +69,7 @@ function choix() {
 
 <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
             <div class="container">
-                <a class="navbar-brand js-scroll-trigger" href="#page-top">Ebay ECE</a><button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">Menu <i class="fas fa-bars"></i></button>
+                <a class="navbar-brand js-scroll-trigger" href="index.php">Ebay ECE</a><button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">Menu <i class="fas fa-bars"></i></button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
 					<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="index.php">Accueil</a></li>
@@ -177,13 +177,13 @@ function choix() {
 <div class="row">
 
 <div class="col-lg" style="text-align:center">
-<input type="radio" id="Ferraille ou Trésor" name="categorie" value="Ferraille ou Tresor" style="margin-left:5px;">Ferraille ou Trésor</div>
+<input type="radio" id="Ferraille ou Trésor" name="categorie" value="Ferraille" style="margin-left:5px;">Ferraille ou Trésor</div>
 
 <div class="col-lg"style="text-align:center">
-<input type="radio" id="Bon pour le musée" name="categorie" value="Bon pour le musee">Bon pour le musée</div>
+<input type="radio" id="Bon pour le musée" name="categorie" value="musee">Bon pour le musée</div>
 
 <div class="col-lg"style="text-align:center">
-<input type="radio" id="Accessoire VIP" name="categorie" value="Accessoire VIP">Accessoire VIP
+<input type="radio" id="Accessoire VIP" name="categorie" value="VIP">Accessoire VIP
 </div></div><br></br><br></br>
 
 
@@ -210,15 +210,12 @@ function choix() {
 	<tr>
 	<td><div id="dateNego" style="display:none;"><label for="start">Start date:</label>
 
-<input type="date" id="start" name="date-start"
-       value="2020-04-25"
-       min="2020-04-25" max="2030-12-31"></br>
-	   
-	   <label for="start">End date:</label>
-
-<input type="date" id="end" name="date-end"
-       value="2020-04-25"
-       min='.$date.' max="2030-12-31"></br>
+<input type="datetime-local"
+       name="ddebut" value="2020-05-14T19:30"
+       min="2020-04-14T00:00" max="2020-06-14T00:00">
+<input type="datetime-local"
+       name="ddfin" value="2020-05-14T19:30"
+       min="2020-04-15T00:00" max="2022-06-14T00:00"></br>
 	 </br></div></td>
 	</tr>
     <tr>

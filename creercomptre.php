@@ -37,7 +37,7 @@
  	
 	
 	
- 	$database = "ECEEbay";
+ 	$database = "EbayECE";
 	$db_handle = mysqli_connect('localhost', 'root', '');
 	$db_found = mysqli_select_db($db_handle, $database);
 	if (isset($_POST["CreaCompt"]))
@@ -70,7 +70,7 @@
                             . mysqli_error($db_handle); 
 		}  
 		sleep(1);
-		header('Location: connexionacheteur.html');
+		header('Location: connexionCompteAcheteur.html');
 		}
 		else
 		{ 
