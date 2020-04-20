@@ -106,7 +106,13 @@ session_start();
 </div>
 
 <div class= "container-fluid">
- <h1>Galerie d'image</h1>
+ <h4 class='m-0 font-weight-bold text-primary'>Liste des négociations</h4>
+ <div class="row">
+ <div class="col-lg-3"></div>
+ <div class="col-lg-6">
+ <div class="card shadow ">
+<div class="card-header " >
+<h4 class='m-0 font-weight-bold text-primary'>Liste des négociations</h4></div>
  <?php
 
 $idv=$_SESSION['ID'];
@@ -143,6 +149,9 @@ echo '<form action="repvendeur1.php?ref='.$ref.'" method="post">
 }}
 ?>
 </div>
+</div><div class="col-lg-3"></div>
+</div>
+
 <footer class="page-footer">
 			 	<div class="container">
 					 <div class="row">

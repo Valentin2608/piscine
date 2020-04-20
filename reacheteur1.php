@@ -147,7 +147,7 @@ $ref =$_GET['ref'];
 <div class="container-fluid">
 <div class="row">
 <div class="col-lg-8">
-<div class="card shadow " style="margin-bottom:5px;">
+<div class="card shadow "  style="margin-top:5px; margin-bottom:5px;">
 <div class="card-header " >
 <?php
 
@@ -175,7 +175,7 @@ $db_found = mysqli_select_db($db_handle, $database);
 </div>
 </div>
 <div class="col-lg-4">
-<div class="card shadow ">
+<div class="card shadow " style="margin-top:5px; margin-bottom:5px;">
 <div class="card-header " >
 <?php
 $ref =$_GET['ref'];
