@@ -6,30 +6,26 @@
 	$ref = $_GET['ref'];
 	$from = $_GET['from'];
 	$ida=$_SESSION['ID'];
-	$rep = isset($_POST["rep"])? $_POST["rep"] : "";
+	$rep = isset($_POST["rep"])? $_POST["rep"] : "";//on recupère la valeur de checkbox 
 	if($rep==1)
 	{
-<<<<<<< HEAD
-		
-		header('Location:verife.php?ida='.$ida.'&from='.$from.'&ref='.$ref);
-=======
-	$sql="SELECT * FROM `Nego` WHERE `Ref`='$ref'AND `IDAcheteur`='$ida'";
+		//on met à jour la base de donné et on va vérifié si l'acheteur a renseigner ses données bancaires
+		$sql="SELECT * FROM `Nego` WHERE `Ref`='$ref'AND `IDAcheteur`='$ida'";
  		$resultat=mysqli_query($db_handle,$sql);
  		$row=mysqli_fetch_array($resultat, MYSQLI_ASSOC);
  		$prop=$row['ContreProposition'];
 		$sql="UPDATE `Nego` SET Proposition='$prop' WHERE `Ref`='$ref' AND `IDAcheteur`='$ida'";
-	header('Location:verife.php?ida='.$ida.'&from='.$from.'&ref='.$ref);
->>>>>>> 5cbd14cc8df64a13e90406a4b43d92584fc2c6cb
+		header('Location:verife.php?ida='.$ida.'&from='.$from.'&ref='.$ref);
 	}
 	else
 	{
+		//on récupére les donné du formulaire et on met à jour la BDD
 		$prix = isset($_POST["prix"])? $_POST["prix"] : "";
-		
 		$sql="SELECT * FROM `Nego` WHERE `Ref`='$ref'";
 		$resultat=mysqli_query($db_handle,$sql);
 		$row=mysqli_fetch_array($resultat, MYSQLI_ASSOC);
 		$compte=$row['Compteur']+1;
-		if($compte<10)
+		if($compte<10)//on verifie le compteur 
 		{
 			$sql="UPDATE `Nego` SET `Compteur`='$compte',`Proposition`='$prix' WHERE `Ref`='$ref' AND IDAcheteur='$ida'";     
 			if(mysqli_query($db_handle, $sql))

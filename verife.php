@@ -19,7 +19,7 @@
 		{header('Location:paiement1.php?ida='.$ida.'&from='.$from.'&ref='.$ref);}
 		
 	}
-	else //si le coordonné existe 
+	else //si le coordonné existe alors on redirige vers les pages de finalisation de l'achat 
 	{
 		if($from==1)
 		{header('Location:comfirmerpanier.php?ida='.$ida);}

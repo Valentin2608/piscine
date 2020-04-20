@@ -16,6 +16,33 @@
 		
 		<!-- Custom styles for this template-->
 		<link href="css/sb-admin-2.min.css" rel="stylesheet">
+		<?php
+		echo '<script type="text/javascript">
+		function verifMail(champ)
+		{';
+   			
+   			$sql="SELECT * FROM `Vendeur`";
+   			$resultat=mysqli_query($db_handle,$sql);
+   			while ($row=mysqli_fetch_array($resultat, MYSQLI_ASSOC))
+   			{
+   			$email=$row['Eamil'];
+   			echo 'var email='.$email;
+   			echo 'if($email==champ)
+   			{
+      			
+      			surligne(champ, false);
+      			return true;
+   			}
+  			 else
+   			{
+      			surligne(champ, true);
+      			return false;
+   			}}
+   			
+		}
+		
+		</script>';
+		?>
 	</head>
 	
 	

@@ -7,7 +7,7 @@
     $db_handle = mysqli_connect('localhost', 'root', '');
     $db_found = mysqli_select_db($db_handle, $database);
 	
-    
+    //on supprime l'item selectionné par l'admin
     
     $sql="DELETE FROM `Items` WHERE `Ref`='$ref'";
 	if(mysqli_query($db_handle, $sql))

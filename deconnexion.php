@@ -9,5 +9,5 @@
 	session_destroy();
 	sleep(1);
 	echo "Vous etes Deconnecte";
-	header('Location:index.php');
+	header('Location:index.php');//retour à l'index 
 ?>

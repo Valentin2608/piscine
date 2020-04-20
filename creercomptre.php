@@ -1,4 +1,5 @@
 <?php
+	//récupérer les infos du formulaire 
 	$nom = isset($_POST["nom"])? $_POST["nom"] : ""; 
 	$prenom = isset($_POST["prenom"])? $_POST["prenom"] : "";
 	$email = isset($_POST["email"])? $_POST["email"] : "";
@@ -9,7 +10,7 @@
 	$tel = isset($_POST["tel"])? $_POST["tel"] : "";
 	$password = isset($_POST["password"])? $_POST["password"] : "";
 	
-	
+	//on vérifie que tous les champs soit bien rempli 
 	$erreur = "";
 	if ($nom== "") 
 	{
@@ -42,7 +43,7 @@
 	$db_found = mysqli_select_db($db_handle, $database);
 	if (isset($_POST["CreaCompt"]))
 	{
-	
+	//on met a jour la BDD 
 	$sql="SELECT * FROM `Acheteur`";
 	$resultat=mysqli_query($db_handle,$sql);
 	$temp="ucvbn";
@@ -59,8 +60,6 @@
     }
 	if($ind==0)
 	{
-	
-	
 	$sql="INSERT INTO `Acheteur`( `Nom`, `Prenom`, `Email`, `Adresse1`, `Adresse2`, `CodePostal`, `Pays`, `Tel`,`MdP`) VALUES ('$nom','$prenom','$email','$adresse1','$adresse2','$cp','$pay','$tel','$password')";
 	if(mysqli_query($db_handle, $sql)){ 
 	echo "Record was updated successfully."; 
@@ -70,7 +69,7 @@
 	. mysqli_error($db_handle); 
 	}  
 	sleep(1);
-	header('Location: connexionCompteAcheteur.html');
+	header('Location: connexionCompteAcheteur.html');// on retourne à la connexion 
 	}
 	else
 	{ 
