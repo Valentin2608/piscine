@@ -5,11 +5,15 @@
     $db_found = mysqli_select_db($db_handle, $database);
 	$ref = $_GET['ref'];
 	$from = $_GET['from'];
-	$ida=5;
+	$ida=$_SESSION['ID'];
 	$rep = isset($_POST["rep"])? $_POST["rep"] : "";
 	if($rep==1)
 	{
-	
+	$sql="SELECT * FROM `Nego` WHERE `Ref`='$ref'AND `IDAcheteur`='$ida'";
+ 		$resultat=mysqli_query($db_handle,$sql);
+ 		$row=mysqli_fetch_array($resultat, MYSQLI_ASSOC);
+ 		$prop=$row['ContreProposition'];
+		$sql="UPDATE `Nego` SET Proposition='$prop' WHERE `Ref`='$ref' AND `IDAcheteur`='$ida'";
 	header('Location:verife.php?ida='.$ida.'&from='.$from.'&ref='.$ref);
 	}
 	else

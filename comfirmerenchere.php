@@ -7,7 +7,7 @@
     $db_handle = mysqli_connect('localhost', 'root', '');
     $db_found = mysqli_select_db($db_handle, $database);
 	$ref=$_GET['ref'];
-	$sql="SELECT * FROM Items WHERE Ref='$ref'";
+    $sql="SELECT * FROM Items WHERE Ref='$ref'";
 	$resultat=mysqli_query($db_handle,$sql);      
 	$row=mysqli_fetch_array($resultat, MYSQLI_ASSOC);
 	$nom=$row['Nom'];
@@ -20,10 +20,10 @@
 	$namev=$row['Nom'];
 	$prenomv=$row['Prenom'];
 	$emailv=$row['Email'];
-	$sql="SELECT * FROM `Nego` WHERE `Ref`='$ref'AND `IDAcheteur`='$ida'";
+	$sql="SELECT * FROM `Encheres` WHERE `Ref`='$ref'AND `IDVendeur`='$idv'";
  	$resultat=mysqli_query($db_handle,$sql);
  	$row=mysqli_fetch_array($resultat, MYSQLI_ASSOC);
- 	$prix=$row['Proposition'];
+ 	$prix=$row['Prixactuel'];
  	$sql="SELECT * FROM Acheteur WHERE IDAcheteur='$ida'";
 	$resultat=mysqli_query($db_handle,$sql);      
 	$row=mysqli_fetch_array($resultat, MYSQLI_ASSOC);
@@ -51,7 +51,7 @@
          <th>Nom: '.$nom.'</th>
          <th>description: '.$description.'</th>
          <th>Vendu par: '.$prenomv.' '.$namev.'</th>
-         <th>Vendu en négociation pour la somme de :'.$prix.'</th>
+         <th>Gagné aux enchères pour la somme de :'.$prix.'</th>
          <th><img src="'.$img.'"/></th>
         </tr>
         <tr>
@@ -76,10 +76,10 @@
 
      // Envoi
      mail($to, $subject, $message, implode("\r\n", $headers));
-    $sql="UPDATE `Nego` SET `Accepter`=1 WHERE `IDAcheteur`='$ida' AND `Ref`='$ref'";
+    $sql="DELETE FROM `Items` WHERE `Ref`='$ref'";
     mysqli_query($db_handle, $sql);
         
     mysqli_close($db_handle); 
-    header('Location:finalisernego.php?ref='.$ref);
+    header('Location:index.php');
 
 ?>
