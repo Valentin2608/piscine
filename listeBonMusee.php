@@ -192,6 +192,48 @@
 				
 				if($typeVente=="3")
 				{
+				date_default_timezone_set('Europe/Paris');
+   
+         
+        $sql="SELECT * FROM Encheres";
+		$resultat2=mysqli_query($db_handle,$sql);      
+		while ($row2=mysqli_fetch_array($resultat2, MYSQLI_ASSOC))
+		{
+			$id=$row2['IDEnchere'];
+			$dateF=$row2['dfin'];
+       		 $datetime = date("Y-m-d H:i:s");
+       		 if ($datetime>=$dateF) 
+			{
+			$sql="SELECT * FROM Encherisseur WHERE IDEnchere='$id'"; 
+			$resultat2=mysqli_query($db_handle,$sql);  
+			$max=0;   
+			while ($row2=mysqli_fetch_array($resultat2, MYSQLI_ASSOC))
+			{
+				$min=$row['encheractuelle'];
+    			if($max<$min)
+    			{
+    				$max=$min;
+    				$ida=$row['IDAcheteur'];
+    			}
+			}
+			$sql2="UPDATE `Encherisseur` SET `Gagner`=1 WHERE `IDEnchere`='$id' AND`IDAcheteur`='$ida'";
+			mysqli_query($db_handle,$sql2);
+			}
+		}
+				$sql="SELECT * FROM Encheres WHERE Ref='$ref'";
+				$resultat2=mysqli_query($db_handle,$sql); 
+				$row2=mysqli_fetch_array($resultat2, MYSQLI_ASSOC); 
+				$id=$row2['IDEnchere'];
+				$sql="SELECT * FROM `Encherisseur`  WHERE `IDEnchere`='$id'";
+			$resultat2=mysqli_query($db_handle,$sql);
+			$acc2=0;
+			while($row2=mysqli_fetch_array($resultat2, MYSQLI_ASSOC))
+			{
+				$acc=$row2['Gagner'];
+				if($acc==1)
+				{$acc2=1;}
+			}
+				if($acc2==0)
 				$sql2="SELECT * FROM `encheres` WHERE `Ref`='$ref'";    
 				$resultat2=mysqli_query($db_handle,$sql2); 
 				$row2=mysqli_fetch_array($resultat2, MYSQLI_ASSOC); 
@@ -207,7 +249,7 @@
 				</div>
 				</div>
 				</div>
-				</form>';
+				</form>';}
 				}
 				
 				if($typeVente=="2")

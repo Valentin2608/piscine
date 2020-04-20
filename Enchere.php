@@ -158,6 +158,35 @@
 			$database = "EbayECE";
 			$db_handle = mysqli_connect('localhost', 'root', '');
 			$db_found = mysqli_select_db($db_handle, $database);
+			date_default_timezone_set('Europe/Paris');
+   
+         
+        $sql="SELECT * FROM Encheres";
+		$resultat=mysqli_query($db_handle,$sql);      
+		while ($row=mysqli_fetch_array($resultat, MYSQLI_ASSOC))
+		{
+			$id=$row['IDEnchere'];
+			$dateF=$row['dfin'];
+       		 $datetime = date("Y-m-d H:i:s");
+       		 if ($datetime>=$dateF) 
+			{
+			$sql="SELECT * FROM Encherisseur WHERE IDEnchere='$id'"; 
+			$resultat2=mysqli_query($db_handle,$sql);  
+			$max=0;   
+			while ($row2=mysqli_fetch_array($resultat2, MYSQLI_ASSOC))
+			{
+				$min=$row['encheractuelle'];
+    			if($max<$min)
+    			{
+    				$max=$min;
+    				$ida=$row['IDAcheteur'];
+    			}
+			}
+			$sql2="UPDATE `Encherisseur` SET `Gagner`=1 WHERE `IDEnchere`='$id' AND`IDAcheteur`='$ida'";
+			mysqli_query($db_handle,$sql2);
+			}
+		}
+			
 			$sql="SELECT * FROM `Encheres`";
 			$resultat=mysqli_query($db_handle,$sql);
 			$size="150";
@@ -168,7 +197,18 @@
 			echo'<div class="row" style="margin-left:10%; margin-right:10%; margin-top:20px;">';
 			while ($row=mysqli_fetch_array($resultat, MYSQLI_ASSOC)) 
 			{
-			echo "<div class='col-lg-4 col-md-6 mb-4 '>";
+			$id=$row['IDEnchere'];
+			$sql="SELECT * FROM `Encherisseur`  WHERE `IDEnchere`='$id'";
+			$resultat2=mysqli_query($db_handle,$sql);
+			$acc2=0;
+			while($row2=mysqli_fetch_array($resultat2, MYSQLI_ASSOC))
+			{
+				$acc=$row2['Gagner'];
+				if($acc==1)
+				{$acc2=1;}
+			}
+			if($acc2==0)
+			{echo "<div class='col-lg-4 col-md-6 mb-4 '>";
 			echo"<div class='card h-100'>";
 			$ref=$row['Ref'];
 			$date= $row['dfin'];
@@ -188,7 +228,7 @@
 			</div>
 			</div>
 			</div>
-			</form>';
+			</form>';}
 			}
 			?>
 			</div>
