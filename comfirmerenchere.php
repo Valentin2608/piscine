@@ -39,43 +39,21 @@
 
      // message
      $message = '
-     <html>
-      <head>
-       <title>Récapitulatif de votre achatt</title>
-      </head>
-      <body>
-       <h2>Merci'.$prenoma.' '.$namea.' d avoir utilisé EbayECE</h2>
-       <h4>Détail de votre article</h4>
-       <table>
-        <tr>
-         <th>Nom: '.$nom.'</th>
-         <th>description: '.$description.'</th>
-         <th>Vendu par: '.$prenomv.' '.$namev.'</th>
-         <th>Gagné aux enchères pour la somme de :'.$prix.'</th>
-         <th><img src="'.$img.'"/></th>
-        </tr>
-        <tr>
-         <td>Votre '.$nom.' sera livrée au '.$adresse.' dans les prochains jours</td>
-         <td>Pour toute question concernant la livraison contactez directement le vendeur :'.$emailv.'</td>
-        </tr>
-        <tr>
-         <td>En espérant vous revoir trés vite</td>
-        </tr>
-       </table>
-      </body>
-     </html>
-     ';
+     Récapitulatif de votre achat' ."\n\n". 'Merci'.$prenoma.' '.$namea.' d avoir utilisé EbayECE<
+	 ' ."\n\n". 'Détail de votre article
+	 ' ."\n\n". 'Nom: '.$nom.'' ."\n\n". 'Description: '.$description.'
+         ' ."\n\n". 'Vendu par: '.$prenomv.' '.$namev.'
+         ' ."\n\n". 'Gagné aux enchères pour la somme de :'.$prix.'
+        ' ."\n\n". 'Votre '.$nom.' sera livré(e) au '.$adresse.' dans les prochains jours
+         ' ."\n\n". 'Pour toutes questions concernant la livraison contactez directement le vendeur :'.$emailv.'
+        ' ."\n\n". 'En espérant vous revoir trés vite' ."\n\n". '';
 
      // Pour envoyer un mail HTML, l'en-tête Content-type doit être défini
-     $headers[] = 'MIME-Version: 1.0';
-     $headers[] = 'Content-type: text/html; charset=iso-8859-1';
-
-     // En-têtes additionnels
-     $headers[] = 'To: '.$emaila;
-     $headers[] = 'From: paul.caudal@edu.ece.fr';
+     $headers = 'From: noreply@eceebay.com'."\r\n".
+	 'reply-to: noreply@eceebay.com'."\r\n";
 
      // Envoi
-     mail($to, $subject, $message, implode("\r\n", $headers));
+    mail($to, $subject, $message, $headers);
      //on supprime l'article
     $sql="DELETE FROM `Items` WHERE `Ref`='$ref'";
     mysqli_query($db_handle, $sql);
