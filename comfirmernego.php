@@ -2,7 +2,7 @@
 	session_start();
 	$ida =$_GET['ida'];
 	//$ida=$_SESSION['ID'];
-	
+	// on recupère toute les information sur la négociation qui viens de ce terminer 
 	$database = "EbayECE";
     $db_handle = mysqli_connect('localhost', 'root', '');
     $db_found = mysqli_select_db($db_handle, $database);
@@ -31,7 +31,7 @@
 	$prenoma=$row['Prenom'];
 	$emaila=$row['Email'];
 	$adresse=$row['Adresse1'].' '.$row['CodePostal'];
-    
+    // on met toute ces informations dans le mail
      $to  = $emaila;
 
      // Sujet
@@ -76,15 +76,13 @@
 
      // Envoi
      mail($to, $subject, $message, implode("\r\n", $headers));
+     // on supprime l'item acheter 
     $sql="UPDATE `Nego` SET `Accepter`=1 WHERE `IDAcheteur`='$ida' AND `Ref`='$ref'";
     mysqli_query($db_handle, $sql);
 	
     mysqli_close($db_handle); 
-<<<<<<< HEAD
-    header('Location:index.php');
 	
-=======
+
     header('Location:finalisernego.php?ref='.$ref);
 
->>>>>>> 5cbd14cc8df64a13e90406a4b43d92584fc2c6cb
 ?>

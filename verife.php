@@ -6,20 +6,20 @@
 	$database = "EbayECE";
     $db_handle = mysqli_connect('localhost', 'root', '');
     $db_found = mysqli_select_db($db_handle, $database);
-	
+	//on verifie si l'acheteur a deja des donné bancaire renseigner 
     
     $from=$_GET['from'];
     $sql="SELECT * FROM `Payement` WHERE `IDAcheteur`='$ida'";
     $resultat=mysqli_query($db_handle, $sql);
 	if(mysqli_num_rows($resultat) == 0)
 	{ 
-		if($from==1)
+		if($from==1)// on distingue les cas pour pouvoir revenir sur la page de vente 
 		{header('Location:paiement1.php?ida='.$ida.'&from='.$from);}
 		if($from==2 || $from==3)
 		{header('Location:paiement1.php?ida='.$ida.'&from='.$from.'&ref='.$ref);}
 		
 	}
-	else 
+	else //si le coordonné existe 
 	{
 		if($from==1)
 		{header('Location:comfirmerpanier.php?ida='.$ida);}

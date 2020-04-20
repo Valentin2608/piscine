@@ -2,7 +2,7 @@
 	session_start();
 	$ida =$_GET['ida'];
 	//$ida=$_SESSION['ID'];
-	
+	//on recupère un miximun d'nformation sur l'enchére qui vient de ce terminer
 	$database = "EbayECE";
     $db_handle = mysqli_connect('localhost', 'root', '');
     $db_found = mysqli_select_db($db_handle, $database);
@@ -31,7 +31,7 @@
 	$prenoma=$row['Prenom'];
 	$emaila=$row['Email'];
 	$adresse=$row['Adresse1'].' '.$row['CodePostal'];
-    
+    //on envoie un mail avec toutes les informations 
      $to  = $emaila;
 
      // Sujet
@@ -76,6 +76,7 @@
 
      // Envoi
      mail($to, $subject, $message, implode("\r\n", $headers));
+     //on supprime l'article
     $sql="DELETE FROM `Items` WHERE `Ref`='$ref'";
     mysqli_query($db_handle, $sql);
         
