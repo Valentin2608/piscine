@@ -212,7 +212,7 @@
 			Numéro de carte : <?php echo $_SESSION['Numero'];?>
 			</div>
 			<div class="card-body">
-			Nom sur la carte : <?php echo $_SESSION['Nom2'];?>
+			Nom sur la carte : <?php echo $_SESSION['Nom'];?>
 			</div>
 			<div class="card-body">
 			Date : <?php echo $_SESSION['Date'];?>

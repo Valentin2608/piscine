@@ -7,8 +7,7 @@
     $db_handle = mysqli_connect('localhost', 'root', '');
     $db_found = mysqli_select_db($db_handle, $database);
 	
-<<<<<<< HEAD
-=======
+
  	$sql="SELECT * FROM Acheteur WHERE IDAcheteur='$ida'";
 	$resultat=mysqli_query($db_handle,$sql);      
 	$row=mysqli_fetch_array($resultat, MYSQLI_ASSOC);
@@ -18,7 +17,7 @@
 	$adresse=$row['Adresse1'].' '.$row['CodePostal'];
     
      $to  = $emaila;
-
+echo $to;
      // Sujet
      $subject = 'Récapitulatif des achats';
 
@@ -26,7 +25,7 @@
      $message = '
      <html>
       <head>
-       <title>Récapitulatif de votre achatt</title>
+       <title>Récapitulatif de votre achat</title>
       </head>
       <body>
        <h2>Merci'.$prenoma.' '.$namea.' d avoir utilisé EbayECE</h2>
@@ -45,7 +44,7 @@
      $headers[] = 'From: paul.caudal@edu.ece.fr';
 
      
->>>>>>> 5cbd14cc8df64a13e90406a4b43d92584fc2c6cb
+
     
     
     $sql="SELECT * FROM `Panier` WHERE `IDAcheteur`='$ida'";
@@ -64,9 +63,9 @@
 	$sql="SELECT * FROM Vendeur WHERE IDVendeur='$idv'";
 	$resultat2=mysqli_query($db_handle,$sql);      
 	$row=mysqli_fetch_array($resultat2, MYSQLI_ASSOC);
-	$namev=$row2['Nom'];
-	$prenomv=$row2['Prenom'];
-	$emailv=$row2['Email'];
+	$namev=$row['Nom'];
+	$prenomv=$row['Prenom'];
+	$emailv=$row['Email'];
 	$message.='<tr>
          <th>Nom: '.$nom.'</th>
          <th>description: '.$description.'</th>
@@ -78,11 +77,11 @@
     	$sql2="DELETE FROM `Items` WHERE `Ref`='$ref'";
     	mysqli_query($db_handle, $sql2);
     	
-<<<<<<< HEAD
+
 	}
 	
-=======
-    }
+
+    
 $message.='<tr>
          <td>Votre '.$nom.' sera livrée au '.$adresse.' dans les prochains jours</td>
         </tr>
@@ -91,12 +90,12 @@ $message.='<tr>
         </tr>
        </table>
       </body>
-     </html>'
+     </html>';
      // Envoi
      mail($to, $subject, $message, implode("\r\n", $headers));
->>>>>>> 5cbd14cc8df64a13e90406a4b43d92584fc2c6cb
+
     echo"8642<br>";
     mysqli_close($db_handle);    
-    header('Location:index.php');
+   // header('Location:index.php');
 	
 ?>

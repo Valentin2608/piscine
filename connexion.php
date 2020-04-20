@@ -49,7 +49,7 @@
 			$i="1";
 			$_SESSION['type']= $i;
 			
-			$sql = "SELECT * FROM payement WHERE IDclient ='$id'";
+			$sql = "SELECT * FROM payement WHERE IDAcheteur ='$id'";
 			$result = mysqli_query($db_handle, $sql);
 			$data = mysqli_fetch_array($result, MYSQLI_ASSOC);
 			$_SESSION['Typecart'] = $data['Typecart'];

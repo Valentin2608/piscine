@@ -136,120 +136,120 @@
 									{
 										echo '<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="deconnexion.php">Deconnexion</a></li>';
 									}
-								
+									
 								?>
-								</ul>
-								</div>
-								</div>
-								</nav>
-								<br>
-								</div>
+							</ul>
+						</div>
+					</div>
+				</nav>
+				<br>
+			</div>
+		</div>
+		<div class="container-fluid">
+			<div class="row" style="margin-top:-850px;">
+				<div class="col-lg-8">
+					<div class="card shadow mb-4" style="text-align:center; padding:1em;">
+						<div class="card-header py-3" >
+							<?php
 								
-						<div class="container-fluid">
-						<div class="row">
-						<div class="col-lg-8">
-						<div class="card shadow mb-4">
-						<div class="card-header py-3" >
-						<?php
-						
-						$ref =$_GET['ref'];
-						//identifier votre BDD
-						$database = "EbayECE";
-						//connectez-vous de votre BDD
-						$db_handle = mysqli_connect('localhost', 'root', '');
-						$db_found = mysqli_select_db($db_handle, $database);
-						
-						$sql = "SELECT * FROM Items WHERE Ref='$ref'";
-						$result = mysqli_query($db_handle, $sql);
-						$row=mysqli_fetch_array($result, MYSQLI_ASSOC);
-						$nom=$row['Nom']; 
-						$image=$row['Images'];
-						$description=$row['Description'];
-						
-						
-						echo "<h4 class='m-0 font-weight-bold text-primary'>Nom: ".$nom. "</br></h4></div>";
-						echo '<div class="card-body"><img src="'.$image.'" widht="150" height="150"></br>';
-						echo "Description: ".$description. "</br></div>";
-						
-						
-						?>
+								$ref =$_GET['ref'];
+								//identifier votre BDD
+								$database = "EbayECE";
+								//connectez-vous de votre BDD
+								$db_handle = mysqli_connect('localhost', 'root', '');
+								$db_found = mysqli_select_db($db_handle, $database);
+								
+								$sql = "SELECT * FROM Items WHERE Ref='$ref'";
+								$result = mysqli_query($db_handle, $sql);
+								$row=mysqli_fetch_array($result, MYSQLI_ASSOC);
+								$nom=$row['Nom']; 
+								$image=$row['Images'];
+								$description=$row['Description'];
+								
+								
+								echo "<h4 class='m-0 font-weight-bold text-primary'>Nom: ".$nom."</br></h4></div>";
+								echo " <div class='card-body' style='text-align:center;'><input type='image' src=".$image." widht='150' height='150'></br></div>";
+								echo "<div class='card-body' style=' font-size:large'>".$description. "</br></div>";
+								
+								
+							?>
 						</div>
-						</div>
-						<div class="col-lg-4">
+					</div>
+					<div class="col-lg-4">
 						<div class="card shadow mb-4">
-						<div class="card-header py-3" >
-						<?php
-						if(($_SESSION['type'])==1)
-			{
-						$ref =$_GET['ref'];
-						$ida=$_SESSION['ID'];
-						
-						$database = "EbayECE";
-						$db_handle = mysqli_connect('localhost', 'root', '');
-						$db_found = mysqli_select_db($db_handle, $database);
-						$sql="SELECT * FROM Nego WHERE Ref='$ref' AND IDAcheteur='$ida'";  
-						$result = mysqli_query($db_handle, $sql);
-						if(mysqli_num_rows($result) == 0)
-						{
-						$sql = "SELECT * FROM Items WHERE Ref='$ref'";
-						$result = mysqli_query($db_handle, $sql);
-						$row=mysqli_fetch_array($result, MYSQLI_ASSOC);
-						$vendeur=$row['IDVendeur'];
-						$prix=$row['Prix'];
-						$sql="SELECT * FROM Vendeur WHERE IDVendeur='$vendeur'";  
-						$result = mysqli_query($db_handle, $sql);
-						$row=mysqli_fetch_array($result, MYSQLI_ASSOC);
-						$vendeur=$row['Prenom']." ".$row['Nom'];
-						echo "<h4 class='m-0 font-weight-bold text-primary'>Prix actuel: " .$prix. "€</br></h4></div>	";
-						echo "<div class='card-body'>Nom du vendeur: ".$vendeur. "</br>";
-						
-						
-						echo '<form action="demarernego.php?ref='.$ref.'" method="post">';
-						$sql="SELECT * FROM Items WHERE Ref='$ref'";   
-						$result = mysqli_query($db_handle, $sql);
-						$row=mysqli_fetch_array($result, MYSQLI_ASSOC); 
-						$nom=$row['Nom'];
-						echo"<h1>Négocier: ".$nom."</h1>";
-						echo '<table>
-						<tr>
-						<td> Prix :</td>
-						<td><input type="number"  name="prix"></td>
-						</tr>
-						<tr> 
-						<td colspan="2" align="center">';
-						echo'<input type="submit" name="button1" value="soumettre"></div>';}
-						else{
-						header('Location:reacheteur1.php?ref='.$ref);
-						}
-			}
-						?>
+								<?php
+								echo '<div class="card-header py-3" >';
+									$ref =$_GET['ref'];
+									$ida=$_SESSION['ID'];
+									
+									$database = "EbayECE";
+									$db_handle = mysqli_connect('localhost', 'root', '');
+									$db_found = mysqli_select_db($db_handle, $database);
+									$sql="SELECT * FROM Nego WHERE Ref='$ref' AND IDAcheteur='$ida'";  
+									$result = mysqli_query($db_handle, $sql);
+									if(mysqli_num_rows($result) == 0)
+									{
+										$sql = "SELECT * FROM Items WHERE Ref='$ref'";
+										$result = mysqli_query($db_handle, $sql);
+										$row=mysqli_fetch_array($result, MYSQLI_ASSOC);
+										$vendeur=$row['IDVendeur'];
+										$prix=$row['Prix'];
+										$sql="SELECT * FROM Vendeur WHERE IDVendeur='$vendeur'";  
+										$result = mysqli_query($db_handle, $sql);
+										$row=mysqli_fetch_array($result, MYSQLI_ASSOC);
+									$vendeur=$row['Prenom']." ".$row['Nom'];
+									echo "<h4 class='m-0 font-weight-bold text-primary'>Prix actuel:" .$prix. "</br></h4></div>";
+									echo "<div class='card-body'>Nom du vendeur: ".$vendeur. "</br>";
+									
+									
+									echo '<form action="demarernego.php?ref='.$ref.'" method="post">';
+									$sql="SELECT * FROM Items WHERE Ref='$ref'";   
+									$result = mysqli_query($db_handle, $sql);
+									$row=mysqli_fetch_array($result, MYSQLI_ASSOC); 
+									$nom=$row['Nom'];
+									echo"<h1>Négocier: ".$nom."</h1>";
+									echo '<table>
+									<tr>
+									<td> Prix :</td>
+									<td><input type="number"  name="prix"></td>
+									</tr>
+									<tr> 
+									<td colspan="2" align="center">';
+									echo'<input type="submit" name="button1" value="soumettre"></div>';
+								}
+								else{
+									echo '<div class="card-body"><form action="reacheteur1.php?ref='.$ref.'" method="post">';
+									echo' <h2> Vous avez déjà démarer une négociation</h2>
+									<input type="submit" name="button1" value="OK"></form></div>';
+								}
+							?>
 						</td>
-						</tr>
-						</table>
-						</form>
-						</div>
-						</div>
-						</div>
-						<footer class="page-footer">
-						<div class="container">
-						<div class="row">
-						<div class="col-lg-8 col-md-8 col-sm-12">
-						<h6 class="text-uppercase font-weight-bold">Information additionnelle</h6>
-						
-						</div>
-						
-						<div class="col-lg-4 col-md-4 col-sm-12">
-						<h6 class="text-uppercase font-weight-bold">Contact</h6>
-						<p>
-						37, quai de Grenelle, 75015 Paris, France <br>
-						info@webDynamique.ece.fr <br>
-						+33 01 02 03 04 05 <br>
-						+33 01 03 02 05 04
-						</p>
-						</div>
-						</div>
-						</div>
-						<div class="footer-copyright text-center">&copy; 2020 Copyright | Droit d'auteur: ProjetVG-PC-NT</div>
-						</footer>
-						</body>
-						</html>						
+					</tr>
+				</table>
+			</form>
+		</div>
+	</div>
+</div>
+<footer class="page-footer">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 col-md-8 col-sm-12">
+				<h6 class="text-uppercase font-weight-bold">Information additionnelle</h6>
+				
+			</div>
+			
+			<div class="col-lg-4 col-md-4 col-sm-12">
+				<h6 class="text-uppercase font-weight-bold">Contact</h6>
+				<p>
+					37, quai de Grenelle, 75015 Paris, France <br>
+					info@webDynamique.ece.fr <br>
+					+33 01 02 03 04 05 <br>
+					+33 01 03 02 05 04
+				</p>
+			</div>
+		</div>
+</div>
+<div class="footer-copyright text-center">&copy; 2020 Copyright | Droit d'auteur: ProjetVG-PC-NT</div>
+</footer>
+</body>
+</html>

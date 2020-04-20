@@ -209,7 +209,7 @@
 			$row=mysqli_fetch_array($result, MYSQLI_ASSOC);
 			$vendeur=$row['Prenom']." ".$row['Nom'];
 			echo "<h4 class='m-0 font-weight-bold text-primary'>Prix actuel :" .$prix. " €</br></h4></div>";
-			echo "Nom du vendeur: ".$vendeur. "</br>";
+			echo "<div class='card-body'>Nom du vendeur: ".$vendeur. "</br>";
 			
 			
 			echo '<form action="encherir.php?ref='.$ref.'" method="post">';
@@ -232,7 +232,7 @@
 			echo'<input type="submit" name="button1" value="soumettre"></td>
 			</tr>
 			</table>
-			</form>';}
+			</form></div>';}
 			else
 			{
 			if($gagner==1)

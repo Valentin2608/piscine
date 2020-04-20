@@ -162,7 +162,7 @@
 								
 								
 								
-								<div class="barreInfo" style="border-bottom:solid; border-color:#808080; text-align:center; background-color:#EDEDED; margin-top:10px;"> <p> <strong>Les produits les plus recherchés </strong></p></div>
+								<div class="barreInfo" style="border-bottom:solid; border-color:#808080; text-align:center; background-color:#EDEDED; margin-top:10px;"> <p> <strong>Les produits en vente </strong></p></div>
 								
 								
 								<div class="container-fluid" style="margin-top:10px; background-color:#EDEDED;">

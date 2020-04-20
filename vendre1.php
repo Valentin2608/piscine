@@ -209,9 +209,9 @@
 				
 				<div class="row">
 				<div class="col-lg-4"style="text-align:center">
-				<input type="text"  name="nom" style="margin-left:5px;"></div>
+				<input type="text"  name="nom" style="margin-left:5px;" required="required"></div>
 				<div class="col-lg-4">
-				<textarea name="description" rows="5" cols="40" maxlength="255"></textarea></div>
+				<textarea name="description" rows="5" cols="40" maxlength="255" required="required"></textarea></div>
 				<div class="col-lg-4" >
 				<table>
 				<tr>
@@ -222,11 +222,12 @@
 				
 				<input type="datetime-local"
 				name="ddebut" value="2020-05-14T19:30"
-				min="2020-04-14T00:00" max="2020-06-14T00:00">
+				min="2020-04-14T00:00" max="2020-06-14T00:00"></br>
+				<label for="start">End date:</label>
 				<input type="datetime-local"
 				name="dfin" value="2020-05-15T19:30"
 				min="2020-04-15T00:00" max="2022-06-14T00:00"></br>
-				</br></div></td>
+				</br></td></div>
 				</tr>
 				<tr>
 				<td><input type="checkbox" id="achatImm" name="typeVente" value=2 onclick="choix();">Achat immédiat</td>
@@ -251,7 +252,7 @@
 				<input type="file" name="photo">
 				</div> </p></div>
 				<div class="col-lg-4">
-				<p> <input type="number"  name="prix">€</p></div>
+				<p> <input type="number"  name="prix" required="required">€</p></div>
 				<div class="col-lg-4"style="text-align:center">
 				<input type="submit" name="soumettre" value="Mettre en vente" style=" background-color: #007BFF;
 				Color:white;
