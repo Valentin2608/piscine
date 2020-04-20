@@ -10,8 +10,8 @@
     
     $sql="UPDATE `Nego` SET `Accepter`=1 WHERE `IDAcheteur`='$ida' AND `Ref`='$ref'";
     mysqli_query($db_handle, $sql);
-        
+	
     mysqli_close($db_handle); 
     header('Location:index.php');
-
+	
 ?>
