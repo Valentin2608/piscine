@@ -142,56 +142,57 @@
 									{
 										echo '<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="deconnexion.php">Deconnexion</a></li>';
 									}
-								
+									
 								?>
-								</ul>
-								</div>
-								</div>
-								</nav>
-								<br>
-								</div>
-								
-								
-								<div class="index">
-								<div class="siteDesc" style="border-bottom:solid; border-color:#808080; height: auto; background-color:#466482; color: white; font-family:SFMono-Regular;"> </br>
-								<h1 style="font-weight:bold font-size:50px; text-align:center;"> Ebay ECE,</br> votre site préféré de vente/achat </br>entre membre de l'ECE</h1>
-								<p style="padding:1em; text-align:center;">Ebay ECE permet aux utilisateurs d'acheter, d'enchérir de négocier ou bien de vendre trois différents types d'objet, la ferraille ou trésor, 
-								les objets bon pour le musée ainsi que les accessoires VIP. Ces achats/ventes peuvent être fait de trois façon différentes, l'enchère, l'achat immédiat 
-								ou la négoiation ( meilleure offre)</p>
-								</div>
-								
-								
-								
-								<div class="barreInfo" style="border-bottom:solid; border-color:#808080; text-align:center; background-color:#EDEDED; margin-top:10px;"> <p> <strong>Les produits en vente </strong></p></div>
-								
-								
-								<div class="container-fluid" style="margin-top:10px; background-color:#EDEDED;">
-								<?php
-								$database = "EbayECE";
-								$db_handle = mysqli_connect('localhost', 'root', '');
-								$db_found = mysqli_select_db($db_handle, $database);
-								$sql="SELECT * FROM `Items`";
-								$resultat=mysqli_query($db_handle,$sql);
-								$size="150";	
-								$type="image";
-								$name="button";
-								$classe1="card-img-top";
-								$classe2="card-body";
-								echo'<div class="row" style="margin-left:10%; margin-right:10%;">';
-								while($row=mysqli_fetch_array($resultat, MYSQLI_ASSOC)) 
-								{
-								echo "<div class='col-lg-4 col-md-6 mb-4 '>";
-								echo"<div class='card h-100'>";
-								$ref=$row['Ref'];
-								$prix=$row['Prix'];
-								$sql2="SELECT * FROM `Items`";    
-								$nom=$row['Nom'];
-								$description=$row['Description']; 
-								$img=$row['Images'];
-								$typeVente=$row['TypedeVente'];
-								
-								if($typeVente=="4")
-								{
+							</ul>
+						</div>
+					</div>
+				</nav>
+				<br>
+			</div>
+			
+			
+			<div class="index">
+				<div class="siteDesc" style="border-bottom:solid; border-color:#808080; height: auto; background-color:#466482; color: white; font-family:SFMono-Regular;"> </br>
+					<h1 style="font-weight:bold font-size:50px; text-align:center;"> Ebay ECE,</br> votre site préféré de vente/achat </br>entre membre de l'ECE</h1>
+					<p style="padding:1em; text-align:center;">Ebay ECE permet aux utilisateurs d'acheter, d'enchérir de négocier ou bien de vendre trois différents types d'objet, la ferraille ou trésor, 
+						les objets bon pour le musée ainsi que les accessoires VIP. Ces achats/ventes peuvent être fait de trois façon différentes, l'enchère, l'achat immédiat 
+					ou la négoiation ( meilleure offre)</p>
+				</div>
+				
+				
+				
+				<div class="barreInfo" style="border-bottom:solid; border-color:#808080; text-align:center; background-color:#EDEDED; margin-top:10px;"> <p> <strong>Les produits en vente </strong></p></div>
+				
+				
+				<div class="container-fluid" style="margin-top:10px; background-color:#EDEDED;">
+					<?php
+						$database = "EbayECE";
+						$db_handle = mysqli_connect('localhost', 'root', '');
+						$db_found = mysqli_select_db($db_handle, $database);
+						$sql="SELECT * FROM `Items`";
+						$resultat=mysqli_query($db_handle,$sql);
+						$size="150";	
+						$type="image";
+						$name="button";
+						$classe1="card-img-top";
+						$classe2="card-body";
+						echo'<div class="row" style="margin-left:10%; margin-right:10%;">';
+						while($row=mysqli_fetch_array($resultat, MYSQLI_ASSOC)) 
+						{
+							
+							$ref=$row['Ref'];
+							$prix=$row['Prix'];
+							$sql2="SELECT * FROM `Items`";    
+							$nom=$row['Nom'];
+							$description=$row['Description']; 
+							$img=$row['Images'];
+							$typeVente=$row['TypedeVente'];
+							
+							if($typeVente=="4")
+							{
+						echo "<div class='col-lg-4 col-md-6 mb-4 '>";
+							echo"<div class='card h-100'>";
 								echo '<form action="AchatNego.php?ref='.$ref.'" method="post">
 								<input type='.$type.' class='.$classe1.' name='.$name.' value='.$ref.' src='.$img.' widht='.$size.' height='.$size.'>
 								<div class='.$classe2.'>
@@ -202,72 +203,83 @@
 								</div>
 								</div>
 								</form>';
-								}
-								
-								if($typeVente=="3")
-								{
+							}
+							
+							if($typeVente=="3")
+							{
+						
 								date_default_timezone_set('Europe/Paris');
-   
-         
-        $sql="SELECT * FROM Encheres";
-		$resultat2=mysqli_query($db_handle,$sql);      
-		while ($row2=mysqli_fetch_array($resultat2, MYSQLI_ASSOC))
-		{
-			$id=$row2['IDEnchere'];
-			$dateF=$row2['dfin'];
-       		 $datetime = date("Y-m-d H:i:s");
-       		 if ($datetime>=$dateF) 
-			{
-			$sql="SELECT * FROM Encherisseur WHERE IDEnchere='$id'"; 
-			$resultat2=mysqli_query($db_handle,$sql);  
-			$max=0;   
-			while ($row2=mysqli_fetch_array($resultat2, MYSQLI_ASSOC))
-			{
-				$min=$row2['encheractuelle'];
-    			if($max<$min)
-    			{
-    				$max=$min;
-    				$ida=$row['IDAcheteur'];
-    			}
-			}
-			$sql2="UPDATE `Encherisseur` SET `Gagner`=1 WHERE `IDEnchere`='$id' AND`IDAcheteur`='$ida'";
-			mysqli_query($db_handle,$sql2);
-			}
-		}
-				$sql="SELECT * FROM Encheres WHERE Ref='$ref'";
-				$resultat2=mysqli_query($db_handle,$sql); 
-				$row2=mysqli_fetch_array($resultat2, MYSQLI_ASSOC); 
-				$id=$row2['IDEnchere'];
-				$sql="SELECT * FROM `Encherisseur`  WHERE `IDEnchere`='$id'";
-			$resultat2=mysqli_query($db_handle,$sql);
-			$acc2=0;
-			while($row2=mysqli_fetch_array($resultat2, MYSQLI_ASSOC))
-			{
-				$acc=$row2['Gagner'];
-				if($acc==1)
-				{$acc2=1;}
-			}
-				if($acc2==0)
-								{$sql2="SELECT * FROM `encheres` WHERE `Ref`='$ref'";    
-								$resultat2=mysqli_query($db_handle,$sql2); 
-								$row2=mysqli_fetch_array($resultat2, MYSQLI_ASSOC); 
-								$ref=$row2['Ref'];
-								$date= $row2['dfin'];
-								$prix=$row2['Prixactuel'];
-								echo '<form action="encherir1.php?ref='.$ref.'" method="post">
-								<input type='.$type.' class='.$classe1.' name='.$name.' value='.$ref.' src='.$img.' widht='.$size.' height='.$size.'>
-								<div class='.$classe2.'>
-								<h4 class="card-title">'.$nom.'</h4>
-								<h5> '.$prix.' $</h5>
-								<p class="card-text">Date limite, jusqu au :</br> <p style="text-align:center;">'.$date.'</p></br>Description :'.$description.'</p> 
-								</div>
-								</div>
-								</div>
-								</form>';}
-								}
 								
-								if($typeVente=="2")
+								
+								$sql="SELECT * FROM Encheres";
+								$resultat3=mysqli_query($db_handle,$sql);      
+								while ($row2=mysqli_fetch_array($resultat3, MYSQLI_ASSOC))
 								{
+									$id=$row2['IDEnchere'];
+									$dateF=$row2['dfin'];
+									$datetime = date("Y-m-d H:i:s");
+									if ($datetime>=$dateF) 
+									{
+										$sql="SELECT * FROM Encherisseur WHERE IDEnchere='$id'"; 
+										$resultat2=mysqli_query($db_handle,$sql);  
+										$max=0;
+										$ida=0;
+										while ($row3=mysqli_fetch_array($resultat2, MYSQLI_ASSOC))
+										{
+											$min=$row3['enchereactuelle'];
+											if($max<$min)
+											{
+												$max=$min;
+												$ida=$row3['IDAcheteur'];
+											}
+										}
+										$sql2="UPDATE `Encherisseur` SET `Gagner`=1 WHERE `IDEnchere`='$id' AND`IDAcheteur`='$ida'";
+										mysqli_query($db_handle,$sql2);
+									}
+								}
+								$sql="SELECT * FROM Encheres WHERE Ref='$ref'";
+								$resultat3=mysqli_query($db_handle,$sql); 
+								$row3=mysqli_fetch_array($resultat3, MYSQLI_ASSOC); 
+								$id=$row3['IDEnchere'];
+								$sql="SELECT * FROM `Encherisseur`  WHERE `IDEnchere`='$id'";
+								$resultat3=mysqli_query($db_handle,$sql);
+								$acc2=0;
+								while($row3=mysqli_fetch_array($resultat3, MYSQLI_ASSOC))
+								{
+									$acc=$row3['Gagner'];
+									if($acc==1)
+									{
+								$acc2=1;
+								echo "";
+										}
+								}
+								if($acc2==0)
+								{
+							echo "<div class='col-lg-4 col-md-6 mb-4 '>";
+							echo"<div class='card h-100'>";
+							$sql2="SELECT * FROM `encheres` WHERE `Ref`='$ref'";    
+									$resultat2=mysqli_query($db_handle,$sql2); 
+									$row2=mysqli_fetch_array($resultat2, MYSQLI_ASSOC); 
+									$ref=$row2['Ref'];
+									$date= $row2['dfin'];
+									$prix=$row2['Prixactuel'];
+									echo '<form action="encherir1.php?ref='.$ref.'" method="post">
+									<input type='.$type.' class='.$classe1.' name='.$name.' value='.$ref.' src='.$img.' widht='.$size.' height='.$size.'>
+									<div class='.$classe2.'>
+									<h4 class="card-title">'.$nom.'</h4>
+									<h5> '.$prix.' $</h5>
+									<p class="card-text">Date limite, jusqu au :</br> <p style="text-align:center;">'.$date.'</p></br>Description :'.$description.'</p> 
+									</div>
+									</div>
+									</div>
+								</form>';
+								}
+							}
+							
+							if($typeVente=="2")
+							{
+						echo "<div class='col-lg-4 col-md-6 mb-4 '>";
+							echo"<div class='card h-100'>";
 								echo '<form action="ajouteraupanier1.php?ref='.$ref.'" method="post">
 								<input type='.$type.' class='.$classe1.' name='.$name.' value='.$ref.' src='.$img.' widht='.$size.' height='.$size.'>
 								<div class='.$classe2.'>
@@ -278,9 +290,11 @@
 								</div>
 								</div>
 								</form>';
-								}
-								if($typeVente=="1")
-								{
+							}
+							if($typeVente=="1")
+							{
+						echo "<div class='col-lg-4 col-md-6 mb-4 '>";
+							echo"<div class='card h-100'>";
 								echo '<form action="demarernego1.php?ref='.$ref.'" method="post">
 								<input type='.$type.' class='.$classe1.' name='.$name.' value='.$ref.' src='.$img.' widht='.$size.' height='.$size.'>
 								<div class='.$classe2.'>
@@ -291,37 +305,37 @@
 								</div>
 								</div>
 								</form>';
-								}
-								}
-								echo "</div>";
-								?>
-								
-								
-								
-								
-								
-								
-								<footer class="page-footer" style="background-color:#466482">
-								<div class="container">
-								<div class="row">
+							}
+						}
+						echo "</div>";
+					?>
+					
+					
+					
+					
+					
+					
+					<footer class="page-footer" style="background-color:#466482">
+						<div class="container">
+							<div class="row">
 								<div class="col-lg-8 col-md-8 col-sm-12">
-								<h6 class="text-uppercase font-weight-bold">Information additionnelle</h6>
-								
+									<h6 class="text-uppercase font-weight-bold">Information additionnelle</h6>
+									
 								</div>
 								
 								<div class="col-lg-4 col-md-4 col-sm-12">
-								<h6 class="text-uppercase font-weight-bold">Contact</h6>
-								<p>
-								37, quai de Grenelle, 75015 Paris, France <br>
-								info@webDynamique.ece.fr <br>
-								+33 01 02 03 04 05 <br>
-								+33 01 03 02 05 04
-								</p>
+									<h6 class="text-uppercase font-weight-bold">Contact</h6>
+									<p>
+										37, quai de Grenelle, 75015 Paris, France <br>
+										info@webDynamique.ece.fr <br>
+										+33 01 02 03 04 05 <br>
+										+33 01 03 02 05 04
+									</p>
 								</div>
-								</div>
-								</div>
-								<div class="footer-copyright text-center">&copy; 2020 Copyright | Droit d'auteur: ProjetVG-PC-NT</div>
-								</footer>
-								</body>
-								
-								</html>								
+							</div>
+						</div>
+						<div class="footer-copyright text-center">&copy; 2020 Copyright | Droit d'auteur: ProjetVG-PC-NT</div>
+					</footer>
+				</body>
+				
+			</html>											

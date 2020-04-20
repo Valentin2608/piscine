@@ -206,14 +206,15 @@
 			{
 			$sql="SELECT * FROM Encherisseur WHERE IDEnchere='$id'"; 
 			$resultat2=mysqli_query($db_handle,$sql);  
-			$max=0;   
+			$max=0;
+			$ida=0;
 			while ($row2=mysqli_fetch_array($resultat2, MYSQLI_ASSOC))
 			{
-				$min=$row['encheractuelle'];
+				$min=$row2['enchereactuelle'];
     			if($max<$min)
     			{
     				$max=$min;
-    				$ida=$row['IDAcheteur'];
+    				$ida=$row2['IDAcheteur'];
     			}
 			}
 			$sql2="UPDATE `Encherisseur` SET `Gagner`=1 WHERE `IDEnchere`='$id' AND`IDAcheteur`='$ida'";

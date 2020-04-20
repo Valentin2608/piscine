@@ -172,14 +172,15 @@
 			{
 			$sql="SELECT * FROM Encherisseur WHERE IDEnchere='$id'"; 
 			$resultat2=mysqli_query($db_handle,$sql);  
-			$max=0;   
+			$max=0; 
+			$ida=0;
 			while ($row2=mysqli_fetch_array($resultat2, MYSQLI_ASSOC))
 			{
-				$min=$row['encheractuelle'];
+				$min=$row2['enchereactuelle'];
     			if($max<$min)
     			{
     				$max=$min;
-    				$ida=$row['IDAcheteur'];
+    				$ida=$row2['IDAcheteur'];
     			}
 			}
 			$sql2="UPDATE `Encherisseur` SET `Gagner`=1 WHERE `IDEnchere`='$id' AND`IDAcheteur`='$ida'";
@@ -201,14 +202,20 @@
 			$sql="SELECT * FROM `Encherisseur`  WHERE `IDEnchere`='$id'";
 			$resultat2=mysqli_query($db_handle,$sql);
 			$acc2=0;
+			$ida=0;
 			while($row2=mysqli_fetch_array($resultat2, MYSQLI_ASSOC))
 			{
 				$acc=$row2['Gagner'];
 				if($acc==1)
-				{$acc2=1;}
+				{
+					$ida=$row2['IDAcheteur'];
+					$acc2=1;
+					
+				}
 			}
 			if($acc2==0)
-			{echo "<div class='col-lg-4 col-md-6 mb-4 '>";
+			{
+			echo "<div class='col-lg-4 col-md-6 mb-4 '>";
 			echo"<div class='card h-100'>";
 			$ref=$row['Ref'];
 			$date= $row['dfin'];
@@ -219,7 +226,30 @@
 			$img=$row2['Images'];
 			$nom=$row2['Nom'];
 			$description=$row2['Description']; 
-			echo '<form action="AchatNego.php?ref='.$ref.'" method="post">
+			echo '<form action="encherir1.php?ref='.$ref.'" method="post">
+			<input type='.$type.' class='.$classe1.' name='.$name.' value='.$ref.' src='.$img.' widht='.$size.' height='.$size.'>
+			<div class='.$classe2.'>
+			<h4 class="card-title">'.$nom.'</h4>
+			<h5> '.$prix.' $</h5>
+			<p class="card-text">Date limite, jusqu au :</br> '.$date.'</br>Description :</br>'.$description.'</p> 
+			</div>
+			</div>
+			</div>
+			</form>';}
+			if($acc2==1 && $ida==($_SESSION['ID']))
+			{
+			echo "<div class='col-lg-4 col-md-6 mb-4 '>";
+			echo"<div class='card h-100'>";
+			$ref=$row['Ref'];
+			$date= $row['dfin'];
+			$prix=$row['Prixactuel'];
+			$sql2="SELECT * FROM `Items` WHERE `Ref`='$ref'";    
+			$resultat2=mysqli_query($db_handle,$sql2); 
+			$row2=mysqli_fetch_array($resultat2, MYSQLI_ASSOC); 
+			$img=$row2['Images'];
+			$nom=$row2['Nom'];
+			$description=$row2['Description']; 
+			echo '<form action="encherir1.php?ref='.$ref.'" method="post">
 			<input type='.$type.' class='.$classe1.' name='.$name.' value='.$ref.' src='.$img.' widht='.$size.' height='.$size.'>
 			<div class='.$classe2.'>
 			<h4 class="card-title">'.$nom.'</h4>
