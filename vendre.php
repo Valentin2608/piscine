@@ -88,6 +88,7 @@
 			
 			
 			// récupération et dl de la photo
+			echo $max;
 			if (isset($_FILES['photo']['tmp_name'])) {
 				$_FILES['photo']['name']= $max;
 				$retour = copy($_FILES['photo']['tmp_name'],$max);
