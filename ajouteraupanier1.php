@@ -185,7 +185,8 @@
 		<div class="card shadow mb-4" style="text-align:center; ">
 		<div class="card-header py-3" >
 		<?php
-		
+		if(($_SESSION['type'])==1)
+			{
 		$ref=$_GET['ref'];
 		//$idv=$_SESSION['ID'];
 		$ida=$_SESSION['ID'];
@@ -215,7 +216,7 @@
 		<tr> 
 		<td colspan="2" >';
 		echo'<input type="submit" name="button1" value="Ajouter" ></td></tr></table></form></br>';
-		
+			}
 		?>
 		</div>
 		</div>

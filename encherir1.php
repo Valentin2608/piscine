@@ -6,6 +6,7 @@
 		$_SESSION['ID']=0;
 		$_SESSION['type']=0;
 	}
+	
 ?>
 <!DOCTYPE html>
 <html>
@@ -185,6 +186,8 @@
 			<div class="card shadow mb-4" style="text-align:center; padding:1em;">
 			<div class="card-header py-3" >
 			<?php
+			if(($_SESSION['type'])==1)
+			{
 			$ref =$_GET['ref'];
 			$ida=$_SESSION['ID'];
 			$database = "EbayECE";
@@ -244,6 +247,7 @@
 			echo '<form action="index.php" method="post">';
 			echo"<h1>Vous participez déjà à cette enchère</h1>";
 			echo'<input type="submit" name="button1" value="OK"></form>';
+			}
 			}
 			}
 			?>
