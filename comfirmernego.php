@@ -38,13 +38,13 @@
      $subject = 'Récapitulatif des achats';
 
      // message
-     $message = '
-     Récapitulatif de votre achatt' ."\n\n". '
-	 Merci'.$prenoma.' '.$namea.' d avoir utilisé EbayECE' ."\n\n". '
-	 Détail de votre article' ."\n\n". '
-	 Nom: '.$nom.' ."\n\n". '
-	 description: '.$description.' ."\n\n". '
-	 Vendu par: '.$prenomv.' '.$namev.'  '."\n\n". '
+     $message = 
+	 'Récapitulatif de votre achat' ."\n\n". 
+	 'Merci'.$prenoma.' '.$namea.' d avoir utilisé EbayECE' ."\n\n". 
+	 'Détail de votre article' ."\n\n". 
+	 'Nom:'.$nom.' '."\n\n". 
+	 'Description'.$description.' '."\n\n". 
+	 'Vendu par: '.$prenomv.' '.$namev.'  '."\n\n". '
 	 Vendu en négociation pour la somme de :'.$prix.''."\n\n". '
 	 <img src="'.$img.'"/>'."\n\n". '
 	 Votre '.$nom.' sera livrée au '.$adresse.' dans les prochains jours'."\n\n". '

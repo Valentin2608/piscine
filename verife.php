@@ -16,7 +16,10 @@
 		if($from==1)// on distingue les cas pour pouvoir revenir sur la page de vente 
 		{header('Location:paiement1.php?ida='.$ida.'&from='.$from);}
 		if($from==2 || $from==3)
-		{header('Location:paiement1.php?ida='.$ida.'&from='.$from.'&ref='.$ref);}
+		{
+	$ref =$_GET['ref'];
+			header('Location:paiement1.php?ida='.$ida.'&from='.$from.'&ref='.$ref);
+			}
 		
 	}
 	else //si le coordonné existe alors on redirige vers les pages de finalisation de l'achat 

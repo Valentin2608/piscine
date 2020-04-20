@@ -233,7 +233,7 @@
 			<tr>
 			<td>Accepter  </td>
 			<td>
-			<input type="checkbox" value="0" onclick="if (this.checked) this.value=1; else this.value=0;alert(this.value);" name="rep" />
+			<input type="checkbox" value="0" onclick="if (this.checked) this.value=1; else this.value=0;" name="rep" />
 			</td></tr>
 			<tr>
 			<td> Proposition :</td>

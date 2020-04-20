@@ -13,8 +13,11 @@
  		$resultat=mysqli_query($db_handle,$sql);
  		$row=mysqli_fetch_array($resultat, MYSQLI_ASSOC);
  		$prop=$row['Proposition'];
-		$sql="UPDATE `Nego` SET Accepter='$rep' ContreProposition='$prop' WHERE `Ref`='$ref' AND `IDAcheteur`='$ida'";
-		mysqli_query($db_handle,$sql);	
+		$sql2="UPDATE `Nego` SET Accepter='$rep', ContreProposition='$prop' WHERE `Ref`='$ref' AND `IDAcheteur`='$ida'";
+		if(mysqli_query($db_handle,$sql2))
+		{
+	echo "test";
+		}
 	}
 	else{
 	// on met la BDD à jour aussi pour l'autre cas 
@@ -40,9 +43,7 @@
 	}
 	
 	}
-
-    echo"8642<br>";
     mysqli_close($db_handle); 
-    header('Location:repvendeur1.php?ref='.$ref);
+   // header('Location:repvendeur1.php?ref='.$ref);
 	
 ?>
