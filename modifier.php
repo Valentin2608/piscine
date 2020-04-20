@@ -1,5 +1,6 @@
 <?php
 	session_start();
+	//on récupére les éventuelle information du formulair 
 	$nom = isset($_POST["nom"])? $_POST["nom"] : ""; 
 	$prenom = isset($_POST["prenom"])? $_POST["prenom"] : "";
 	$email = isset($_POST["email"])? $_POST["email"] : "";
@@ -17,16 +18,16 @@
 	$db_found = mysqli_select_db($db_handle, $database);
 	if($email=="") 
 	{
-		echo $_SESSION['Email'];
+		
 		$email=$_SESSION['Email'];
-		echo $email;
-		echo "123";
+		
+		
 	}
 	
 	if ($_POST["buttonModif"]) 
 	{
 		
-		
+		//pour chaque champ on vérifie si il est vide, si il ne l'est pas alors on met à jour la BDD
 		if ($nom!= "") 
 		{
 			
@@ -116,7 +117,7 @@
 			echo "Modification du Telephone Réussie <br>"; 
 			}
 			}	 
-			
+			//on unset toute les session 
 			unset($_SESSION['Nom']);
 			unset($_SESSION['Prenom']);
 			unset($_SESSION['Email']);
@@ -126,7 +127,7 @@
 			unset($_SESSION['Pays']);
 			unset($_SESSION['CodePostal']);
 			unset($_SESSION['password']);
-			
+			// et on les reset avec les nouvelle vleurs 
 			$sql = "SELECT * FROM Acheteur WHERE Email = '$email'";
 			$result = mysqli_query($db_handle, $sql);
 			$data = mysqli_fetch_array($result, MYSQLI_ASSOC);

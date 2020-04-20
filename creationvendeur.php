@@ -1,11 +1,12 @@
 <?php
+//on récupère les infos du formulaire 
 	$nom = isset($_POST["nom"])? $_POST["nom"] : ""; 
 	$prenom = isset($_POST["prenom"])? $_POST["prenom"] : "";
 	$email = isset($_POST["email"])? $_POST["email"] : "";
 	$adresse = isset($_POST["adresse"])? $_POST["adresse"] : "";
 	$password = isset($_POST["password"])? $_POST["password"] : "";
 	
-	
+	//on vérifie que les champs ont bien été remplis 
 	$erreur = "";
 	
 	if ($nom== "") 
@@ -20,13 +21,12 @@
 	if ($password == "") {
 	$erreur .= "Password est vide. <br>"; }
 	
-	echo "0123</br>";
 	
 	if ($erreur == "") 
 	{
 		
 		
-		echo "123</br>";
+		//on met à jour la BDD
 		$database = "EbayECE";
 		$db_handle = mysqli_connect('localhost', 'root', '');
 		$db_found = mysqli_select_db($db_handle, $database);

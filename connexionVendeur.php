@@ -2,6 +2,7 @@
 
 <?php
 	session_start();
+	//on récupère les infos du formulaire 
 	$login = isset($_POST["login"])? $_POST["login"] : ""; //if then else
 	$password = isset($_POST["password"])? $_POST["password"] : "";
 	
@@ -31,7 +32,7 @@
 				echo "Compte non trouvé";
 			}
 			else {
-				
+				//on remplie la session 
 			$sql = "SELECT * FROM Vendeur WHERE Email = '$login'";
 			$result = mysqli_query($db_handle, $sql);
 			$compter=0;

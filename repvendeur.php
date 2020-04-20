@@ -2,12 +2,13 @@
 	$database = "EbayECE";
 	$db_handle = mysqli_connect('localhost', 'root', '');
 	$db_found = mysqli_select_db($db_handle, $database);
-	
+	// on recupere les valeur passer par l'url
 	$ref=$_GET['ref'];
 	$ida=$_GET['ida'];
-	$rep= isset($_POST["rep"])? $_POST["rep"] : "";
-	if($rep==1)
+	$rep= isset($_POST["rep"])? $_POST["rep"] : "";// on recupére la valeurs de la checkbox 
+	if($rep==1)//on diserne les cas 
 	{
+		//on met la BDD a jour 
 		$sql="SELECT * FROM `Nego` WHERE `Ref`='$ref'AND `IDAcheteur`='$ida'";
  		$resultat=mysqli_query($db_handle,$sql);
  		$row=mysqli_fetch_array($resultat, MYSQLI_ASSOC);
@@ -16,22 +17,16 @@
 		mysqli_query($db_handle,$sql);	
 	}
 	else{
-<<<<<<< HEAD
-		$co = isset($_POST["co"])? $_POST["co"] : "";
-		$sql="SELECT * FROM `Nego` WHERE `Ref`='$ref'AND `IDAcheteur`='$ida'";
-		$resultat=mysqli_query($db_handle,$sql);
-		$row=mysqli_fetch_array($resultat, MYSQLI_ASSOC);
-		$compte=$row['Compteur']+1;
-		$sql="UPDATE `Nego` SET `Compteur`='$compte',`ContreProposition`='$co' WHERE `Ref`='$ref' AND `IDAcheteur`='$ida'";
-=======
+	// on met la BDD à jour aussi pour l'autre cas 
 	$co = isset($_POST["co"])? $_POST["co"] : "";
     $sql="SELECT * FROM `Nego` WHERE `Ref`='$ref'AND `IDAcheteur`='$ida'";
  	$resultat=mysqli_query($db_handle,$sql);
  	$row=mysqli_fetch_array($resultat, MYSQLI_ASSOC);
 	$compte=$row['Compteur']+1;
-	if($compte<10)
-    {$sql="UPDATE `Nego` SET `Compteur`='$compte',`ContreProposition`='$co' WHERE `Ref`='$ref' AND `IDAcheteur`='$ida'";
->>>>>>> 5cbd14cc8df64a13e90406a4b43d92584fc2c6cb
+	if($compte<10)//on verifie le compteur 
+    {
+    $sql="UPDATE `Nego` SET `Compteur`='$compte',`ContreProposition`='$co' WHERE `Ref`='$ref' AND `IDAcheteur`='$ida'";
+
         if(mysqli_query($db_handle, $sql))
         { 
         	echo "Record was updated successfully."; 
@@ -40,13 +35,12 @@
         {
             echo"1742<br>";
             echo mysqli_error($db_handle); 
-<<<<<<< HEAD
+
 		}
 	}
-=======
-        }
-    }}
->>>>>>> 5cbd14cc8df64a13e90406a4b43d92584fc2c6cb
+	
+	}
+
     echo"8642<br>";
     mysqli_close($db_handle); 
     header('Location:repvendeur1.php?ref='.$ref);

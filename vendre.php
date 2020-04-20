@@ -1,17 +1,16 @@
 <?php
 	session_start();
+	// on recupère les information du formulaire 
 	$nom = isset($_POST["nom"])? $_POST["nom"] : ""; 
 	$ddebut = isset($_POST["ddebut"])? $_POST["ddebut"] : "";
 	$dfin = isset($_POST["dfin"])? $_POST["dfin"] : "";
 	
 	$description = isset($_POST["description"])? $_POST["description"] : "";
-	//$image = isset($_POST["image"])? $_POST["image"] : "";
 	$categorie = isset($_POST["categorie"])? $_POST["categorie"] : "";
 	$typedeVente = isset($_POST["typeVente"])? $_POST["typeVente"] : ""; 
 	$IDVendeur = $_SESSION['ID'];
 	$prix = isset($_POST["prix"])? $_POST["prix"] : "";
-	
-	echo $typedeVente;
+	//on verifie que les champs sont bien rempli
 	$message = "";
 	if ($nom== "") 
 	{
@@ -20,10 +19,6 @@
 	if ($description == "") {
 		$message= "La Description est vide. "; 
 	echo '<script type="text/javascript">window.alert("'.$message.'");</script>';}
-	//if ($image == "") {
-	// $message= "L'image est vide. <br>"; 
-	// echo '<script type="text/javascript">alert("'.$message.'");</script>';
-	//}
 	if ($categorie == "") {
 		$message= "La catégorie est vide."; 
 	echo '<script type="text/javascript">window.alert("'.$message.'");</script>';}
@@ -40,6 +35,7 @@
 	
 	if ($message == "") 
 	{
+		//on mat la base de donné un jour 
 		$database = "EbayECE";
 		$db_handle = mysqli_connect('localhost', 'root', '');
 		$db_found = mysqli_select_db($db_handle, $database);
@@ -58,7 +54,8 @@
 				echo"1742<br>";
 			}
 			$max=$max+1;
-			$max.=".jpeg";
+			$max.=".jpeg";//image     on nomme l'immage avec la reférence de l'objet à laquelle elle est rataché 
+			//on insère l'iteme dans la base de donné 
 			$sql="INSERT INTO `Items`(`Nom`, `Description`, `Images`, `Categorie`, `TypedeVente`, `IDVendeur`, `Prix`) VALUES ('$nom','$description','$max','$categorie','$typedeVente','$IDVendeur','$prix ')";
 			$result=mysqli_query($db_handle,$sql);
 			$sql2="SELECT * FROM Items";
@@ -74,7 +71,7 @@
 				}
 				
 			}
-			if($typedeVente == 3)
+			if($typedeVente == 3)// si on a une enchère alors on insère l'iteme dans la base de donné 
 			{
 				$sql3="INSERT INTO Encheres (IDvendeur, ddebut,dfin, Ref, Prixmin, Prixactuel) VALUES ('$IDVendeur', '$ddebut', '$dfin', '$ref', '$prix', '$prix')";
 				if(mysqli_query($db_handle, $sql3)){ 
